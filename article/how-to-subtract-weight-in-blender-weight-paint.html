@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Subtract Weight in Blender Weight Paint - blender</title>
+    <meta name="description" content="Subtracting weight in Blender's Weight Paint mode is essential for refining vertex groups and ensuring smooth armature deformation. This guide explains the direct methods for removing bone influence from vertices using the Weight Paint brush, including t">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-subtract-weight-in-blender-weight-paint">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Subtract Weight in Blender Weight Paint - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-subtract-weight-in-blender-weight-paint" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Subtracting weight in Blender's Weight Paint mode is essential for refining vertex groups and ensuring smooth armature deformation. This guide explains the direct methods for removing bone influence from vertices using the Weight Paint brush, including t" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-subtract-weight-in-blender-weight-paint">How to Subtract
+Weight in Blender Weight Paint</h1>
+<p>Subtracting weight in Blender’s Weight Paint mode is essential for
+refining vertex groups and ensuring smooth armature deformation. This
+guide explains the direct methods for removing bone influence from
+vertices using the Weight Paint brush, including tool menu adjustments,
+keyboard shortcuts, and critical settings for precise control over your
+3D mesh.</p>
+<h2 id="method-1-change-the-brush-blend-mode-to-subtract">Method 1:
+Change the Brush Blend Mode to Subtract</h2>
+<p>The most direct way to remove weight is by changing the brush’s blend
+mode.</p>
+<ol type="1">
+<li>Select your armature, hold <code>Shift</code>, select your mesh, and
+switch to <strong>Weight Paint</strong> mode from the mode dropdown menu
+(or press <code>Ctrl + Tab</code>).</li>
+<li>Select the specific bone or vertex group you want to edit.</li>
+<li>Open the <strong>Tool Settings</strong> panel on the right side of
+the 3D Viewport (press <code>N</code> if the sidebar is hidden) or look
+at the top tool bar.</li>
+<li>Locate the <strong>Blend</strong> dropdown menu (default is usually
+<em>Mix</em> or <em>Draw</em>).</li>
+<li>Change the <strong>Blend</strong> mode to
+<strong>Subtract</strong>.</li>
+<li>Left-click and drag your brush over the mesh to remove weight from
+those vertices.</li>
+</ol>
+<h2 id="method-2-use-the-ctrl-shortcut-temporary-subtraction">Method 2:
+Use the Ctrl Shortcut (Temporary Subtraction)</h2>
+<p>If you are painting with the standard <em>Add</em> or <em>Mix</em>
+brush and want to quickly remove weight without changing settings:</p>
+<ol type="1">
+<li>Keep your brush set to its default blend mode (<em>Add</em> or
+<em>Mix</em>).</li>
+<li>Press and hold the <strong>Ctrl</strong> key while painting over the
+target area.</li>
+<li>Holding <strong>Ctrl</strong> temporarily reverses the brush
+behavior, subtracting weight instead of adding it.</li>
+<li>Release the <strong>Ctrl</strong> key to return to standard weight
+painting.</li>
+</ol>
+<h2 id="method-3-paint-with-a-weight-value-of-0.000">Method 3: Paint
+with a Weight Value of 0.000</h2>
+<p>You can also erase weight by painting directly with a zero value.</p>
+<ol type="1">
+<li>Set the brush <strong>Blend</strong> mode to
+<strong>Mix</strong>.</li>
+<li>Set the <strong>Weight</strong> slider value to
+<code>0.000</code>.</li>
+<li>Paint over the vertices. This replaces existing higher weights with
+a zero weight value, removing the influence of the selected vertex
+group.</li>
+</ol>
+<h2 id="key-brush-settings-for-subtracting-weight">Key Brush Settings
+for Subtracting Weight</h2>
+<ul>
+<li><strong>Strength:</strong> Controls how quickly the weight is
+removed per stroke. Lower the strength for subtle adjustments or set it
+to <code>1.000</code> to subtract weight quickly.</li>
+<li><strong>Radius:</strong> Adjusts the size of the brush. Press
+<code>F</code> to quickly resize the brush in the viewport.</li>
+<li><strong>Auto Normalize:</strong> Found under the
+<strong>Options</strong> tab in the sidebar (<code>N</code>). When
+enabled, Blender automatically adjusts the weights of other connected
+bones so the total weight on a vertex always equals <code>1.0</code>.
+Keep this turned on for character rigging to prevent unintended mesh
+stretching.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

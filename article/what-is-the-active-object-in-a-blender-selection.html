@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the Active Object in a Blender Selection? - blender</title>
+    <meta name="description" content="In Blender, the active object is the primary focus of your current selection and serves as the main target for context-sensitive operations, tools, and commands. While you can select multiple objects simultaneously in a scene, Blender allows only one obj">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-the-active-object-in-a-blender-selection">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the Active Object in a Blender Selection? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-the-active-object-in-a-blender-selection" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In Blender, the active object is the primary focus of your current selection and serves as the main target for context-sensitive operations, tools, and commands. While you can select multiple objects simultaneously in a scene, Blender allows only one obj" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-active-object-in-a-blender-selection">What Is the
+Active Object in a Blender Selection?</h1>
+<p>In Blender, the active object is the primary focus of your current
+selection and serves as the main target for context-sensitive
+operations, tools, and commands. While you can select multiple objects
+simultaneously in a scene, Blender allows only one object to be
+designated as the “active” object at any given time. It is visually
+distinguished by a brighter light-orange highlight, whereas other
+selected objects display a darker reddish-orange outline. Understanding
+how the active object functions is critical for operations like
+parenting, joining meshes, copying modifiers, and applying
+materials.</p>
+<h2 id="the-difference-between-selected-and-active-objects">The
+Difference Between Selected and Active Objects</h2>
+<p>Blender categorizes selections into two states:</p>
+<ul>
+<li><strong>Selected Objects:</strong> Any object included in your
+current selection group. These objects will be affected by bulk
+operations such as moving, rotating, scaling, or deleting.</li>
+<li><strong>Active Object:</strong> The single object within your
+selection that acts as the anchor or reference point for specific
+Blender tools.</li>
+</ul>
+<p>You can have hundreds of selected objects, but there will only ever
+be one active object. Conversely, an active object can exist even if it
+is the only item selected.</p>
+<h2 id="how-to-identify-the-active-object">How to Identify the Active
+Object</h2>
+<p>You can easily identify which object is active using visual
+indicators in the 3D Viewport and the Outliner:</p>
+<ol type="1">
+<li><strong>Viewport Outline:</strong> In the 3D Viewport, selected
+objects have a dark orange outline, while the active object has a
+lighter, yellowish-orange outline.</li>
+<li><strong>Origin Point:</strong> The origin point (the small dot
+indicating the object’s pivot point) of the active object is highlighted
+bright yellow/white, while selected non-active origins appear
+orange.</li>
+<li><strong>The Outliner:</strong> In the Outliner panel (top right by
+default), the active object displays a lighter background highlight and
+a brighter icon next to its name compared to other selected items.</li>
+</ol>
+<h2 id="why-the-active-object-is-important">Why the Active Object Is
+Important</h2>
+<p>Many core workflows in Blender rely heavily on which object is
+designated as active:</p>
+<ul>
+<li><strong>Parenting (Ctrl + P):</strong> When you select multiple
+objects and set a parent, all selected objects (children) become
+parented to the single active object (parent).</li>
+<li><strong>Joining Objects (Ctrl + J):</strong> Joining merges all
+selected meshes into a single object. The resulting mesh retains the
+name, origin point, and properties of the active object.</li>
+<li><strong>Copying Data and Attributes (Ctrl + L):</strong> When
+linking or copying modifiers, materials, or animation data across
+multiple objects, Blender uses the active object as the source and
+transfers its data to all other selected objects.</li>
+<li><strong>Transform Orientations:</strong> Setting the Transform
+Orientation to “Active Element” uses the active object’s local pivot
+point and orientation as the axis for scaling or rotating the entire
+selection.</li>
+<li><strong>Properties Panel Edits:</strong> The data shown in the
+Properties panel (such as Modifiers, Materials, and Object Data
+properties) always reflects the settings of the active object, not the
+rest of the selection.</li>
+</ul>
+<h2 id="how-to-set-or-change-the-active-object">How to Set or Change the
+Active Object</h2>
+<ul>
+<li><strong>Shift + Left Click:</strong> To change the active object
+within an existing selection, hold <code>Shift</code> and left-click on
+any currently selected object. It will become the active object without
+deselecting the others.</li>
+<li><strong>Direct Selection:</strong> Left-clicking an unselected
+object directly makes it both selected and active immediately.</li>
+<li><strong>Outliner Selection:</strong> Left-clicking an object’s name
+in the Outliner makes it the active object.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

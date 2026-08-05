@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Select More and Less in Blender - blender</title>
+    <meta name="description" content="The Select More and Select Less commands in Blender allow you to quickly expand or shrink your active component selection based on adjacent geometry. Whether working with vertices, edges, or faces in Edit Mode, these tools help speed up your workflow by">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-select-more-and-less-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Select More and Less in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-select-more-and-less-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Select More and Select Less commands in Blender allow you to quickly expand or shrink your active component selection based on adjacent geometry. Whether working with vertices, edges, or faces in Edit Mode, these tools help speed up your workflow by" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-select-more-and-less-in-blender">How to Use Select
+More and Less in Blender</h1>
+<p>The Select More and Select Less commands in Blender allow you to
+quickly expand or shrink your active component selection based on
+adjacent geometry. Whether working with vertices, edges, or faces in
+Edit Mode, these tools help speed up your workflow by growing or
+shrinking selections incrementally without needing to manually click
+individual elements. This guide explains the essential keyboard
+shortcuts, menu navigation, and practical applications for using these
+selection tools efficiently.</p>
+<h2 id="prerequisites-for-using-select-moreless">Prerequisites for Using
+Select More/Less</h2>
+<p>To use the Select More and Select Less commands, you must be working
+on a mesh object in <strong>Edit Mode</strong>:</p>
+<ol type="1">
+<li>Select your 3D object in Object Mode.</li>
+<li>Press <code>Tab</code> to enter <strong>Edit Mode</strong>.</li>
+<li>Choose your desired selection mode: <strong>Vertex</strong>
+(<code>1</code>), <strong>Edge</strong> (<code>2</code>), or
+<strong>Face</strong> (<code>3</code>).</li>
+<li>Make an initial selection of at least one vertex, edge, or
+face.</li>
+</ol>
+<hr />
+<h2 id="keyboard-shortcuts">Keyboard Shortcuts</h2>
+<p>The fastest way to use these commands is via keyboard shortcuts:</p>
+<ul>
+<li><strong>Select More (Expand):</strong> Press <code>Ctrl</code> +
+<code>Numpad +</code> (Windows/Linux) or <code>Cmd</code> +
+<code>Numpad +</code> (Mac).</li>
+<li><strong>Select Less (Shrink):</strong> Press <code>Ctrl</code> +
+<code>Numpad -</code> (Windows/Linux) or <code>Cmd</code> +
+<code>Numpad -</code> (Mac).</li>
+</ul>
+<p><em>Note: If your keyboard lacks a dedicated Numpad, you can enable
+“Emulate Numpad” in <strong>Edit &gt; Preferences &gt; Input</strong>,
+or use the top menu method outlined below.</em></p>
+<hr />
+<h2 id="accessing-commands-via-the-top-menu">Accessing Commands via the
+Top Menu</h2>
+<p>If you prefer using the graphical user interface instead of
+hotkeys:</p>
+<ol type="1">
+<li>Click on the <strong>Select</strong> menu located in the top-left
+corner of the 3D Viewport.</li>
+<li>Hover over <strong>Select More/Less</strong>.</li>
+<li>Click either <strong>More</strong> to expand the selection or
+<strong>Less</strong> to contract it.</li>
+</ol>
+<hr />
+<h2 id="adjusting-selection-settings">Adjusting Selection Settings</h2>
+<p>After executing a Select More or Select Less command, an
+<strong>Adjust Last Operation</strong> panel appears in the bottom-left
+corner of the 3D Viewport (or press <code>F9</code> to bring it up).</p>
+<p>From this panel, you can modify:</p>
+<ul>
+<li><strong>Target:</strong> Adjust how many steps the selection grows
+or shrinks at once without pressing the shortcut multiple times.</li>
+<li><strong>Face Step:</strong> Controls how face selections expand
+across adjacent edges or vertices.</li>
+<li><strong>Keep Connected:</strong> Restricts the expansion strictly to
+connected geometry.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

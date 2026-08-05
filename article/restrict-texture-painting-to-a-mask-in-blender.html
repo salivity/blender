@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restrict Texture Painting to a Mask in Blender - blender</title>
+    <meta name="description" content="Restricting texture painting to a mask in Blender allows you to control exactly where paint is applied, preventing accidental brush strokes on unselected areas of your 3D model. This guide covers the two primary methods to achieve masked texture painting">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/restrict-texture-painting-to-a-mask-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Restrict Texture Painting to a Mask in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/restrict-texture-painting-to-a-mask-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Restricting texture painting to a mask in Blender allows you to control exactly where paint is applied, preventing accidental brush strokes on unselected areas of your 3D model. This guide covers the two primary methods to achieve masked texture painting" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="restrict-texture-painting-to-a-mask-in-blender">Restrict Texture
+Painting to a Mask in Blender</h1>
+<p>Restricting texture painting to a mask in Blender allows you to
+control exactly where paint is applied, preventing accidental brush
+strokes on unselected areas of your 3D model. This guide covers the two
+primary methods to achieve masked texture painting: using Mesh Face
+Masking directly in Texture Paint mode, and utilizing Image Stencil
+Masks through the Tool Settings and Shader Editor.</p>
+<h2 id="method-1-mesh-face-selection-masking">Method 1: Mesh Face
+Selection Masking</h2>
+<p>Face selection masking limits your paint brush strokes strictly to
+highlighted geometry.</p>
+<ol type="1">
+<li>Switch to <strong>Texture Paint</strong> mode in the 3D
+Viewport.</li>
+<li>Click the <strong>Paint Mask</strong> icon in the top header bar (it
+looks like a small cube with a highlighted face, located next to the
+mode selection dropdown). Alternatively, press <strong>M</strong>.</li>
+<li>Select the faces you want to paint on:
+<ul>
+<li>Press <strong>A</strong> to select all faces.</li>
+<li>Press <strong>Alt + A</strong> (or <strong>Option + A</strong> on
+macOS) to deselect all faces.</li>
+<li>Hold <strong>Shift</strong> and left-click to select individual
+faces.</li>
+<li>Press <strong>L</strong> while hovering over linked geometry to
+select connected faces.</li>
+</ul></li>
+<li>Paint on the mesh. Brush strokes will only affect the currently
+selected faces.</li>
+</ol>
+<h2 id="method-2-texture-stencil-masking">Method 2: Texture Stencil
+Masking</h2>
+<p>A stencil mask uses a 2D image (grayscale) to control brush opacity
+based on black-and-white values, where white allows paint through and
+black blocks it.</p>
+<ol type="1">
+<li>In <strong>Texture Paint</strong> mode, open the
+<strong>Sidebar</strong> by pressing <strong>N</strong> and navigate to
+the <strong>Tool</strong> tab (or open the <strong>Properties</strong>
+panel on the right and go to <strong>Active Tool and Workspace
+Settings</strong>).</li>
+<li>Scroll down to the <strong>Mask</strong> section and click
+<strong>New</strong> to create a mask texture.</li>
+<li>Switch to the <strong>Texture Properties</strong> tab (red
+checkerboard icon at the bottom of the Properties panel).</li>
+<li>Under <strong>Type</strong>, choose <strong>Image or Movie</strong>
+and click <strong>Open</strong> to load your mask texture, or click
+<strong>New</strong> to create a blank black-and-white image.</li>
+<li>Return to the <strong>Tool</strong> settings panel under the
+<strong>Mask</strong> dropdown:
+<ul>
+<li>Set the <strong>Mapping</strong> to <strong>Stencil</strong>. A
+semi-transparent overlay of your mask image will appear in the 3D
+Viewport.</li>
+</ul></li>
+<li>Position the stencil overlay in your viewport:
+<ul>
+<li><strong>Right-click + Drag</strong> to move the stencil.</li>
+<li><strong>Shift + Right-click + Drag</strong> to scale the
+stencil.</li>
+<li><strong>Ctrl + Right-click + Drag</strong> to rotate the
+stencil.</li>
+</ul></li>
+<li>Paint over the stencil overlay. Paint will pass through the
+white/transparent areas of the mask while black areas remain
+protected.</li>
+</ol>
+<h2 id="method-3-painting-directly-onto-a-mask-via-shader-nodes">Method
+3: Painting Directly onto a Mask via Shader Nodes</h2>
+<p>If you are using a mask to blend two colors or textures
+nondestructively, you can paint directly onto the mask texture
+itself.</p>
+<ol type="1">
+<li>Open the <strong>Shader Editor</strong> and set up a <strong>Mix
+Color</strong> node combining your two base colors or textures.</li>
+<li>Add a new <strong>Image Texture</strong> node, set it to
+<strong>Non-Color</strong> color space, and create a new black image
+(e.g., named “Paint_Mask”).</li>
+<li>Connect the <code>Color</code> output of the “Paint_Mask” image node
+into the <code>Factor</code> input of the <strong>Mix Color</strong>
+node.</li>
+<li>Select the “Paint_Mask” Image Texture node so it is highlighted in
+yellow.</li>
+<li>Switch the viewport to <strong>Texture Paint</strong> mode.</li>
+<li>In the top bar, ensure your target image is set to
+“Paint_Mask”.</li>
+<li>Paint with a white brush to reveal the secondary color/texture, or
+paint with a black brush to hide it.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

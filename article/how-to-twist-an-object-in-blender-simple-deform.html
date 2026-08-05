@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Twist an Object in Blender Simple Deform - blender</title>
+    <meta name="description" content="This article provides a quick guide on using the Simple Deform modifier in Blender to twist 3D objects. You will learn how to properly prepare your mesh geometry, apply the Twist modifier, adjust the deform axis and angle, and use an Empty object for pre">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-twist-an-object-in-blender-simple-deform">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Twist an Object in Blender Simple Deform - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-twist-an-object-in-blender-simple-deform" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a quick guide on using the Simple Deform modifier in Blender to twist 3D objects. You will learn how to properly prepare your mesh geometry, apply the Twist modifier, adjust the deform axis and angle, and use an Empty object for pre" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-twist-an-object-in-blender-simple-deform">How to Twist an
+Object in Blender Simple Deform</h1>
+<p>This article provides a quick guide on using the Simple Deform
+modifier in Blender to twist 3D objects. You will learn how to properly
+prepare your mesh geometry, apply the Twist modifier, adjust the deform
+axis and angle, and use an Empty object for precise control over the
+twist effect.</p>
+<h2 id="step-1-add-subdivisions-to-your-object">Step 1: Add Subdivisions
+to Your Object</h2>
+<p>The Simple Deform modifier requires geometry to bend. If your object
+is a simple default cylinder or cube with minimal vertices along its
+length, it will distort incorrectly or not at all.</p>
+<ol type="1">
+<li>Select your object in <strong>Object Mode</strong>.</li>
+<li>Press <strong>Tab</strong> to enter <strong>Edit Mode</strong>.</li>
+<li>Right-click the mesh and select <strong>Subdivide</strong>, or press
+<strong>Ctrl + R</strong> to add multiple <strong>Loop Cuts</strong>
+along the axis you plan to twist.</li>
+<li>Press <strong>Tab</strong> to return to <strong>Object
+Mode</strong>.</li>
+</ol>
+<h2 id="step-2-add-the-simple-deform-modifier">Step 2: Add the Simple
+Deform Modifier</h2>
+<ol type="1">
+<li>With your object selected, go to the <strong>Properties
+Panel</strong> on the right side of the screen.</li>
+<li>Click the <strong>Modifier Properties</strong> tab (wrench
+icon).</li>
+<li>Click <strong>Add Modifier</strong> and select <strong>Simple
+Deform</strong> from the Deform category.</li>
+</ol>
+<h2 id="step-3-configure-the-twist-settings">Step 3: Configure the Twist
+Settings</h2>
+<ol type="1">
+<li>In the Simple Deform modifier panel, set the mode to
+<strong>Twist</strong>.</li>
+<li>Choose the correct <strong>Axis</strong> (X, Y, or Z) corresponding
+to the length of your object. By default, Blender twists around the
+Z-axis.</li>
+<li>Adjust the <strong>Angle</strong> slider to control the rotation
+strength of the twist in degrees (e.g., set to <code>360°</code> for a
+full twist).</li>
+</ol>
+<h2 id="step-4-use-an-empty-for-precision-control-optional">Step 4: Use
+an Empty for Precision Control (Optional)</h2>
+<p>If the object twists from an unwanted center point or along the wrong
+angle, use an Empty object as the origin point.</p>
+<ol type="1">
+<li>Press <strong>Shift + A</strong> and select <strong>Empty &gt; Plain
+Axes</strong>.</li>
+<li>Move or rotate the Empty to the position where you want the center
+of the twist to be.</li>
+<li>Select your main object and open the <strong>Simple Deform</strong>
+modifier settings.</li>
+<li>In the <strong>Origin</strong> field, pick the
+<strong>Empty</strong> you just created using the eyedropper tool.</li>
+<li>Rotating or moving the Empty will now dynamically alter the angle
+and position of the twist effect.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

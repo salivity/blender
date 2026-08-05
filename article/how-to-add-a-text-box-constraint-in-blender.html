@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Add a Text Box Constraint in Blender - blender</title>
+    <meta name="description" content="Constraining a text box in Blender allows you to control paragraph wrapping, prevent text from extending infinitely on a single line, and keep your typography neatly contained within a defined geometric area. By configuring the Text Box settings inside t">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-add-a-text-box-constraint-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Add a Text Box Constraint in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-add-a-text-box-constraint-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Constraining a text box in Blender allows you to control paragraph wrapping, prevent text from extending infinitely on a single line, and keep your typography neatly contained within a defined geometric area. By configuring the Text Box settings inside t" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-add-a-text-box-constraint-in-blender">How to Add a Text
+Box Constraint in Blender</h1>
+<p>Constraining a text box in Blender allows you to control paragraph
+wrapping, prevent text from extending infinitely on a single line, and
+keep your typography neatly contained within a defined geometric area.
+By configuring the Text Box settings inside the Object Data Properties
+panel, you can set precise width, height, and offset parameters that
+force text to automatically wrap and conform to your layout
+boundaries.</p>
+<h2 id="step-by-step-guide-to-adding-a-text-box-constraint">Step-by-Step
+Guide to Adding a Text Box Constraint</h2>
+<h3 id="select-the-text-object">1. Select the Text Object</h3>
+<p>Select your text object in the 3D Viewport. If you have not created
+one yet, press <code>Shift + A</code>, hover over <strong>Text</strong>,
+and left-click to insert a new text object.</p>
+<h3 id="open-object-data-properties">2. Open Object Data Properties</h3>
+<p>In the Properties Editor (usually located on the right side of the
+workspace), click on the green <strong>Object Data Properties</strong>
+tab, represented by a capital letter <strong>“F”</strong> icon.</p>
+<h3 id="navigate-to-the-paragraph-section">3. Navigate to the Paragraph
+Section</h3>
+<p>Scroll down to the <strong>Paragraph</strong> foldout menu and expand
+it. Inside this section, locate the <strong>Text Boxes</strong>
+subsection.</p>
+<h3 id="define-the-text-box-limits">4. Define the Text Box Limits</h3>
+<p>By default, the width setting is set to <code>0.000</code>, which
+allows text to grow horizontally without wrapping. To constrain it: *
+<strong>Width:</strong> Change this value above <code>0.000</code> to
+set the maximum width of the frame. Once text reaches this boundary, it
+automatically wraps to the next line. * <strong>Height:</strong> Enter a
+value to cap the vertical limit of your text area. * <strong>X Offset
+and Y Offset:</strong> Adjust these parameters to shift the starting
+position of the text box relative to the object’s origin point.</p>
+<h3 id="add-multiple-text-boxes-optional">5. Add Multiple Text Boxes
+(Optional)</h3>
+<p>If you are creating complex layouts like columned text: * Click the
+<strong>Add Text Box</strong> button inside the Text Boxes panel. * Set
+the width, height, and offsets for the new box. Blender will
+automatically flow overflow text from the first box into the next
+defined box.</p>
+<p>Once configured, any text typed in Edit Mode (<code>Tab</code>) will
+respect these spatial constraints seamlessly.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

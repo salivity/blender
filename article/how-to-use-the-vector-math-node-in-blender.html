@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the Vector Math Node in Blender - blender</title>
+    <meta name="description" content="The Vector Math node in Blender is an essential tool used to manipulate 3D spatial data, directions, colors, and textures across the Shader Editor, Geometry Nodes, and Compositor. This guide provides a clear overview of how the Vector Math node operates,">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-the-vector-math-node-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use the Vector Math Node in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-the-vector-math-node-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Vector Math node in Blender is an essential tool used to manipulate 3D spatial data, directions, colors, and textures across the Shader Editor, Geometry Nodes, and Compositor. This guide provides a clear overview of how the Vector Math node operates," />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-the-vector-math-node-in-blender">How to Use the
+Vector Math Node in Blender</h1>
+<p>The Vector Math node in Blender is an essential tool used to
+manipulate 3D spatial data, directions, colors, and textures across the
+Shader Editor, Geometry Nodes, and Compositor. This guide provides a
+clear overview of how the Vector Math node operates, explains its
+primary math functions—such as Add, Multiply, Dot Product, and
+Normalize—and demonstrates how to apply these operations to solve common
+3D modeling and shading tasks.</p>
+<hr />
+<h2 id="what-is-a-vector-in-blender">What is a Vector in Blender?</h2>
+<p>In Blender, a vector is a set of three values—typically representing
+<strong>X, Y, and Z</strong> coordinates. These values can describe: *
+<strong>Positions:</strong> A specific point in 3D space. *
+<strong>Directions:</strong> Arrow-like vectors pointing in a specific
+direction (such as surface normals). * <strong>Colors/Values:</strong>
+RGB channels processed as three-dimensional numeric data.</p>
+<p>The Vector Math node takes one, two, or three input vectors, applies
+a mathematical operation across their components, and outputs the
+resulting vector or a single scalar value.</p>
+<hr />
+<h2 id="how-to-add-the-vector-math-node">How to Add the Vector Math
+Node</h2>
+<ol type="1">
+<li>Open the <strong>Shader Editor</strong> or <strong>Geometry
+Nodes</strong> workspace.</li>
+<li>Press <strong>Shift + A</strong> to open the Add menu.</li>
+<li>Navigate to <strong>Vector &gt; Vector Math</strong>.</li>
+<li>Click to place the node in your node tree.</li>
+</ol>
+<hr />
+<h2 id="core-operations-of-the-vector-math-node">Core Operations of the
+Vector Math Node</h2>
+<p>The node contains a dropdown menu with dozens of operations. Below
+are the most frequently used modes categorized by their function.</p>
+<h3 id="basic-arithmetic-component-wise">1. Basic Arithmetic
+(Component-Wise)</h3>
+<ul>
+<li><strong>Add:</strong> Adds the X, Y, and Z values of Input A to
+Input B. Use this to shift texture coordinates or offset positions.</li>
+<li><strong>Subtract:</strong> Subtracts Input B from Input A.
+Subtracting an object’s position vector from another creates a direction
+vector pointing from one to the other.</li>
+<li><strong>Multiply:</strong> Multiplies corresponding X, Y, and Z
+components together. Useful for scaling textures non-uniformly.</li>
+<li><strong>Divide:</strong> Divides Input A by Input B
+component-wise.</li>
+</ul>
+<h3 id="scaling-and-magnitude">2. Scaling and Magnitude</h3>
+<ul>
+<li><strong>Scale:</strong> Multiplies all three components (X, Y, Z) of
+a single vector by a single scalar value. This increases or decreases
+the vector’s overall size without changing its direction.</li>
+<li><strong>Length:</strong> Calculates the distance from the origin
+<code>(0, 0, 0)</code> to the vector coordinate. It outputs a single
+scalar value representing the vector’s overall magnitude.</li>
+<li><strong>Normalize:</strong> Adjusts the length of a vector to
+exactly <code>1.0</code> while maintaining its original direction. This
+is crucial when working with directional vectors, such as surface
+normals or lighting calculations.</li>
+<li><strong>Distance:</strong> Measures the straight-line distance
+between two point vectors (Input A and Input B).</li>
+</ul>
+<h3 id="advanced-vector-operations">3. Advanced Vector Operations</h3>
+<ul>
+<li><strong>Dot Product:</strong> Compares two vectors and outputs a
+single value based on the angle between them.
+<ul>
+<li>Outputs <strong>1.0</strong> if both vectors point in the exact same
+direction.</li>
+<li>Outputs <strong>0.0</strong> if the vectors are perpendicular (90
+degrees apart).</li>
+<li>Outputs <strong>-1.0</strong> if they point in opposite
+directions.</li>
+<li><em>Common Use:</em> Masking the top of an object by comparing
+surface normals with an upward direction vector
+<code>(0, 0, 1)</code>.</li>
+</ul></li>
+<li><strong>Cross Product:</strong> Takes two vectors and calculates a
+third vector that is perpendicular (at 90 degrees) to both.
+<ul>
+<li><em>Common Use:</em> Calculating custom tangents, surface
+orientations, or curved geometry directions in Geometry Nodes.</li>
+</ul></li>
+<li><strong>Reflect:</strong> Calculates the direction of a vector
+reflecting off a surface using a specified normal direction vector.</li>
+</ul>
+<hr />
+<h2 id="practical-examples">Practical Examples</h2>
+<h3 id="example-1-creating-a-top-down-snow-mask-shader-editor">Example
+1: Creating a “Top-Down” Snow Mask (Shader Editor)</h3>
+<p>To apply a material only to the upward-facing surfaces of an
+object:</p>
+<ol type="1">
+<li>Connect a <strong>Texture Coordinate</strong> node’s
+<code>Normal</code> output to <strong>Vector A</strong> of the Vector
+Math node.</li>
+<li>Set the Vector Math node operation to <strong>Dot
+Product</strong>.</li>
+<li>Set <strong>Vector B</strong> to <code>X: 0, Y: 0, Z: 1</code>
+(pointing straight up).</li>
+<li>Run the scalar output into a <strong>ColorRamp</strong> node to
+control the sharpness of the mask.</li>
+<li>Use the output as a factor to mix a Snow Shader with your Base
+Shader.</li>
+</ol>
+<h3 id="example-2-moving-geometry-along-normals-geometry-nodes">Example
+2: Moving Geometry Along Normals (Geometry Nodes)</h3>
+<p>To push mesh vertices outward based on their surface direction:</p>
+<ol type="1">
+<li>Add a <strong>Set Position</strong> node in Geometry Nodes.</li>
+<li>Add a <strong>Normal</strong> node and connect it to a Vector Math
+node set to <strong>Scale</strong>.</li>
+<li>Use a single value slider (or a input value) to drive the Scale
+factor.</li>
+<li>Connect the output of the Vector Math node into the
+<code>Offset</code> input of the <strong>Set Position</strong>
+node.</li>
+<li>Adjusting the scale value will now expand or shrink the mesh along
+its normals.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

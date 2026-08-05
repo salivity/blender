@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is Render Denoising and How to Enable It in Blender - blender</title>
+    <meta name="description" content="Render denoising is a powerful computer graphics technique used to remove unwanted grainy "noise" from finished 3D renders, allowing artists to achieve clean, professional images in a fraction of the time. This article explains the science behind render">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-render-denoising-and-how-to-enable-it-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is Render Denoising and How to Enable It in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-render-denoising-and-how-to-enable-it-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Render denoising is a powerful computer graphics technique used to remove unwanted grainy "noise" from finished 3D renders, allowing artists to achieve clean, professional images in a fraction of the time. This article explains the science behind render" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-render-denoising-and-how-to-enable-it-in-blender">What
+Is Render Denoising and How to Enable It in Blender</h1>
+<p>Render denoising is a powerful computer graphics technique used to
+remove unwanted grainy “noise” from finished 3D renders, allowing
+artists to achieve clean, professional images in a fraction of the time.
+This article explains the science behind render denoising, why it is
+essential for modern 3D workflows, and provides a straightforward,
+step-by-step guide on how to enable it within Blender using both the
+Cycles render engine settings and the Compositor.</p>
+<h2 id="what-is-render-denoising">What is Render Denoising?</h2>
+<p>In path-tracing render engines like Blender’s Cycles, light is
+simulated by shooting millions of individual light rays into a 3D scene.
+In areas with complex lighting, deep shadows, or indirect bounces, these
+rays can struggle to find light sources, resulting in a speckled, grainy
+texture known as “noise.”</p>
+<p>Traditionally, the only way to get rid of this noise was to increase
+the render sample count. However, doubling the samples doubles the
+render time. Render denoising solves this by using advanced
+algorithms—often powered by artificial intelligence and machine
+learning—to analyze the noisy image, detect the underlying geometry and
+colors, and intelligently smooth out the grain while preserving sharp
+edges and fine details. By using a denoiser, you can render at a
+fraction of the sample count and still achieve a noise-free final image,
+saving hours of render time.</p>
+<h2 id="how-to-enable-denoising-in-blender-cycles">How to Enable
+Denoising in Blender (Cycles)</h2>
+<p>Blender comes with built-in, industry-standard denoisers:
+<strong>OpenImageDenoise (OIDN)</strong> developed by Intel, and
+<strong>OptiX</strong> developed by NVIDIA.</p>
+<p>Here is how to enable denoising directly in the Cycles render
+settings for both your real-time viewport and your final renders.</p>
+<h3 id="step-1-switch-to-the-cycles-render-engine">Step 1: Switch to the
+Cycles Render Engine</h3>
+<ol type="1">
+<li>Open your Blender project.</li>
+<li>Go to the <strong>Properties</strong> panel on the right side of the
+screen.</li>
+<li>Click on the <strong>Render Properties</strong> tab (represented by
+a camera icon).</li>
+<li>Change the <strong>Render Engine</strong> dropdown menu from Eevee
+to <strong>Cycles</strong>.</li>
+</ol>
+<h3 id="step-2-enable-viewport-denoising-optional">Step 2: Enable
+Viewport Denoising (Optional)</h3>
+<p>Viewport denoising allows you to see a clean, noise-free preview of
+your scene in real-time as you navigate the 3D viewport. 1. In the
+<strong>Render Properties</strong> tab, locate the
+<strong>Sampling</strong> dropdown menu. 2. Expand the
+<strong>Viewport</strong> sub-menu. 3. Check the box next to
+<strong>Denoise</strong>. 4. Set the <strong>Denoiser</strong> option
+(OptiX is recommended for NVIDIA GPU users for real-time speed;
+OpenImageDenoise is a great CPU/GPU alternative for all systems).</p>
+<h3 id="step-3-enable-final-render-denoising">Step 3: Enable Final
+Render Denoising</h3>
+<p>This ensures that your final saved image or animation sequence is
+denoised automatically when the render completes. 1. Under the same
+<strong>Sampling</strong> dropdown menu, expand the
+<strong>Render</strong> sub-menu. 2. Check the box next to
+<strong>Denoise</strong>. 3. Choose your preferred
+<strong>Denoiser</strong>: * <strong>OpenImageDenoise:</strong> Highly
+recommended for final renders. It uses AI to produce extremely
+high-quality, sharp results, even on CPU. * <strong>OptiX:</strong>
+Extremely fast, but occasionally sacrifices fine detail in complex
+textures compared to OIDN. 4. Keep the default settings for
+<strong>Passes</strong> (usually set to <em>Albedo and Normal</em>) as
+this helps the denoiser identify geometry details.</p>
+<hr />
+<h2 id="how-to-enable-denoising-in-the-blender-compositor">How to Enable
+Denoising in the Blender Compositor</h2>
+<p>For maximum control, you can apply denoising in Blender’s Compositor
+after the render is finished. This is highly recommended for complex
+scenes because it allows you to compare the denoised image with the raw
+render without having to re-render the entire scene.</p>
+<h3 id="step-1-enable-denoising-data">Step 1: Enable Denoising Data</h3>
+<ol type="1">
+<li>Go to the <strong>View Layer Properties</strong> tab (represented by
+an icon showing stacked photos).</li>
+<li>Under the <strong>Passes</strong> section, expand the
+<strong>Data</strong> sub-menu.</li>
+<li>Check the box next to <strong>Denoising Data</strong>. This
+generates extra data channels (Denoising Normal, Denoising Albedo, and
+Denoising Depth) that the denoiser uses to reconstruct details
+accurately.</li>
+</ol>
+<h3 id="step-2-set-up-the-compositing-nodes">Step 2: Set Up the
+Compositing Nodes</h3>
+<ol type="1">
+<li>Switch to the <strong>Compositing</strong> workspace at the top of
+the Blender window.</li>
+<li>Check the <strong>Use Nodes</strong> box at the top of the
+Compositor editor.</li>
+<li>Press <code>Shift + A</code>, search for <strong>Denoise</strong>,
+and place the Denoise node between the <em>Render Layers</em> node and
+the <em>Composite</em> node.</li>
+<li>Link the nodes as follows:
+<ul>
+<li>Connect <strong>Noisy Image</strong> (Render Layers) to
+<strong>Image</strong> (Denoise).</li>
+<li>Connect <strong>Denoising Albedo</strong> (Render Layers) to
+<strong>Albedo</strong> (Denoise).</li>
+<li>Connect <strong>Denoising Normal</strong> (Render Layers) to
+<strong>Normal</strong> (Denoise).</li>
+<li>Connect the <strong>Image</strong> output of the Denoise node to the
+<strong>Image</strong> input of the <em>Composite</em> node (and
+<em>Viewer</em> node, if you use one).</li>
+</ul></li>
+</ol>
+<p>Once configured, Blender will render your scene, and immediately upon
+completion, the Compositor will process and output a clean, noise-free
+image.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

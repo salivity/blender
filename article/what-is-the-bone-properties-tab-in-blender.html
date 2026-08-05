@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is the Bone Properties Tab in Blender? - blender</title>
+    <meta name="description" content="The Bone Properties tab in Blender is a dedicated settings panel used to control and customize individual bones within a 3D armature. Located in the Properties Editor when an armature is selected, this tab allows animators and riggers to adjust a specifi">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-the-bone-properties-tab-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What is the Bone Properties Tab in Blender? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-the-bone-properties-tab-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Bone Properties tab in Blender is a dedicated settings panel used to control and customize individual bones within a 3D armature. Located in the Properties Editor when an armature is selected, this tab allows animators and riggers to adjust a specifi" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-bone-properties-tab-in-blender">What is the Bone
+Properties Tab in Blender?</h1>
+<p>The Bone Properties tab in Blender is a dedicated settings panel used
+to control and customize individual bones within a 3D armature. Located
+in the Properties Editor when an armature is selected, this tab allows
+animators and riggers to adjust a specific active bone’s transforms,
+parenting relationships, deformation behavior, inverse kinematics (IK)
+limits, and custom viewport appearances. Understanding this tab is
+essential for creating functional character rigs and precise 3D
+animations.</p>
+<h2 id="key-features-and-panels-in-bone-properties">Key Features and
+Panels in Bone Properties</h2>
+<h3 id="transform">1. Transform</h3>
+<p>The Transform panel controls the active bone’s local positioning,
+rotation, and scale. * <strong>Mode:</strong> Allows you to choose the
+rotation mode, such as Quaternion (WXYZ) for avoiding gimbal lock, or
+various Euler angles (XYZ, ZXY, etc.) for simpler animation curves. *
+<strong>Location, Rotation, and Scale:</strong> Displays exact numeric
+values for the bone’s current state relative to its parent or local
+space.</p>
+<h3 id="relations">2. Relations</h3>
+<p>This panel manages how the selected bone interacts with other bones
+in the same armature hierarchy. * <strong>Parent:</strong> Sets or
+changes the parent bone. * <strong>Connected:</strong> Keeps the head of
+the child bone attached directly to the tail of the parent bone. *
+<strong>Inherit Rotation / Scale:</strong> Toggle options to determine
+whether the bone automatically inherits rotation or scaling transforms
+from its parent. * <strong>Local Location:</strong> Ensures the bone’s
+movement relies on its local coordinate system rather than the
+parent’s.</p>
+<h3 id="inverse-kinematics-ik">3. Inverse Kinematics (IK)</h3>
+<p>When using IK constraints to animate limbs (like legs or arms bending
+naturally), the Inverse Kinematics panel defines how the bone behaves
+within the IK chain. * <strong>Locking Axes:</strong> Restricts movement
+along specific X, Y, or Z axes. * <strong>Stiffness:</strong> Controls
+how resistant the bone is to bending when the IK target moves. *
+<strong>Limits:</strong> Sets min/max angle limits for natural joint
+rotation (e.g., preventing an elbow from bending backward). *
+<strong>Stretch:</strong> Allows the bone to lengthen along its axis
+when the IK target is pulled beyond the rig’s standard reach.</p>
+<h3 id="deform">4. Deform</h3>
+<p>The Deform panel determines how the bone influences attached 3D
+meshes during animation. * <strong>Deform Checkbox:</strong> Disabling
+this prevents the bone from affecting the mesh entirely, which is ideal
+for control bones, targets, or mechanical helpers. *
+<strong>Envelope:</strong> Adjusts the distance and influence radius of
+the bone’s automatic weighting volume. * <strong>Bending
+Distance:</strong> Controls the curvature influence area when using
+Envelope weights.</p>
+<h3 id="bendy-bones-b-bones">5. Bendy Bones (B-Bones)</h3>
+<p>Bendy Bones split a single bone into multiple visual segments to
+create smooth, curved deformations for organic objects like tails,
+tentacles, or spine setups. * <strong>Segments:</strong> Increases the
+number of sub-segments within the single bone. * <strong>Curve
+In/Out:</strong> Controls the easing, roll, scale, and offset at the
+start (head) and end (tail) of the bone.</p>
+<h3 id="viewport-display">6. Viewport Display</h3>
+<p>This section helps keep rigs organized and easy to navigate visually.
+* <strong>Custom Object:</strong> Replaces the default bone shape
+(octahedral, stick, etc.) with a custom 3D mesh (e.g., a circle or box)
+to create user-friendly animator controls. * <strong>Scale /
+Offset:</strong> Adjusts the display size and alignment of the custom
+shape without altering the actual bone transforms. *
+<strong>Wireframe:</strong> Forces the custom shape to render as a
+wireframe for clearer visibility over the mesh.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Types of Light Sources in Blender - blender</title>
+    <meta name="description" content="In Blender, mastering lighting is essential for creating realistic 3D renders, animations, and visual effects. This article provides a clear and concise overview of the different light sources available in Blender, explaining how each type functions and">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/types-of-light-sources-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Types of Light Sources in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/types-of-light-sources-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In Blender, mastering lighting is essential for creating realistic 3D renders, animations, and visual effects. This article provides a clear and concise overview of the different light sources available in Blender, explaining how each type functions and" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="types-of-light-sources-in-blender">Types of Light Sources in
+Blender</h1>
+<p>In Blender, mastering lighting is essential for creating realistic 3D
+renders, animations, and visual effects. This article provides a clear
+and concise overview of the different light sources available in
+Blender, explaining how each type functions and when to use them to
+achieve the best results in your 3D scenes.</p>
+<h2 id="point-light">Point Light</h2>
+<p>A Point light emits light omnidirectionally from a single, infinitely
+small point in space. It functions similarly to a bare light bulb or a
+candle, casting light equally in all directions.</p>
+<ul>
+<li><strong>Best used for:</strong> Light bulbs, candles, torches, and
+localized ambient glows.</li>
+<li><strong>Key characteristic:</strong> The light intensity decreases
+over distance based on the inverse-square law, creating realistic
+falloff.</li>
+</ul>
+<h2 id="sun-light">Sun Light</h2>
+<p>A Sun light simulates light coming from a source infinitely far away.
+Unlike other light sources, its position in the 3D viewport does not
+affect its intensity or the direction of the shadows; only its rotation
+matters. It casts parallel rays across the entire scene.</p>
+<ul>
+<li><strong>Best used for:</strong> Direct sunlight, moonlight, or
+simulating any massive, distant light source.</li>
+<li><strong>Key characteristic:</strong> It illuminates the entire scene
+uniformly, regardless of where the light object is placed.</li>
+</ul>
+<h2 id="spot-light">Spot Light</h2>
+<p>A Spot light emits a cone-shaped beam of light in a specific
+direction from a single point. You can adjust the size of the cone (spot
+size) and the softness of its edges (blend) to control how sharply the
+light transitions into shadow.</p>
+<ul>
+<li><strong>Best used for:</strong> Flashlights, stage spotlights,
+headlights, and dramatic, focused lighting.</li>
+<li><strong>Key characteristic:</strong> Offers precise control over the
+direction and spread of the light beam.</li>
+</ul>
+<h2 id="area-light">Area Light</h2>
+<p>An Area light emits light from a customizable 2D surface shape, such
+as a square, rectangle, disk, or ellipse. Because the light is emitted
+from a physical area rather than a single point, it produces realistic,
+soft shadows.</p>
+<ul>
+<li><strong>Best used for:</strong> Studio lighting, window light,
+softbox setups, and interior overhead lights.</li>
+<li><strong>Key characteristic:</strong> Larger area sizes produce
+softer shadows, while smaller sizes produce sharper shadows.</li>
+</ul>
+<h2 id="mesh-emission-emissive-materials">Mesh Emission (Emissive
+Materials)</h2>
+<p>While not a standard “lamp” object, any 3D mesh in Blender can be
+turned into a light source. By applying a material with an
+<strong>Emission</strong> shader to a object (such as a sphere or
+plane), the geometry itself will emit light and illuminate surrounding
+objects.</p>
+<ul>
+<li><strong>Best used for:</strong> Neon signs, computer screens,
+glowing sci-fi elements, and custom-shaped light fixtures.</li>
+<li><strong>Key characteristic:</strong> It allows for complex,
+geometry-based lighting, though it can introduce more noise in Cycles
+renders compared to standard light objects.</li>
+</ul>
+<h2 id="world-background-hdri-and-sky-texture">World Background (HDRI
+and Sky Texture)</h2>
+<p>The World background controls the environment lighting of your entire
+scene. You can use a solid color, Blender’s built-in Sky Texture, or a
+High Dynamic Range Image (HDRI) to project realistic environmental light
+and reflections onto your 3D models.</p>
+<ul>
+<li><strong>Best used for:</strong> Global illumination, outdoor scenes,
+and realistic reflections.</li>
+<li><strong>Key characteristic:</strong> Essential for integrating 3D
+objects realistically into photo-based environments.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

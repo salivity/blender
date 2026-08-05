@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Stroke Method in Blender Explained - blender</title>
+    <meta name="description" content="The line stroke method in Blender refers to the various techniques and settings used to control how brush strokes, lines, and textures are applied across 3D surfaces and 2D canvases. Primarily utilized in Grease Pencil drawing, Texture Painting, and Scul">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/line-stroke-method-in-blender-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Line Stroke Method in Blender Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/line-stroke-method-in-blender-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The line stroke method in Blender refers to the various techniques and settings used to control how brush strokes, lines, and textures are applied across 3D surfaces and 2D canvases. Primarily utilized in Grease Pencil drawing, Texture Painting, and Scul" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="line-stroke-method-in-blender-explained">Line Stroke Method in
+Blender Explained</h1>
+<p>The line stroke method in Blender refers to the various techniques
+and settings used to control how brush strokes, lines, and textures are
+applied across 3D surfaces and 2D canvases. Primarily utilized in Grease
+Pencil drawing, Texture Painting, and Sculpting, selecting the right
+stroke method determines the placement, spacing, and smoothness of your
+input. This guide breaks down the core stroke methods available in
+Blender and explains how to use them effectively for precise artistic
+control.</p>
+<h2 id="what-is-a-stroke-method-in-blender">What is a Stroke Method in
+Blender?</h2>
+<p>In Blender, a stroke method dictates how mouse or stylus input is
+translated into digital strokes. Instead of merely following your cursor
+continuously, Blender offers multiple algorithms to space out, anchor,
+or smooth lines depending on your specific project needs.</p>
+<p>You can access stroke method settings in the <strong>Tool
+Settings</strong> bar or the <strong>Properties Panel</strong> under the
+<strong>Stroke</strong> tab when using painting, drawing, or sculpting
+brushes.</p>
+<h2 id="primary-line-stroke-methods">Primary Line Stroke Methods</h2>
+<h3 id="space">1. Space</h3>
+<p>The Space method applies brush dabs along a path with a specified
+distance (spacing) between each mark. * <strong>How it works:</strong>
+As you drag your cursor, dabs are placed at regular intervals calculated
+as a percentage of the brush size. * <strong>Best used for:</strong>
+Continuous linework, dashed patterns, and smooth painting.</p>
+<h3 id="line">2. Line</h3>
+<p>The Line stroke method constrains your input to a perfectly straight
+line between two points. * <strong>How it works:</strong> Clicking
+defines the starting point; dragging establishes the direction and
+length; releasing the mouse/pen draws the final stroke. * <strong>Best
+used for:</strong> Hard-surface details, architectural outlines, and
+mechanical drawing in Grease Pencil.</p>
+<h3 id="curve">3. Curve</h3>
+<p>The Curve method allows you to define a stroke using a Bezier curve
+path before applying the actual paint or Grease Pencil line. *
+<strong>How it works:</strong> You create control points to define a
+smooth curve on the canvas, then execute the stroke along that exact
+vector. * <strong>Best used for:</strong> Complex, ultra-smooth curves
+that are difficult to draw freehand.</p>
+<h3 id="dots">4. Dots</h3>
+<p>The Dots method draws dabs based directly on user input speed without
+distance calculation. * <strong>How it works:</strong> Fast movement
+creates widely spaced dots, while slow movement creates a dense,
+continuous line. * <strong>Best used for:</strong> Quick sketches,
+organic texturing, and dynamic speed-based strokes.</p>
+<h3 id="drag-dot">5. Drag Dot</h3>
+<p>Drag Dot places a single brush mark on the surface that you can
+reposition before finalizing. * <strong>How it works:</strong> Clicking
+creates a single texture or brush dab, and dragging allows you to move
+it around the canvas until you release the button. * <strong>Best used
+for:</strong> Placing precise single details, such as rivets, blemishes,
+or specific decals on a 3D model.</p>
+<h3 id="anchored">6. Anchored</h3>
+<p>The Anchored method creates a single brush stroke that scales and
+rotates dynamically from a central point. * <strong>How it
+works:</strong> Click to set the center point, then drag outward to
+expand, shrink, or rotate the stroke shape. * <strong>Best used
+for:</strong> Stenciling, applying radial textures, and stamping
+geometric details.</p>
+<h2 id="enhancing-line-precision-with-stroke-stabilization">Enhancing
+Line Precision with Stroke Stabilization</h2>
+<p>For artists using freehand methods like Space or Dots, Blender
+includes a <strong>Stabilize Stroke</strong> feature (often referred to
+as a “Lazy Mouse”). Enabling this adds a virtual drag-line behind your
+cursor that smooths out hand tremors and sharp jitter, ensuring clean,
+steady lines.</p>
+<h2 id="summary-of-when-to-use-each-method">Summary of When to Use Each
+Method</h2>
+<ul>
+<li>Use <strong>Line</strong> and <strong>Curve</strong> for technical,
+hard-surface, and precise vector-like drawings.</li>
+<li>Use <strong>Space</strong> and <strong>Dots</strong> for freehand
+sketching, shading, and general painting.</li>
+<li>Use <strong>Drag Dot</strong> and <strong>Anchored</strong> for
+placing localized textures, stamps, and details.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

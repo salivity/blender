@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Sculpting: What is the Grab Brush Used For? - blender</title>
+    <meta name="description" content="In Blender's sculpting workspace, the Grab brush is one of the most fundamental tools used for shaping and posing 3D models. This article explains what the Grab brush does, how it functions under the hood, and the most common practical scenarios where di">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-sculpting-what-is-the-grab-brush-used-for">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Sculpting: What is the Grab Brush Used For? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-sculpting-what-is-the-grab-brush-used-for" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In Blender's sculpting workspace, the Grab brush is one of the most fundamental tools used for shaping and posing 3D models. This article explains what the Grab brush does, how it functions under the hood, and the most common practical scenarios where di" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-sculpting-what-is-the-grab-brush-used-for">Blender
+Sculpting: What is the Grab Brush Used For?</h1>
+<p>In Blender’s sculpting workspace, the Grab brush is one of the most
+fundamental tools used for shaping and posing 3D models. This article
+explains what the Grab brush does, how it functions under the hood, and
+the most common practical scenarios where digital sculptors utilize it
+to manipulate their geometry efficiently.</p>
+<h2 id="understanding-the-grab-brush">Understanding the Grab Brush</h2>
+<p>Unlike traditional sculpting brushes that add or subtract digital
+clay (such as the Draw or Clay Strips brushes), the Grab brush is
+designed to translate existing geometry. When you click and drag on your
+mesh with the Grab brush active, it selects a group of vertices within
+its radius and moves them along with your mouse cursor.</p>
+<p>The movement occurs relative to your current viewport camera angle,
+making it highly intuitive for quick, gestural changes. The falloff of
+the brush ensures that the vertices closest to the center of the brush
+move the most, while those near the outer edge move less, resulting in a
+smooth, organic transition.</p>
+<h2 id="key-uses-of-the-grab-brush">Key Uses of the Grab Brush</h2>
+<ul>
+<li><strong>Silhouette and Proportion Blocking:</strong> In the early
+stages of a sculpt, artists use a large Grab brush to quickly establish
+the overall silhouette and proportions of a character or object. It
+allows you to easily pull out limbs, widen shoulders, or alter the shape
+of a skull without adding unnecessary complexity to the mesh.</li>
+<li><strong>Form Correction:</strong> If a feature of your sculpt is out
+of place—such as an eye socket that is too low or a jawline that is too
+narrow—the Grab brush allows you to nudge these elements into their
+correct anatomical positions.</li>
+<li><strong>Creating Extrusions:</strong> By using a smaller brush
+radius, you can pull out specific details from a flat surface, such as
+forming horns, fingers, ears, or stylized hair clumps.</li>
+<li><strong>Posing and Expression Editing:</strong> The Grab brush is
+excellent for making micro-adjustments to a character’s facial
+expression, such as raising an eyebrow, curving the lips into a smile,
+or adjusting the pose of a hand.</li>
+</ul>
+<h2 id="tips-for-using-the-grab-brush-effectively">Tips for Using the
+Grab Brush Effectively</h2>
+<p>To get the most out of the Grab brush, you can adjust two main
+settings. Pressing <strong>F</strong> allows you to change the brush
+radius; a larger radius is ideal for major proportional changes, while a
+smaller radius is best for fine-tuning details. Pressing <strong>Shift +
+F</strong> adjusts the brush strength, which controls how closely the
+vertices follow the movement of your cursor.</p>
+<p>Additionally, enabling symmetry (typically along the X-axis) allows
+you to grab and shape both sides of a model simultaneously, ensuring
+perfect balance during the organic modeling process.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

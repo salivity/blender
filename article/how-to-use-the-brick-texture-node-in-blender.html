@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the Brick Texture Node in Blender - blender</title>
+    <meta name="description" content="The Brick Texture node in Blender is a powerful procedural tool that allows you to create realistic brick, tile, and masonry patterns without relying on external image files. This guide covers how to add the Brick Texture node to your shader network, und">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-the-brick-texture-node-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use the Brick Texture Node in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-the-brick-texture-node-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Brick Texture node in Blender is a powerful procedural tool that allows you to create realistic brick, tile, and masonry patterns without relying on external image files. This guide covers how to add the Brick Texture node to your shader network, und" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-the-brick-texture-node-in-blender">How to Use the
+Brick Texture Node in Blender</h1>
+<p>The Brick Texture node in Blender is a powerful procedural tool that
+allows you to create realistic brick, tile, and masonry patterns without
+relying on external image files. This guide covers how to add the Brick
+Texture node to your shader network, understand its primary settings,
+align it correctly using texture coordinates, and add realistic height
+detail using bump maps.</p>
+<h2 id="setting-up-the-brick-texture-node">Setting Up the Brick Texture
+Node</h2>
+<p>To begin using the Brick Texture node, open the <strong>Shader
+Editor</strong> with your target object selected:</p>
+<ol type="1">
+<li>Create a new material or select an existing one.</li>
+<li>Press <strong>Shift + A</strong> in the Shader Editor, navigate to
+<strong>Texture</strong>, and select <strong>Brick
+Texture</strong>.</li>
+<li>Connect the <strong>Color</strong> output of the Brick Texture node
+to the <strong>Base Color</strong> input of the <strong>Principled
+BSDF</strong> node.</li>
+</ol>
+<p>Your object will immediately display a basic procedural brick
+pattern.</p>
+<h2 id="understanding-the-node-settings">Understanding the Node
+Settings</h2>
+<p>The Brick Texture node provides several parameters to customize the
+appearance of your bricks and mortar:</p>
+<ul>
+<li><strong>Color 1 &amp; Color 2:</strong> These define the primary
+colors of the individual bricks. Blender randomly mixes these two colors
+across the pattern.</li>
+<li><strong>Mortar:</strong> Controls the color of the lines between the
+bricks.</li>
+<li><strong>Scale:</strong> Adjusts the overall size of the brick
+pattern relative to the object.</li>
+<li><strong>Mortar Size:</strong> Controls the thickness of the mortar
+lines between bricks.</li>
+<li><strong>Mortar Smooth:</strong> Blurs the edges between the bricks
+and the mortar, useful for worn or weathered surfaces.</li>
+<li><strong>Bias:</strong> Determines the color weighting between Color
+1 and Color 2. A value of <code>-1</code> uses only Color 1, while
+<code>1</code> uses only Color 2.</li>
+<li><strong>Brick Width &amp; Row Height:</strong> Adjusts the
+dimensions of individual bricks.</li>
+<li><strong>Offset &amp; Offset Frequency:</strong> Controls how much
+alternate rows shift horizontally. An offset of <code>0.5</code> creates
+a standard running bond pattern.</li>
+</ul>
+<h2 id="controlling-mapping-and-scale">Controlling Mapping and
+Scale</h2>
+<p>To control how the bricks wrap around your 3D model, connect a
+mapping setup to the <strong>Vector</strong> input of the Brick Texture
+node:</p>
+<ol type="1">
+<li>Press <strong>Shift + A</strong> and add a <strong>Texture
+Coordinate</strong> node and a <strong>Mapping</strong> node.</li>
+<li>Connect the <strong>UV</strong> (or <strong>Object</strong>) output
+of the Texture Coordinate node to the <strong>Vector</strong> input of
+the Mapping node.</li>
+<li>Connect the <strong>Vector</strong> output of the Mapping node to
+the <strong>Vector</strong> input of the <strong>Brick Texture</strong>
+node.</li>
+</ol>
+<p><em>Tip: If you have the <strong>Node Wrangler</strong> add-on
+enabled, simply select the Brick Texture node and press <strong>Ctrl +
+T</strong> to generate this setup automatically.</em></p>
+<p>Using the Mapping node, you can scale, rotate, or shift the brick
+pattern along the X, Y, and Z axes without altering the node settings
+themselves.</p>
+<h2 id="adding-3d-depth-with-bump-mapping">Adding 3D Depth with Bump
+Mapping</h2>
+<p>To give your brick material realistic depth and surface lighting, use
+the <strong>Fac</strong> (Factor) output of the Brick Texture node:</p>
+<ol type="1">
+<li>Press <strong>Shift + A</strong> and add a <strong>Bump</strong>
+node (<strong>Vector &gt; Bump</strong>).</li>
+<li>Connect the <strong>Fac</strong> output of the Brick Texture node to
+the <strong>Height</strong> input of the Bump node.</li>
+<li>Connect the <strong>Normal</strong> output of the Bump node to the
+<strong>Normal</strong> input of the <strong>Principled BSDF</strong>
+node.</li>
+<li>Lower the <strong>Strength</strong> value on the Bump node
+(typically between <code>0.1</code> and <code>0.3</code>) to prevent the
+surface detail from looking overly aggressive.</li>
+</ol>
+<p>This setup makes the mortar lines recede and the bricks stand out,
+creating an authentic 3D illusion under your scene’s lighting.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

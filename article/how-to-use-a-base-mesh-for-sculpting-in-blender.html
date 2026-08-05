@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use a Base Mesh for Sculpting in Blender - blender</title>
+    <meta name="description" content="Using a base mesh in Blender is a highly efficient way to kickstart your sculpting projects, allowing you to bypass the tedious initial block-out phase and focus immediately on detailing. This article provides a straightforward guide on how to import, pr">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-a-base-mesh-for-sculpting-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use a Base Mesh for Sculpting in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-a-base-mesh-for-sculpting-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Using a base mesh in Blender is a highly efficient way to kickstart your sculpting projects, allowing you to bypass the tedious initial block-out phase and focus immediately on detailing. This article provides a straightforward guide on how to import, pr" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-a-base-mesh-for-sculpting-in-blender">How to Use a
+Base Mesh for Sculpting in Blender</h1>
+<p>Using a base mesh in Blender is a highly efficient way to kickstart
+your sculpting projects, allowing you to bypass the tedious initial
+block-out phase and focus immediately on detailing. This article
+provides a straightforward guide on how to import, prepare, and apply a
+base mesh for sculpting in Blender, covering essential techniques like
+applying transforms, using the Multiresolution modifier, and utilizing
+Voxel Remesh to get your model ready for artistic refinement.</p>
+<h3 id="step-1-import-or-create-your-base-mesh">Step 1: Import or Create
+Your Base Mesh</h3>
+<p>To begin, you need a starting 3D model. You can import an existing
+base mesh (such as an OBJ or FBX file) by going to <strong>File &gt;
+Import</strong> and selecting your file format. Alternatively, you can
+use Blender’s built-in meshes (like a UV sphere or cube) or drag and
+drop a pre-made character base mesh from Blender’s Asset Browser.</p>
+<h3 id="step-2-apply-scale-and-transforms">Step 2: Apply Scale and
+Transforms</h3>
+<p>Before sculpting, you must ensure your model’s scale is correct to
+prevent brush distortion. Select your base mesh in Object Mode, press
+<strong>Ctrl + A</strong>, and select <strong>All Transforms</strong>.
+This resets the object’s scale to 1.0 and aligns the origin point,
+ensuring that your sculpting brushes and symmetry settings behave
+predictably.</p>
+<h3 id="step-3-prepare-the-geometry-for-sculpting">Step 3: Prepare the
+Geometry for Sculpting</h3>
+<p>Base meshes generally have low polygon counts, which lack the density
+required for fine sculpting. You can add the necessary resolution using
+one of two primary methods:</p>
+<ul>
+<li><strong>Multiresolution Modifier (Recommended for clean
+topology):</strong> Go to the Modifiers properties tab, add a
+<strong>Multiresolution</strong> modifier, and click
+<strong>Subdivide</strong> a few times. This allows you to sculpt
+high-frequency details while preserving the original low-poly base mesh,
+which is ideal for animation-ready models.</li>
+<li><strong>Voxel Remesh (Best for organic, freeform
+sculpting):</strong> If you plan on heavily altering the shape of the
+base mesh, switch to Sculpt Mode, press <strong>R</strong> to set your
+voxel grid size (lower numbers yield higher resolution), and press
+<strong>Ctrl + R</strong> to remesh. This merges the geometry into a
+uniform grid of quads, making it easy to stretch and deform without
+stretching the polygons.</li>
+</ul>
+<h3 id="step-4-switch-to-sculpt-mode-and-sculpt">Step 4: Switch to
+Sculpt Mode and Sculpt</h3>
+<p>With your geometry prepared, switch to <strong>Sculpt Mode</strong>
+using the mode dropdown menu in the top-left corner (or by pressing
+<strong>Ctrl + Tab</strong>). You can now use brushes like Elastic
+Deform or Grab to adjust the main proportions of the base mesh, and
+brushes like Clay Strips and Draw to build up anatomical details.
+Remember to enable <strong>Symmetry</strong> (usually on the X-axis) in
+the top-right corner of the viewport to mirror your actions on both
+sides of the mesh.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

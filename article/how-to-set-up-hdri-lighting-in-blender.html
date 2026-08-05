@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Set Up HDRI Lighting in Blender - blender</title>
+    <meta name="description" content="Using a High Dynamic Range Image (HDRI) is one of the fastest and most effective ways to achieve realistic environment lighting and reflections in Blender. This guide provides a straightforward, step-by-step tutorial on how to set up an HDRI in both the">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-set-up-hdri-lighting-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Set Up HDRI Lighting in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-set-up-hdri-lighting-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Using a High Dynamic Range Image (HDRI) is one of the fastest and most effective ways to achieve realistic environment lighting and reflections in Blender. This guide provides a straightforward, step-by-step tutorial on how to set up an HDRI in both the" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-set-up-hdri-lighting-in-blender">How to Set Up HDRI
+Lighting in Blender</h1>
+<p>Using a High Dynamic Range Image (HDRI) is one of the fastest and
+most effective ways to achieve realistic environment lighting and
+reflections in Blender. This guide provides a straightforward,
+step-by-step tutorial on how to set up an HDRI in both the Cycles and
+Eevee render engines, covering everything from loading the image texture
+in the World settings to adjusting its rotation and brightness.</p>
+<h3 id="step-1-access-the-world-properties">Step 1: Access the World
+Properties</h3>
+<p>To begin, you need to apply the HDRI to the background of your
+virtual world. 1. Open your Blender project and locate the
+<strong>Properties</strong> panel on the right side of the screen. 2.
+Click on the <strong>World Properties</strong> tab, which is represented
+by a red globe icon.</p>
+<h3 id="step-2-add-an-environment-texture">Step 2: Add an Environment
+Texture</h3>
+<p>By default, Blender uses a solid gray color for the background. You
+must change this to accept an image. 1. Locate the
+<strong>Surface</strong> section within the World Properties. 2. Click
+on the yellow dot next to the <strong>Color</strong> input field. 3.
+From the pop-up menu under the “Texture” column, select
+<strong>Environment Texture</strong> (do not confuse this with <em>Image
+Texture</em>). The viewport background will turn bright pink, indicating
+that no image file is loaded yet.</p>
+<h3 id="step-3-load-your-hdri-file">Step 3: Load Your HDRI File</h3>
+<p>Now you need to import your specific HDRI file (typically in
+<code>.hdr</code> or <code>.exr</code> format). 1. Click the
+<strong>Open</strong> button that appeared under the Color settings. 2.
+Navigate your computer’s files to find your downloaded HDRI. 3. Select
+the file and click <strong>Open Image</strong>.</p>
+<h3 id="step-4-preview-the-lighting">Step 4: Preview the Lighting</h3>
+<p>To see the HDRI light your 3D scene: 1. Hover your cursor over the 3D
+Viewport. 2. Press <strong>Z</strong> on your keyboard and select
+<strong>Rendered</strong> from the pie menu, or click the furthest right
+shading sphere in the top-right corner of the viewport.</p>
+<h3 id="step-5-rotate-and-adjust-the-hdri-optional">Step 5: Rotate and
+Adjust the HDRI (Optional)</h3>
+<p>Often, you will need to rotate the HDRI to change the direction of
+the sun or light source. 1. Switch your top workspace to the
+<strong>Shading</strong> tab, or change an editor window to the
+<strong>Shader Editor</strong>. 2. In the top-left header of the Shader
+Editor, change the drop-down menu from <strong>Object</strong> to
+<strong>World</strong>. You will now see the nodes controlling your
+background. 3. Ensure the <strong>Node Wrangler</strong> add-on is
+enabled (go to <em>Edit &gt; Preferences &gt; Add-ons</em>, search for
+“Node Wrangler”, and check the box). 4. Click on the <strong>Environment
+Texture</strong> node to select it, and press <strong>Ctrl + T</strong>.
+This automatically adds a <em>Texture Coordinate</em> node and a
+<em>Mapping</em> node. 5. Adjust the <strong>Z Rotation</strong> value
+on the Mapping node to rotate the environment light around your
+scene.</p>
+<h3 id="step-6-adjust-brightness-and-transparency">Step 6: Adjust
+Brightness and Transparency</h3>
+<ul>
+<li><strong>To change the brightness:</strong> Adjust the
+<strong>Strength</strong> slider on the <em>Background</em> node in the
+Shader Editor or under the World Properties tab.</li>
+<li><strong>To make the background transparent (retaining the
+light):</strong> Go to the <strong>Render Properties</strong> tab
+(camera icon), scroll down to the <strong>Film</strong> dropdown, and
+check the box next to <strong>Transparent</strong>. Your objects will
+still be lit by the HDRI, but the background image will be
+invisible.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Subtract a Metaball in Blender - blender</title>
+    <meta name="description" content="Subtracting a metaball from another in Blender is a quick way to create organic cutouts, holes, or negative space in your 3D models. By changing a metaball's active element property from positive to negative, it will carve into any overlapping metaballs">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-subtract-a-metaball-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Subtract a Metaball in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-subtract-a-metaball-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Subtracting a metaball from another in Blender is a quick way to create organic cutouts, holes, or negative space in your 3D models. By changing a metaball's active element property from positive to negative, it will carve into any overlapping metaballs" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-subtract-a-metaball-in-blender">How to Subtract a
+Metaball in Blender</h1>
+<p>Subtracting a metaball from another in Blender is a quick way to
+create organic cutouts, holes, or negative space in your 3D models. By
+changing a metaball’s active element property from positive to negative,
+it will carve into any overlapping metaballs within the same family
+group. This guide outlines the exact steps to achieve this effect
+efficiently.</p>
+<h2 id="step-by-step-guide-to-metaball-subtraction">Step-by-Step Guide
+to Metaball Subtraction</h2>
+<p>To subtract one metaball from another, follow these steps:</p>
+<h3 id="create-the-base-metaball">1. Create the Base Metaball</h3>
+<ol type="1">
+<li>Press <strong>Shift + A</strong> in the 3D Viewport.</li>
+<li>Go to <strong>Metaball</strong> and select a shape (such as
+<strong>Ball</strong>). This will act as your main positive
+geometry.</li>
+</ol>
+<h3 id="add-the-subtracting-metaball">2. Add the Subtracting
+Metaball</h3>
+<ol type="1">
+<li>Select the first metaball and press <strong>Tab</strong> to enter
+<strong>Edit Mode</strong> (or remain in <strong>Object Mode</strong> if
+adding a new object).</li>
+<li>Press <strong>Shift + A</strong> &gt; <strong>Metaball</strong> to
+add a second metaball shape, or duplicate the existing one using
+<strong>Shift + D</strong>.</li>
+<li>Move and scale the new metaball so that it overlaps the base
+metaball where you want the subtraction to occur.</li>
+</ol>
+<h3 id="set-the-element-to-negative">3. Set the Element to Negative</h3>
+<ol type="1">
+<li>Select the metaball element you wish to use as a cutter.</li>
+<li>Go to the <strong>Object Data Properties</strong> tab (represented
+by a green metaball icon) in the Properties panel on the right side of
+the screen.</li>
+<li>Locate the <strong>Active Element</strong> section.</li>
+<li>Check the <strong>Negative</strong> box.</li>
+</ol>
+<p>As soon as <strong>Negative</strong> is enabled, the selected
+metaball will subtract its volume from any intersecting positive
+metaballs.</p>
+<h2 id="key-rules-for-metaball-subtraction">Key Rules for Metaball
+Subtraction</h2>
+<ul>
+<li><strong>Object Naming Families:</strong> Metaballs only interact if
+they belong to the same family. Blender groups metaballs based on the
+prefix of their object names (e.g., <code>MBall</code>,
+<code>MBall.001</code>, <code>MBall.002</code>).</li>
+<li><strong>Adjusting Influence:</strong> You can control the reach of
+the subtraction by tweaking the <strong>Stiffness</strong> setting under
+the <strong>Active Element</strong> section. Higher values make the cut
+sharper, while lower values create a smoother transition.</li>
+<li><strong>Converting to a Mesh:</strong> Once you achieve the desired
+shape, return to <strong>Object Mode</strong>, right-click the metaball,
+and select <strong>Convert To</strong> &gt; <strong>Mesh</strong> to
+finalize the geometry for sculpting, editing, or exporting.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

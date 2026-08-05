@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Clean Zero Weight Vertex Groups in Blender - blender</title>
+    <meta name="description" content="Cleaning zero weight vertex groups in Blender removes unnecessary weight data and empty group containers from your 3D models. This process optimizes your mesh, reduces file sizes, and prevents unwanted mesh deformations or errors during rigging and anima">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-clean-zero-weight-vertex-groups-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Clean Zero Weight Vertex Groups in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-clean-zero-weight-vertex-groups-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Cleaning zero weight vertex groups in Blender removes unnecessary weight data and empty group containers from your 3D models. This process optimizes your mesh, reduces file sizes, and prevents unwanted mesh deformations or errors during rigging and anima" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-clean-zero-weight-vertex-groups-in-blender">How to Clean
+Zero Weight Vertex Groups in Blender</h1>
+<p>Cleaning zero weight vertex groups in Blender removes unnecessary
+weight data and empty group containers from your 3D models. This process
+optimizes your mesh, reduces file sizes, and prevents unwanted mesh
+deformations or errors during rigging and animation.</p>
+<h2 id="step-1-remove-zero-weights-from-vertices">Step 1: Remove Zero
+Weights from Vertices</h2>
+<p>To strip vertices of zero or near-zero weight values across all
+existing groups, use Blender’s built-in Weight Paint clean tool:</p>
+<ol type="1">
+<li>Select your mesh object in the 3D Viewport.</li>
+<li>Switch to <strong>Weight Paint Mode</strong> using the mode selector
+in the top-left corner (or press <strong>Ctrl + Tab</strong> and select
+<strong>Weight Paint</strong>).</li>
+<li>Click on the <strong>Weights</strong> menu in the top viewport
+header.</li>
+<li>Select <strong>Clean</strong> from the dropdown menu.</li>
+<li>Open the <strong>Clean Vertex Group</strong> operator box in the
+bottom-left corner of the 3D Viewport.</li>
+<li>Change <strong>Subset</strong> to <strong>All Groups</strong>.</li>
+<li>Set the <strong>Limit</strong> value (e.g., <code>0.001</code>). Any
+vertex weight equal to or below this threshold will be completely
+removed from the group.</li>
+</ol>
+<h2 id="step-2-delete-empty-vertex-groups">Step 2: Delete Empty Vertex
+Groups</h2>
+<p>Removing the zero weights from vertices does not automatically delete
+the empty vertex group names from your object’s properties list. To
+remove vertex groups that contain no assigned weights:</p>
+<h3 id="method-a-using-the-vertex-groups-menu">Method A: Using the
+Vertex Groups Menu</h3>
+<ol type="1">
+<li>Select your object and go to the <strong>Object Data
+Properties</strong> tab (green triangle icon) on the right panel.</li>
+<li>Lock any active vertex groups you want to preserve by clicking the
+lock icon next to their names.</li>
+<li>Click the <strong>down-arrow icon</strong> located to the right of
+the Vertex Groups list.</li>
+<li>Select <strong>Delete All Unlocked Groups</strong>.</li>
+</ol>
+<h3 id="method-b-using-a-quick-python-script">Method B: Using a Quick
+Python Script</h3>
+<p>If you have many groups and want to automatically remove only those
+with zero assigned weights without locking groups manually:</p>
+<ol type="1">
+<li>Switch to the <strong>Scripting</strong> workspace or open a
+<strong>Text Editor</strong> window in Blender.</li>
+<li>Click <strong>New</strong> to create a new script.</li>
+<li>Paste the following script:</li>
+</ol>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bpy</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>obj <span class="op">=</span> bpy.context.active_object</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> obj <span class="kw">and</span> obj.<span class="bu">type</span> <span class="op">==</span> <span class="st">&#39;MESH&#39;</span>:</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Find all groups with assigned weights</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    weighted_groups <span class="op">=</span> {g.group <span class="cf">for</span> v <span class="kw">in</span> obj.data.vertices <span class="cf">for</span> g <span class="kw">in</span> v.groups <span class="cf">if</span> g.weight <span class="op">&gt;</span> <span class="dv">0</span>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Remove groups that have no weights</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> vg <span class="kw">in</span> <span class="bu">list</span>(obj.vertex_groups):</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> vg.index <span class="kw">not</span> <span class="kw">in</span> weighted_groups:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            obj.vertex_groups.remove(vg)</span></code></pre></div>
+<ol start="4" type="1">
+<li>Select your mesh in Object Mode and click <strong>Run
+Script</strong> (or press <strong>Alt + P</strong>). Any vertex group
+with no positive weights assigned to any vertex will be deleted
+instantly.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

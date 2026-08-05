@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is a NURBS Surface in Blender? - blender</title>
+    <meta name="description" content="A NURBS (Non-Uniform Rational B-Spline) surface in Blender is a mathematically generated 3D object used to create smooth, precise curves and surfaces. Unlike standard polygonal meshes that consist of flat faces, edges, and vertices, NURBS surfaces rely o">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-a-nurbs-surface-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is a NURBS Surface in Blender? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-a-nurbs-surface-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="A NURBS (Non-Uniform Rational B-Spline) surface in Blender is a mathematically generated 3D object used to create smooth, precise curves and surfaces. Unlike standard polygonal meshes that consist of flat faces, edges, and vertices, NURBS surfaces rely o" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-a-nurbs-surface-in-blender">What Is a NURBS Surface in
+Blender?</h1>
+<p>A NURBS (Non-Uniform Rational B-Spline) surface in Blender is a
+mathematically generated 3D object used to create smooth, precise curves
+and surfaces. Unlike standard polygonal meshes that consist of flat
+faces, edges, and vertices, NURBS surfaces rely on mathematical formulas
+controlled by a grid of control points. This makes them ideal for
+industrial design, automotive modeling, curved architecture, and organic
+shapes that require perfect smoothness. This guide breaks down what
+NURBS surfaces are, how they function inside Blender, their advantages
+and limitations, and how to convert them into editable polygonal
+meshes.</p>
+<h2 id="understanding-nurbs-technology">Understanding NURBS
+Technology</h2>
+<p>NURBS is an acronym that describes the mathematical approach to
+generating 3D curves and surfaces:</p>
+<ul>
+<li><strong>Non-Uniform:</strong> Allows the spacing between control
+points to vary, enabling sharp corners or smooth transitions along a
+single curve.</li>
+<li><strong>Rational:</strong> Indicates that control points can have
+different weight values, giving you precise control over how strongly
+the surface is pulled toward a specific point (essential for generating
+perfect circles, spheres, and ellipses).</li>
+<li><strong>B-Spline:</strong> Stands for Basis Spline, the mathematical
+equation used to interpolate and construct the smooth surface between
+control points.</li>
+</ul>
+<h2 id="how-nurbs-surfaces-work-in-blender">How NURBS Surfaces Work in
+Blender</h2>
+<p>When you add a NURBS surface object in Blender (such as a NURBS
+Surface Plane, Cylinder, Torus, or Sphere), you manipulate the surface
+through a control cage rather than editing the geometry directly.</p>
+<h3 id="control-points-and-weighting">Control Points and Weighting</h3>
+<p>Instead of pulling actual mesh vertices, you edit control points.
+Moving a control point creates a smooth, continuous bend in the surface.
+In the Sidebar panel (press <code>N</code> in Edit Mode), you can adjust
+the <strong>Weight</strong> of an individual point. Higher weights pull
+the surface closer to the control point, while lower weights allow it to
+sag away.</p>
+<h3 id="order-and-resolution">Order and Resolution</h3>
+<ul>
+<li><strong>Order:</strong> Defines how many control points affect a
+given segment of the surface. A higher order creates smoother curves but
+requires more control points to manage.</li>
+<li><strong>Resolution (U and V):</strong> NURBS surfaces run along two
+directions: U (horizontal) and V (vertical). Blender calculates the
+visible mesh resolution dynamically based on the U and V resolution
+settings in the Object Data Properties tab. You can increase viewport
+rendering smoothness without altering the underlying control
+structure.</li>
+</ul>
+<h2 id="key-advantages-of-nurbs-surfaces">Key Advantages of NURBS
+Surfaces</h2>
+<ol type="1">
+<li><strong>Infinite Smoothness:</strong> Because the surface is
+generated mathematically, it retains perfect smoothness regardless of
+how close the camera gets.</li>
+<li><strong>Low Memory Overhead:</strong> Objects require very few
+control points to define complex curved geometry, keeping scene data
+lightweight.</li>
+<li><strong>Ideal for Hard-Surface Design:</strong> Perfect for shapes
+that require mathematical accuracy, such as car panels, consumer
+electronics, and aerodynamic forms.</li>
+</ol>
+<h2 id="limitations-in-blender">Limitations in Blender</h2>
+<p>While NURBS modeling is a staple in dedicated CAD (Computer-Aided
+Design) software, Blender’s implementation has specific limitations:</p>
+<ul>
+<li><strong>Limited Feature Set:</strong> Blender’s native NURBS toolset
+lacks advanced CAD operations like complex surface trimming, automated
+filleting, and Boolean operations between surfaces.</li>
+<li><strong>Texturing Constraints:</strong> UV unwrapping NURBS surfaces
+directly can be restrictive compared to polygonal meshes.</li>
+<li><strong>Sculpting &amp; Painting:</strong> You cannot use Blender’s
+Sculpt Mode or Texture Paint Mode directly on a NURBS surface.</li>
+</ul>
+<h2 id="converting-a-nurbs-surface-to-a-mesh">Converting a NURBS Surface
+to a Mesh</h2>
+<p>Because most 3D workflows—such as game engine export, advanced
+texturing, and sculpting—require polygonal geometry, you will often need
+to convert your NURBS surface into a standard mesh.</p>
+<p>To convert a NURBS surface to a polygon mesh:</p>
+<ol type="1">
+<li>Select the NURBS object in <strong>Object Mode</strong>.</li>
+<li>Right-click in the viewport to open the context menu.</li>
+<li>Select <strong>Convert To</strong> &gt; <strong>Mesh</strong>.</li>
+</ol>
+<p>Once converted, the mathematical surface turns into standard
+vertices, edges, and faces based on the Resolution settings defined
+prior to conversion.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>
