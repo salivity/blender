@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Auto Generate Armature Weights in Blender - blender</title>
+    <meta name="description" content="Automatically generating weights for an armature in Blender is the fastest way to bind a 3D mesh to a skeleton for animation. By parenting a mesh to an armature using the "With Automatic Weights" option, Blender calculates how much each bone influences s">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-auto-generate-armature-weights-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Auto Generate Armature Weights in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-auto-generate-armature-weights-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Automatically generating weights for an armature in Blender is the fastest way to bind a 3D mesh to a skeleton for animation. By parenting a mesh to an armature using the "With Automatic Weights" option, Blender calculates how much each bone influences s" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-auto-generate-armature-weights-in-blender">How to Auto
+Generate Armature Weights in Blender</h1>
+<p>Automatically generating weights for an armature in Blender is the
+fastest way to bind a 3D mesh to a skeleton for animation. By parenting
+a mesh to an armature using the "With Automatic Weights" option, Blender
+calculates how much each bone influences surrounding vertices based on
+proximity. This guide covers the exact steps to bind your mesh
+automatically, how to test the results, and how to fix common automatic
+weighting errors.</p>
+<h2 id="steps-to-auto-generate-weights">Steps to Auto Generate
+Weights</h2>
+<ol type="1">
+<li><strong>Switch to Object Mode:</strong> Ensure both your mesh and
+armature are visible and positioned correctly in Object Mode.</li>
+<li><strong>Select the Mesh First:</strong> Left-click your 3D mesh to
+select it.</li>
+<li><strong>Select the Armature Second:</strong> Hold <code>Shift</code>
+and click the armature. The armature must be the active object
+(highlighted in a lighter orange outline).</li>
+<li><strong>Parent the Objects:</strong> Press <code>Ctrl + P</code> to
+open the <strong>Set Parent To</strong> menu.</li>
+<li><strong>Apply Automatic Weights:</strong> Under the <em>Armature
+Deform</em> section, select <strong>With Automatic
+Weights</strong>.</li>
+</ol>
+<p>Blender will process the geometry and generate vertex groups
+corresponding to each bone in the armature, automatically assigning
+weight values from 0.0 to 1.0.</p>
+<h2 id="testing-the-generated-weights">Testing the Generated
+Weights</h2>
+<ol type="1">
+<li>Select the armature and enter <strong>Pose Mode</strong>
+(<code>Ctrl + Tab</code> or via the top-left mode dropdown).</li>
+<li>Select any bone and press <code>R</code> to rotate it or
+<code>G</code> to move it.</li>
+<li>Observe how the mesh deforms along with the bone movements.</li>
+<li>To view the weight maps visually, select the mesh and switch to
+<strong>Weight Paint Mode</strong>. Select individual bone names in the
+Object Data Properties panel (green triangle icon) under Vertex Groups
+to see the heat map representation. Red indicates maximum influence
+(1.0), green/yellow indicates medium influence, and blue indicates zero
+influence (0.0).</li>
+</ol>
+<h2 id="troubleshooting-common-errors">Troubleshooting Common
+Errors</h2>
+<h3 id="bone-heat-weighting-failed">"Bone Heat Weighting Failed"</h3>
+<p>This error occurs when the mesh geometry prevents Blender's
+volumetric calculations. To resolve it:</p>
+<ul>
+<li><strong>Merge Vertices:</strong> Select the mesh, enter Edit Mode
+(<code>Tab</code>), select all vertices (<code>A</code>), press
+<code>M</code>, and choose <strong>By Distance</strong> to remove
+duplicate vertices.</li>
+<li><strong>Recalculate Normals:</strong> In Edit Mode, select all
+vertices (<code>A</code>) and press <code>Shift + N</code> to ensure all
+face normals point outward.</li>
+<li><strong>Apply Scale and Rotation:</strong> Switch to Object Mode,
+select both the mesh and armature, press <code>Ctrl + A</code>, and
+select <strong>All Transforms</strong>.</li>
+<li><strong>Clean Mesh Geometry:</strong> Ensure there are no interior
+faces, self-intersecting geometry, or non-manifold edges.</li>
+</ul>
+<h3 id="unwanted-deformation-across-nearby-geometry">Unwanted
+Deformation Across Nearby Geometry</h3>
+<p>If moving a limb bone distorts an unrelated part of the mesh (such as
+a leg movement affecting a hand hanging nearby):</p>
+<ul>
+<li>Enter <strong>Weight Paint Mode</strong> on the mesh, pick the
+affected bone's vertex group, set the brush tool to
+<strong>Subtract</strong>, and paint over the improperly influenced
+area.</li>
+<li>Alternatively, select the problematic vertices in Edit Mode,
+navigate to the <strong>Vertex Groups</strong> panel, select the
+unwanted bone group, and click <strong>Remove</strong>.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

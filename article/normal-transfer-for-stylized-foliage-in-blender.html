@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normal Transfer for Stylized Foliage in Blender - blender</title>
+    <meta name="description" content="The normal transfer technique in Blender is a workflow used to achieve smooth, cohesive, and volumetric lighting on 3D foliage meshes. Stylized trees and bushes typically rely on intersecting flat polygon cards, which naturally produce harsh, disjointed">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/normal-transfer-for-stylized-foliage-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Normal Transfer for Stylized Foliage in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/normal-transfer-for-stylized-foliage-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The normal transfer technique in Blender is a workflow used to achieve smooth, cohesive, and volumetric lighting on 3D foliage meshes. Stylized trees and bushes typically rely on intersecting flat polygon cards, which naturally produce harsh, disjointed" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="normal-transfer-for-stylized-foliage-in-blender">Normal Transfer
+for Stylized Foliage in Blender</h1>
+<p>The normal transfer technique in Blender is a workflow used to
+achieve smooth, cohesive, and volumetric lighting on 3D foliage meshes.
+Stylized trees and bushes typically rely on intersecting flat polygon
+cards, which naturally produce harsh, disjointed shading that reveals
+the flat geometry. By transferring the vertex normals from a smooth
+proxy shape—such as a sphere—onto the complex foliage mesh, artists can
+eliminate distracting lighting seams and create the soft, painted look
+characteristic of stylized and anime-inspired art styles.</p>
+<h3 id="the-problem-with-default-foliage-shading">The Problem with
+Default Foliage Shading</h3>
+<p>Creating 3D foliage entirely out of individual, modeled leaves is
+computationally expensive and unsuitable for real-time rendering or
+clean artistic control. Consequently, artists build canopies using flat
+leaf clusters or textured cross-planes (foliage cards).</p>
+<p>By default, the shading of any 3D face is determined by its surface
+normal—the perpendicular direction it faces. On intersecting flat cards,
+these normals point in conflicting directions. When light hits the
+canopy, each individual card reflects light differently, resulting in
+sharp contrast between overlapping planes, visible edges, and a messy,
+flat, paper-like appearance that breaks visual immersion.</p>
+<h3 id="how-the-normal-transfer-technique-works">How the Normal Transfer
+Technique Works</h3>
+<p>Normal transfer replaces the foliage's native, disjointed vertex
+normals with the organized normals of a simplified geometric proxy. In
+Blender, this is commonly executed using the <strong>Data
+Transfer</strong> modifier.</p>
+<ol type="1">
+<li><strong>Proxy Creation:</strong> A simple enclosing mesh, like an
+icosphere or a simplified hull matching the general silhouette of the
+tree canopy, is placed over the foliage.</li>
+<li><strong>Normal Projection:</strong> The foliage mesh uses the Data
+Transfer modifier to copy the "Custom Normal" data from the proxy
+mesh.</li>
+<li><strong>Unified Direction:</strong> Instead of pointing
+perpendicularly off each flat leaf card, the foliage normals now point
+uniformly outward from the center of the canopy, mirroring the spherical
+proxy.</li>
+</ol>
+<h3 id="core-benefits-of-normal-transfer">Core Benefits of Normal
+Transfer</h3>
+<ul>
+<li><strong>Volumetric and Painterly Lighting:</strong> The canopy
+receives light and casts shadows as if it were a single, solid volume
+rather than hundreds of separate cards. Highlights and shadows gradient
+smoothly across the entire tree, mirroring traditional 2D animation and
+concept art.</li>
+<li><strong>Hiding Card Intersections:</strong> Because the lighting
+gradients match across adjacent planes, the edges where polygon planes
+cut through one another become virtually invisible to the viewer.</li>
+<li><strong>Low Geometry, High Quality:</strong> Artists can keep
+polygon counts low for optimal game engine performance while maintaining
+the visual richness and soft shading of a dense, high-poly asset.</li>
+<li><strong>Controllable Artistic Form:</strong> The overall lighting
+response can be fine-tuned simply by editing the shape of the proxy
+mesh, giving the artist precise directional control over highlights and
+self-shadowing without altering the underlying foliage geometry.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

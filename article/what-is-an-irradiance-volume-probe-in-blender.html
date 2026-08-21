@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is an Irradiance Volume Probe in Blender? - blender</title>
+    <meta name="description" content="This article provides an overview of the irradiance volume probe in Blender, explaining its primary purpose, how it operates within the EEVEE rendering engine, and why it is crucial for realistic lighting. You will learn how these light probes capture an">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-an-irradiance-volume-probe-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is an Irradiance Volume Probe in Blender? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-an-irradiance-volume-probe-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides an overview of the irradiance volume probe in Blender, explaining its primary purpose, how it operates within the EEVEE rendering engine, and why it is crucial for realistic lighting. You will learn how these light probes capture an" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-an-irradiance-volume-probe-in-blender">What Is an
+Irradiance Volume Probe in Blender?</h1>
+<p>This article provides an overview of the irradiance volume probe in
+Blender, explaining its primary purpose, how it operates within the
+EEVEE rendering engine, and why it is crucial for realistic lighting.
+You will learn how these light probes capture and distribute indirect
+diffuse light, the mechanics of the baking process, and best practices
+for implementing them to eliminate flat-looking renders without the
+computational cost of full ray tracing.</p>
+<h3 id="the-purpose-of-an-irradiance-volume-probe">The Purpose of an
+Irradiance Volume Probe</h3>
+<p>In Blender, an Irradiance Volume is a type of Light Probe used
+predominantly by the EEVEE render engine to simulate indirect diffuse
+lighting, also known as Global Illumination (GI).</p>
+<p>While ray-traced engines like Cycles calculate how light bounces off
+surfaces automatically, real-time rasterization engines like EEVEE rely
+on approximation techniques to maintain performance. Direct light
+sources illuminate surfaces they directly hit, but they cannot naturally
+bounce light onto neighboring surfaces. The Irradiance Volume solves
+this by capturing bounced light and color bleeding from surrounding
+geometry and projecting it onto static and dynamic objects in the
+scene.</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>An Irradiance Volume appears in the viewport as a bounding box
+containing a three-dimensional grid of sample points (represented as
+small spheres). Each point acts as a tiny camera that records the
+incoming light from all directions.</p>
+<ol type="1">
+<li><strong>Light Baking:</strong> When you click "Bake Indirect
+Lighting" in the Render Properties panel, Blender renders the scene from
+the perspective of each individual point in the grid and stores the
+diffuse light data as spherical harmonics.</li>
+<li><strong>Interpolation:</strong> During playback or rendering, any
+object moving through or resting within the volume samples the nearest
+probe points. The engine interpolates the data between these points to
+apply smooth, realistic bounce light and ambient color to the object's
+surface.</li>
+</ol>
+<h3 id="key-benefits-and-capabilities">Key Benefits and
+Capabilities</h3>
+<ul>
+<li><strong>Color Bleeding:</strong> If a bright red wall is hit by a
+strong direct light, the Irradiance Volume captures the reflected red
+light and casts a soft red tint onto nearby white floors or adjacent
+objects.</li>
+<li><strong>Realistic Ambient Shadows:</strong> It helps fill shadowed
+areas with realistic ambient lighting rather than completely dark or
+uniformly flat ambient light.</li>
+<li><strong>Performance Efficiency:</strong> Because the lighting data
+is pre-calculated (baked), it provides realistic illumination in the
+viewport and during final renders with minimal impact on real-time
+rendering speed.</li>
+</ul>
+<h3 id="best-practices-for-setup">Best Practices for Setup</h3>
+<ul>
+<li><strong>Grid Resolution:</strong> Adjust the resolution (X, Y, Z
+counts) under the probe's data properties to ensure there are enough
+sample points to capture lighting transitions accurately without
+inflating memory usage.</li>
+<li><strong>Avoid Geometry Clipping:</strong> Ensure individual probe
+points do not sit directly inside walls or solid objects, as they will
+capture blackness and create dark splotches or light leaks on nearby
+surfaces.</li>
+<li><strong>Scale Appropriately:</strong> Fit the volume tightly around
+the playable or visible area of your scene rather than scaling it across
+an entire massive environment, ensuring maximum probe density where it
+matters most.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

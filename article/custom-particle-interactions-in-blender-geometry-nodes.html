@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Particle Interactions in Blender Geometry Nodes - blender</title>
+    <meta name="description" content="Building custom particle interactions in Blender Geometry Nodes allows you to create tailored physics systems—such as flocking behaviors, particle collisions, and custom force fields—without relying on the legacy particle system. By leveraging the Si">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/custom-particle-interactions-in-blender-geometry-nodes">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Custom Particle Interactions in Blender Geometry Nodes - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/custom-particle-interactions-in-blender-geometry-nodes" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Building custom particle interactions in Blender Geometry Nodes allows you to create tailored physics systems—such as flocking behaviors, particle collisions, and custom force fields—without relying on the legacy particle system. By leveraging the Si" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="custom-particle-interactions-in-blender-geometry-nodes">Custom
+Particle Interactions in Blender Geometry Nodes</h1>
+<p>Building custom particle interactions in Blender Geometry Nodes
+allows you to create tailored physics systems—such as flocking
+behaviors, particle collisions, and custom force fields—without relying
+on the legacy particle system. By leveraging the Simulation Zone
+alongside vector math, proximity sampling, and field manipulation, you
+can define frame-by-frame rules that dictate how individual particles
+react to their environment and to each other.</p>
+<h2 id="1-setting-up-the-simulation-zone">1. Setting Up the Simulation
+Zone</h2>
+<p>The foundation of any custom particle system in Geometry Nodes is the
+<strong>Simulation Zone</strong> (<code>Simulation Input</code> and
+<code>Simulation Output</code>).</p>
+<ol type="1">
+<li>Add a <strong>Simulation Zone</strong> to your node tree.</li>
+<li>Initialize your particles by connecting a mesh or point cloud (e.g.,
+from a <strong>Distribute Points in Volume</strong> or <strong>Mesh to
+Points</strong> node) to the <code>Simulation Input</code>.</li>
+<li>Add custom attributes to the Simulation Zone by clicking the plus
+icon on the input node. Define attributes such as <code>Velocity</code>
+(Vector) and <code>Age</code> (Float).</li>
+<li>Update position inside the zone using a <strong>Set
+Position</strong> node, feeding the updated position as:<br />
+<code>New Position = Current Position + (Velocity * Delta Time)</code></li>
+</ol>
+<p>Use the <strong>Scene Time</strong> node's <code>Delta Time</code>
+output to ensure the simulation remains frame-rate independent.</p>
+<h2 id="2-calculating-particle-to-particle-interactions">2. Calculating
+Particle-to-Particle Interactions</h2>
+<p>To make particles interact with one another (e.g., attraction,
+repulsion, or flocking behavior), you need to sample neighboring
+particles within the simulation loop.</p>
+<h3 id="point-proximity-and-repulsion">Point Proximity and
+Repulsion</h3>
+<ol type="1">
+<li>Use the <strong>Sample Nearest</strong> node set to <em>Point</em>
+domain to find the index of the closest neighboring particle.</li>
+<li>Use the <strong>Sample Index</strong> node to retrieve the position
+of that neighbor.</li>
+<li>Calculate the direction vector from the neighbor to the current
+particle:<br />
+<code>Direction = Current Position - Neighbor Position</code></li>
+<li>Calculate the distance using a <strong>Vector Math
+(Distance)</strong> node.</li>
+<li>Apply a force based on distance (such as inverse distance for
+repulsion).</li>
+<li>Add this force to the particle's <code>Velocity</code> vector.</li>
+</ol>
+<p>For multi-particle interactions (such as full N-body simulations),
+chain multiple <strong>Sample Nearest</strong> queries using index
+offsets or use repeat zones to iterate through nearby points.</p>
+<h2 id="3-creating-custom-force-fields">3. Creating Custom Force
+Fields</h2>
+<p>Custom external forces, such as vortices, gravity, or turbulent
+noise, can be added directly to the velocity vector on each frame.</p>
+<ul>
+<li><strong>Directional Gravity:</strong> Use a <strong>Vector Math
+(Add)</strong> node to add a constant downward vector (e.g.,
+<code>[0, 0, -9.8] * Delta Time</code>) to the velocity.</li>
+<li><strong>Turbulence:</strong> Connect a <strong>Noise
+Texture</strong> to a <strong>Vector Math (Subtract 0.5)</strong> node
+to center the noise, scale it by a force intensity float, and add it to
+the velocity.</li>
+<li><strong>Attractors/Repellers:</strong> Compute the vector between
+the particle and an empty/object's position using the <strong>Object
+Info</strong> node. Normalize the vector, divide it by the distance
+squared, and add the result to the particle's velocity.</li>
+</ul>
+<h2 id="4-implementing-surface-collisions">4. Implementing Surface
+Collisions</h2>
+<p>To make particles interact with geometry surfaces:</p>
+<ol type="1">
+<li>Bring the collider mesh into the node tree using an <strong>Object
+Info</strong> or <strong>Collection Info</strong> node set to
+<em>Relative</em>.</li>
+<li>Use a <strong>Raycast</strong> node inside the Simulation Zone:
+<ul>
+<li><strong>Ray Origin:</strong> Current particle position.</li>
+<li><strong>Ray Direction:</strong> Normalized particle velocity.</li>
+<li><strong>Ray Length:</strong> Velocity magnitude multiplied by
+<code>Delta Time</code> (the distance the particle will travel this
+frame).</li>
+</ul></li>
+<li>If the Raycast output <code>Is Hit</code> is true:
+<ul>
+<li>Reflect the velocity vector using the formula:<br />
+<code>Reflected Velocity = Velocity - 2 * (Velocity ⋅ Hit Normal) * Hit Normal</code></li>
+<li>Multiply the reflected velocity by a friction or restitution factor
+(e.g., <code>0.8</code> for a dampening bounce).</li>
+<li>Set the particle position to the <code>Hit Position</code> plus a
+slight offset along the <code>Hit Normal</code> to prevent particles
+from penetrating the surface.</li>
+</ul></li>
+</ol>
+<h2 id="5-managing-particle-lifetime-and-spawning">5. Managing Particle
+Lifetime and Spawning</h2>
+<p>Dynamic systems require spawning new particles and killing old ones
+over time:</p>
+<ul>
+<li><strong>Spawning:</strong> Use a <strong>Join Geometry</strong> node
+inside the Simulation Zone to merge newly generated points (from a
+dynamic emitter) with the existing simulated points.</li>
+<li><strong>Aging:</strong> Add <code>Delta Time</code> to the
+<code>Age</code> attribute on every frame using a <strong>Math
+(Add)</strong> node.</li>
+<li><strong>Deletion:</strong> Pass the points through a <strong>Delete
+Geometry</strong> node, setting the selection to
+<code>Age &gt; Max Lifetime</code>.</li>
+</ul>
+<h2 id="6-improving-simulation-stability">6. Improving Simulation
+Stability</h2>
+<p>To prevent high-speed particles from passing through colliders or
+jittering during complex interactions:</p>
+<ul>
+<li>Wrap the internal physics calculations inside a <strong>Repeat
+Zone</strong> within the Simulation Zone to perform sub-stepping (e.g.,
+running the calculation 4–8 times per frame with
+<code>Delta Time / Substeps</code>).</li>
+<li>Use a <strong>Vector Math (Clamp)</strong> or dynamic drag
+calculation to enforce terminal velocity and avoid exponential energy
+buildup.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

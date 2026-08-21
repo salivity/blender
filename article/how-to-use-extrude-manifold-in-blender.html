@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Extrude Manifold in Blender - blender</title>
+    <meta name="description" content="The Extrude Manifold tool in Blender allows 3D artists to extrude faces inward or along existing geometry without creating messy, overlapping faces or non-manifold geometry. This guide explains how to find, activate, and effectively use the Extrude Manif">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-extrude-manifold-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Extrude Manifold in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-extrude-manifold-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Extrude Manifold tool in Blender allows 3D artists to extrude faces inward or along existing geometry without creating messy, overlapping faces or non-manifold geometry. This guide explains how to find, activate, and effectively use the Extrude Manif" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-extrude-manifold-in-blender">How to Use Extrude
+Manifold in Blender</h1>
+<p>The Extrude Manifold tool in Blender allows 3D artists to extrude
+faces inward or along existing geometry without creating messy,
+overlapping faces or non-manifold geometry. This guide explains how to
+find, activate, and effectively use the Extrude Manifold tool in Edit
+Mode, detailing its advantages over standard extrusions and key settings
+to keep your mesh clean.</p>
+<h2 id="what-is-extrude-manifold">What is Extrude Manifold?</h2>
+<p>Unlike the standard Extrude Region tool (<code>E</code>), which
+simply creates new faces regardless of intersecting geometry,
+<strong>Extrude Manifold</strong> automatically cleans up overlapping
+edges and dissolves adjacent geometry when pushing a face inward or
+sliding it along neighboring faces. This helps maintain a clean,
+manifold mesh structure without requiring manual cleanup like deleting
+interior faces or merging vertices.</p>
+<h2 id="how-to-access-the-tool">How to Access the Tool</h2>
+<p>You can access the Extrude Manifold tool in Blender using two main
+methods:</p>
+<h3 id="method-1-the-toolbar">Method 1: The Toolbar</h3>
+<ol type="1">
+<li>Switch to <strong>Edit Mode</strong> by pressing
+<code>Tab</code>.</li>
+<li>Ensure you are in <strong>Face Select Mode</strong> (press
+<code>3</code> on your keyboard).</li>
+<li>On the left Toolbar (<code>T</code> to toggle visible), click and
+hold the <strong>Extrude Region</strong> icon.</li>
+<li>Select <strong>Extrude Manifold</strong> from the pop-up menu.</li>
+</ol>
+<h3 id="method-2-the-extrude-menu-shortcut">Method 2: The Extrude Menu
+Shortcut</h3>
+<ol type="1">
+<li>Select the face or faces you want to modify in <strong>Edit
+Mode</strong>.</li>
+<li>Press <code>Alt + E</code> to open the Extrude Menu.</li>
+<li>Click <strong>Extrude Manifold</strong>.</li>
+</ol>
+<h2 id="step-by-step-usage-guide">Step-by-Step Usage Guide</h2>
+<ol type="1">
+<li><strong>Select the Face:</strong> Click on the face you wish to push
+inward or drag across adjacent faces.</li>
+<li><strong>Activate the Tool:</strong> Use <code>Alt + E</code> and
+select <strong>Extrude Manifold</strong>, or click the gizmo handle if
+using the Toolbar tool.</li>
+<li><strong>Perform the Extrusion:</strong> Drag the face along its
+normal (or along adjacent edges).
+<ul>
+<li>When pushing inward into a mesh, notice how adjacent side faces
+dissolve automatically instead of creating internal geometry.</li>
+<li>When pushing past an edge or corner, Blender recalculates the
+surrounding topology to maintain a closed, valid mesh.</li>
+</ul></li>
+</ol>
+<h2 id="tool-settings-in-the-adjust-last-operation-panel">Tool Settings
+in the Adjust Last Operation Panel</h2>
+<p>After completing an extrusion, expand the <strong>Extrude Elements
+and Move</strong> panel in the bottom-left corner of the 3D Viewport to
+fine-tune your result:</p>
+<ul>
+<li><strong>Offset:</strong> Controls the precise distance of the
+extrusion.</li>
+<li><strong>Dissolve Orthogonal Edges:</strong> Automatically removes
+edges that are perpendicular to the direction of movement when they
+become redundant.</li>
+<li><strong>Orientation:</strong> Choose whether the movement aligns
+with the Normal, Local, or Global transformation orientation.</li>
+</ul>
+<h2 id="when-to-use-extrude-manifold-vs-standard-extrude">When to Use
+Extrude Manifold vs. Standard Extrude</h2>
+<ul>
+<li><strong>Use Extrude Manifold</strong> when cutting pockets, windows,
+steps, or recesses directly into existing objects (hard-surface
+modeling).</li>
+<li><strong>Use Standard Extrude (<code>E</code>)</strong> when
+extending a mesh outward into free space where there is no adjacent
+geometry to overlap or dissolve.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

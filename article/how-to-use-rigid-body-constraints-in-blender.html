@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Rigid Body Constraints in Blender - blender</title>
+    <meta name="description" content="Blender's rigid body physics engine allows you to link simulated objects together to create realistic mechanical assemblies like doors, pistons, and suspension systems. By using constraints such as Hinge and Slider, you can limit the movement of connecte">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-rigid-body-constraints-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Rigid Body Constraints in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-rigid-body-constraints-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Blender's rigid body physics engine allows you to link simulated objects together to create realistic mechanical assemblies like doors, pistons, and suspension systems. By using constraints such as Hinge and Slider, you can limit the movement of connecte" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-rigid-body-constraints-in-blender">How to Use Rigid
+Body Constraints in Blender</h1>
+<p>Blender's rigid body physics engine allows you to link simulated
+objects together to create realistic mechanical assemblies like doors,
+pistons, and suspension systems. By using constraints such as Hinge and
+Slider, you can limit the movement of connected bodies to specific
+rotational or translational axes. This guide covers the essential steps
+to prepare your objects, apply rigid body physics, and configure both
+Hinge and Slider constraints effectively.</p>
+<h2 id="step-1-prepare-objects-for-rigid-body-physics">Step 1: Prepare
+Objects for Rigid Body Physics</h2>
+<p>Before adding constraints, your target objects must be part of the
+Rigid Body simulation.</p>
+<ol type="1">
+<li>Select your base object (e.g., a wall or anchor) and go to the
+<strong>Physics Properties</strong> tab.</li>
+<li>Click <strong>Rigid Body</strong> and set the <strong>Type</strong>
+to <strong>Passive</strong> (if it should not move) or
+<strong>Active</strong> (if it should react to forces).</li>
+<li>Select the moving object (e.g., a door or piston head), add a
+<strong>Rigid Body</strong>, and set its <strong>Type</strong> to
+<strong>Active</strong>.</li>
+<li>Apply the scale of all involved objects by selecting them and
+pressing <code>Ctrl + A</code> &gt; <strong>Apply All
+Transforms</strong>.</li>
+</ol>
+<h2 id="step-2-setting-up-a-hinge-constraint">Step 2: Setting Up a Hinge
+Constraint</h2>
+<p>A Hinge constraint restricts movement to rotation around a single
+axis (by default, the local Z-axis of the constraint).</p>
+<ol type="1">
+<li>Press <code>Shift + A</code> and choose <strong>Empty</strong> &gt;
+<strong>Plain Axes</strong> to create a constraint controller.</li>
+<li>Place the Empty at the exact pivot point where rotation should
+occur.</li>
+<li>Align the Empty's <strong>local Z-axis</strong> with the intended
+axis of rotation.</li>
+<li>With the Empty selected, navigate to the <strong>Physics
+Properties</strong> tab and click <strong>Rigid Body
+Constraint</strong>.</li>
+<li>Set the <strong>Type</strong> to <strong>Hinge</strong>.</li>
+<li>Under the <strong>Objects</strong> section:
+<ul>
+<li>Set <strong>First</strong> to your base/anchor object.</li>
+<li>Set <strong>Second</strong> to the rotating active object.</li>
+</ul></li>
+<li><em>(Optional)</em> Enable <strong>Angular Limits</strong> in the
+settings below to restrict the rotation angle within a specific minimum
+and maximum range (e.g., 0° to 90° for a standard door).</li>
+</ol>
+<h2 id="step-3-setting-up-a-slider-constraint">Step 3: Setting Up a
+Slider Constraint</h2>
+<p>A Slider constraint restricts movement to translation along a single
+straight line (by default, the local X-axis of the constraint).</p>
+<ol type="1">
+<li>Press <code>Shift + A</code> and add a new <strong>Empty</strong>
+&gt; <strong>Plain Axes</strong>.</li>
+<li>Position the Empty at the starting point of the linear motion.</li>
+<li>Rotate the Empty so that its <strong>local X-axis</strong> points in
+the direction the object should slide.</li>
+<li>Go to the <strong>Physics Properties</strong> tab and click
+<strong>Rigid Body Constraint</strong>.</li>
+<li>Change the <strong>Type</strong> to <strong>Slider</strong>.</li>
+<li>Assign the two interacting objects in the <strong>First</strong> and
+<strong>Second</strong> fields.</li>
+<li>Under <strong>Linear Limits</strong>, check the <strong>X</strong>
+box to define the minimum and maximum distance the object can slide
+along that axis.</li>
+</ol>
+<h2 id="step-4-testing-and-troubleshooting">Step 4: Testing and
+Troubleshooting</h2>
+<ol type="1">
+<li>Press <code>Spacebar</code> in the viewport to play the timeline and
+test the simulation.</li>
+<li><strong>Jittering or Breaking:</strong> If constraints snap or shake
+uncontrollably, go to the <strong>Scene Properties</strong> tab, open
+the <strong>Rigid Body World</strong> panel, and increase the
+<strong>Substeps Per Frame</strong> and <strong>Solver
+Iterations</strong> (values between 20 and 50 often resolve stability
+issues).</li>
+<li><strong>Incorrect Direction:</strong> If the object moves or rotates
+in the wrong direction, select the constraint Empty, enter local
+transformation mode (<code>G</code> then <code>X</code>/<code>Z</code>
+twice), and rotate the Empty so its local coordinate axes match the
+required motion path.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

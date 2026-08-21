@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Space vs Raytraced Reflections in Blender - blender</title>
+    <meta name="description" content="In Blender, reflections are essential for creating realistic materials and lighting, and they are primarily calculated using either screen-space reflections (SSR) or raytraced reflections. While SSR calculates reflections based only on what is currently">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/screen-space-vs-raytraced-reflections-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Screen Space vs Raytraced Reflections in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/screen-space-vs-raytraced-reflections-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In Blender, reflections are essential for creating realistic materials and lighting, and they are primarily calculated using either screen-space reflections (SSR) or raytraced reflections. While SSR calculates reflections based only on what is currently" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="screen-space-vs-raytraced-reflections-in-blender">Screen Space
+vs Raytraced Reflections in Blender</h1>
+<p>In Blender, reflections are essential for creating realistic
+materials and lighting, and they are primarily calculated using either
+screen-space reflections (SSR) or raytraced reflections. While SSR
+calculates reflections based only on what is currently visible within
+the camera view, raytraced reflections simulate actual light paths
+interacting with the entire 3D scene. Understanding the fundamental
+differences in how these two techniques operate, their performance
+impact, and their visual fidelity will help you choose the right method
+for your rendering pipeline.</p>
+<h3 id="what-are-screen-space-reflections-ssr">What Are Screen-Space
+Reflections (SSR)?</h3>
+<p>Screen-Space Reflections are a real-time approximation technique
+commonly used in Blender's EEVEE render engine. SSR works entirely in
+post-processing by analyzing the pixels currently visible on the screen
+(the "screen buffer"). When a reflective material is rendered, the
+engine samples existing pixel data within the camera frame to generate
+the reflection.</p>
+<ul>
+<li><strong>Speed:</strong> Extremely fast and efficient, making it
+ideal for real-time viewport feedback, motion graphics, and video game
+asset previews.</li>
+<li><strong>Limitations:</strong> SSR cannot reflect anything that is
+off-screen or occluded by other objects. If an object moves outside the
+camera frame, its reflection will instantly vanish. It also suffers from
+noticeable edge fading and distortion artifacts near the borders of the
+render.</li>
+</ul>
+<h3 id="what-are-raytraced-reflections">What Are Raytraced
+Reflections?</h3>
+<p>Raytraced reflections, primarily utilized in Blender's Cycles engine
+(and increasingly integrated into modern real-time workflows),
+physically trace simulated rays of light from the camera into the 3D
+scene. When a ray hits a reflective surface, it bounces based on the
+material's roughness and surface normal, detecting any geometry it
+strikes regardless of its position relative to the camera.</p>
+<ul>
+<li><strong>Accuracy:</strong> Captures accurate global reflections,
+true multi-bounce reflections, complex refractions, and surfaces hidden
+from the camera's direct line of sight.</li>
+<li><strong>Limitations:</strong> Highly demanding on system resources.
+Raytracing requires significantly more compute power and longer render
+times, often necessitating hardware acceleration (such as NVIDIA OptiX
+or AMD HIP) to render efficiently.</li>
+</ul>
+<h3 id="key-differences-at-a-glance">Key Differences at a Glance</h3>
+<ul>
+<li><strong>Scene Awareness:</strong> SSR is limited to 2D screen
+information; raytracing calculates the entire 3D scene geometry.</li>
+<li><strong>Off-Screen Objects:</strong> SSR cannot reflect off-screen
+objects; raytracing reflects all active scene objects, even those behind
+the camera.</li>
+<li><strong>Occlusion:</strong> SSR fails when a foreground object
+blocks a background object from the camera view; raytracing naturally
+handles foreground and background occlusion.</li>
+<li><strong>Performance Impact:</strong> SSR offers near-instantaneous
+viewport rendering with minimal hardware load; raytracing produces
+higher render times and requires denoising to eliminate grain.</li>
+</ul>
+<h3 id="when-to-use-each">When to Use Each</h3>
+<p>Use <strong>Screen-Space Reflections</strong> when working with tight
+deadlines, real-time animation previews, stylized projects, or when
+rendering on lower-end hardware where maximum render speed is preferred
+over absolute physical accuracy.</p>
+<p>Use <strong>Raytraced Reflections</strong> when producing final
+production frames, photorealistic architectural visualizations, scenes
+with flat mirrors, or environments with complex interior lighting where
+missing reflections would break immersion.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

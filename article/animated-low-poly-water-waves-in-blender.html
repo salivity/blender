@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Low-Poly Water Waves in Blender - blender</title>
+    <meta name="description" content="This guide provides a straightforward walkthrough on creating stylized, animated low-poly water waves in Blender. By combining the powerful wave simulation of the Ocean modifier with the geometric reduction of the Decimate modifier and flat shading, you">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/animated-low-poly-water-waves-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Animated Low-Poly Water Waves in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/animated-low-poly-water-waves-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide provides a straightforward walkthrough on creating stylized, animated low-poly water waves in Blender. By combining the powerful wave simulation of the Ocean modifier with the geometric reduction of the Decimate modifier and flat shading, you" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="animated-low-poly-water-waves-in-blender">Animated Low-Poly
+Water Waves in Blender</h1>
+<p>This guide provides a straightforward walkthrough on creating
+stylized, animated low-poly water waves in Blender. By combining the
+powerful wave simulation of the Ocean modifier with the geometric
+reduction of the Decimate modifier and flat shading, you can quickly
+achieve a clean, performant, and retro low-poly aesthetic suitable for
+games and stylized renders.</p>
+<h3 id="step-1-create-the-base-mesh">Step 1: Create the Base Mesh</h3>
+<ol type="1">
+<li>Open Blender and delete the default cube.</li>
+<li>Press <code>Shift + A</code>, navigate to <strong>Mesh</strong>, and
+select <strong>Plane</strong> (or <strong>Grid</strong>).</li>
+<li>Scale the plane to your desired size (e.g., press <code>S</code>,
+type <code>5</code>, and press <code>Enter</code>).</li>
+</ol>
+<h3 id="step-2-apply-the-ocean-modifier">Step 2: Apply the Ocean
+Modifier</h3>
+<ol type="1">
+<li>Select the plane and go to the <strong>Modifier Properties</strong>
+tab (wrench icon) in the Properties panel.</li>
+<li>Click <strong>Add Modifier</strong> and select
+<strong>Ocean</strong> from the <em>Deform</em> or <em>Physics</em>
+category.</li>
+<li>Configure the ocean settings:
+<ul>
+<li><strong>Geometry:</strong> Keep it set to <em>Displace</em> to alter
+the existing plane geometry, or switch to <em>Generate</em> to let the
+modifier create a new ocean grid.</li>
+<li><strong>Resolution:</strong> Set this to a lower value (around
+<code>6</code> to <code>10</code>) to keep the polygon count manageable
+before decimation.</li>
+<li><strong>Waves:</strong> Adjust <strong>Scale</strong> (wave height),
+<strong>Smallest Wave</strong>, and <strong>Choppiness</strong>
+(sharpness of peaks) to match the desired look of your water.</li>
+</ul></li>
+</ol>
+<h3 id="step-3-achieve-the-low-poly-look">Step 3: Achieve the Low-Poly
+Look</h3>
+<ol type="1">
+<li>With the ocean object selected, click <strong>Add Modifier</strong>
+and choose <strong>Decimate</strong> from the <em>Generate</em>
+category.</li>
+<li>Place the Decimate modifier <strong>below</strong> the Ocean
+modifier in the modifier stack.</li>
+<li>In the Decimate modifier settings:
+<ul>
+<li>Select the <strong>Collapse</strong> tab and lower the
+<strong>Ratio</strong> (e.g., between <code>0.05</code> and
+<code>0.2</code>) to triangulate and reduce the surface into sharp,
+angular facets.</li>
+<li>Alternatively, use the <strong>Un-Subdivide</strong> tab and set the
+<strong>Iterations</strong> to an even number to produce a cleaner,
+low-poly quad pattern.</li>
+</ul></li>
+<li>Right-click the mesh in the 3D Viewport and select <strong>Shade
+Flat</strong> to ensure the angular faces catch the light
+individually.</li>
+</ol>
+<h3 id="step-4-animate-the-waves">Step 4: Animate the Waves</h3>
+<ol type="1">
+<li>Select the ocean object and go back to the <strong>Ocean</strong>
+modifier.</li>
+<li>Move the timeline playhead to frame <code>1</code>.</li>
+<li>Locate the <strong>Time</strong> property under the Ocean
+modifier.</li>
+<li>Animate using keyframes:
+<ul>
+<li>Set <strong>Time</strong> to <code>1.0</code>, hover over the field,
+and press <code>I</code> to insert a keyframe.</li>
+<li>Move the playhead to the final frame (e.g., frame
+<code>250</code>).</li>
+<li>Set <strong>Time</strong> to a higher value (e.g., <code>10.0</code>
+or <code>15.0</code>) and press <code>I</code> to keyframe it.</li>
+</ul></li>
+<li>Alternatively, automate the animation using a driver:
+<ul>
+<li>Click the <strong>Time</strong> input field, type
+<code>#frame * 0.05</code>, and press <code>Enter</code>. The wave speed
+will now automatically update as the timeline plays.</li>
+</ul></li>
+</ol>
+<h3 id="step-5-add-a-stylized-material">Step 5: Add a Stylized
+Material</h3>
+<ol type="1">
+<li>Switch to the <strong>Material Properties</strong> tab and click
+<strong>New</strong>.</li>
+<li>Set the <strong>Base Color</strong> to a vibrant cyan or deep
+blue.</li>
+<li>Lower the <strong>Roughness</strong> to around <code>0.1</code> to
+make the flat facets reflective and glossy.</li>
+<li>Optionally, slightly increase the <strong>Transmission</strong> or
+<strong>Metallic</strong> value to enhance the reflective properties of
+the low-poly surface.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

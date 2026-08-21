@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Line Art Occlusion Setting Guide - blender</title>
+    <meta name="description" content="The Occlusion setting in Blender's Line Art modifier controls which lines are rendered based on whether they are blocked or covered by 3D geometry from the camera's point of view. By calculating how many surface layers sit between an edge and the camera,">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-line-art-occlusion-setting-guide">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Line Art Occlusion Setting Guide - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-line-art-occlusion-setting-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Occlusion setting in Blender's Line Art modifier controls which lines are rendered based on whether they are blocked or covered by 3D geometry from the camera's point of view. By calculating how many surface layers sit between an edge and the camera," />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-line-art-occlusion-setting-guide">Blender Line Art
+Occlusion Setting Guide</h1>
+<p>The Occlusion setting in Blender's Line Art modifier controls which
+lines are rendered based on whether they are blocked or covered by 3D
+geometry from the camera's point of view. By calculating how many
+surface layers sit between an edge and the camera, this setting allows
+artists to display only fully visible lines, generate hidden or
+"see-through" lines, or filter out interior clutter to achieve technical
+drawing styles and stylized 2D aesthetics.</p>
+<h2 id="how-occlusion-works-in-line-art">How Occlusion Works in Line
+Art</h2>
+<p>When Blender builds Grease Pencil strokes using the Line Art
+modifier, it checks the line of sight between the active camera and
+every edge in the 3D scene. The occlusion algorithm determines how many
+faces overlap an edge.</p>
+<p>By default, the modifier uses occlusion to discard edges hidden
+behind opaque meshes, leaving only visible exterior contours and feature
+lines. However, the occlusion parameters can be adjusted to detect and
+display edges buried behind multiple surface layers.</p>
+<h2 id="key-occlusion-settings-and-levels">Key Occlusion Settings and
+Levels</h2>
+<h3 id="occlusion-levels">Occlusion Levels</h3>
+<p>Occlusion is quantified in numeric layers, representing the depth of
+obstruction from the camera:</p>
+<ul>
+<li><strong>Level 0 (Visible Lines):</strong> The edge has a direct line
+of sight to the camera with zero overlapping faces. This is the standard
+setting for clean, non-transparent outlines.</li>
+<li><strong>Level 1 (First Hidden Layer):</strong> The edge is behind
+exactly one surface layer.</li>
+<li><strong>Level 2 and Higher:</strong> The edge is hidden behind two
+or more overlapping surfaces.</li>
+</ul>
+<h3 id="exact-vs-range-selection">Exact vs. Range Selection</h3>
+<p>Blender allows you to filter lines based on specific occlusion
+criteria:</p>
+<ul>
+<li><strong>Exact Value:</strong> Renders lines that match an exact
+occlusion layer count (e.g., displaying only lines behind exactly one
+layer of glass or mesh).</li>
+<li><strong>Range Selection:</strong> Renders lines that fall between a
+minimum and maximum number of occluded layers, allowing you to capture a
+broader depth of internal geometry.</li>
+</ul>
+<h3 id="material-and-collection-masks">Material and Collection
+Masks</h3>
+<p>The occlusion system can interact with specific materials or
+collections:</p>
+<ul>
+<li><strong>Occlusion Masking:</strong> Marks certain objects or
+materials to block line generation entirely or to ignore occlusion
+calculations.</li>
+<li><strong>Transparency Handling:</strong> Allows Line Art to
+distinguish between solid objects that fully occlude lines and
+transparent or semi-transparent surfaces that should still allow lines
+to pass through.</li>
+</ul>
+<h2 id="practical-use-cases">Practical Use Cases</h2>
+<ul>
+<li><strong>Technical and Architectural Drawings:</strong> Assigning a
+second Line Art modifier to capture hidden edges (Occlusion Level 1+)
+and rendering them with a dashed or lower-opacity brush to represent
+internal mechanics or floor plans.</li>
+<li><strong>X-Ray and See-Through Effects:</strong> Revealing characters
+or objects through walls, glass, or vehicle hulls while keeping standard
+outlines on visible surfaces.</li>
+<li><strong>Stylized 2D Art:</strong> Filtering out dense internal
+topology or overlapping geometry to keep the final Grease Pencil
+linework clean and readable.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Scatter Objects with Blender Geometry Nodes - blender</title>
+    <meta name="description" content="This article provides a step-by-step guide on how to scatter objects across any surface in Blender using the Geometry Nodes modifier. You will learn how to set up the basic node network, distribute points on a mesh, instance your chosen objects onto thos">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-scatter-objects-with-blender-geometry-nodes">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Scatter Objects with Blender Geometry Nodes - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-scatter-objects-with-blender-geometry-nodes" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a step-by-step guide on how to scatter objects across any surface in Blender using the Geometry Nodes modifier. You will learn how to set up the basic node network, distribute points on a mesh, instance your chosen objects onto thos" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-scatter-objects-with-blender-geometry-nodes">How to
+Scatter Objects with Blender Geometry Nodes</h1>
+<p>This article provides a step-by-step guide on how to scatter objects
+across any surface in Blender using the Geometry Nodes modifier. You
+will learn how to set up the basic node network, distribute points on a
+mesh, instance your chosen objects onto those points, and randomize
+their scale and rotation for a natural, realistic appearance.</p>
+<h3 id="step-1-prepare-your-scene-and-create-a-geometry-node-group">Step
+1: Prepare Your Scene and Create a Geometry Node Group</h3>
+<p>Before starting, ensure you have two things in your scene: the
+<strong>target surface</strong> (the mesh you want to scatter objects
+onto, such as a plane or terrain) and the <strong>source object</strong>
+(the item you want to scatter, such as a rock, tree, or grass
+blade).</p>
+<ol type="1">
+<li>Select your target surface mesh.</li>
+<li>Navigate to the <strong>Geometry Nodes</strong> workspace at the top
+of the screen.</li>
+<li>Click the <strong>New</strong> button in the Geometry Nodes editor
+to create a new modifier.</li>
+</ol>
+<p>You will see a default network consisting of a <strong>Group
+Input</strong> node connected to a <strong>Group Output</strong>
+node.</p>
+<h3 id="step-2-distribute-points-on-the-surface">Step 2: Distribute
+Points on the Surface</h3>
+<p>To scatter objects, you first need to generate points across the
+surface of your target mesh.</p>
+<ol type="1">
+<li>Press <code>Shift + A</code>, search for <strong>Distribute Points
+on Faces</strong>, and place it in the editor.</li>
+<li>Connect the <em>Geometry</em> output of the <strong>Group
+Input</strong> node to the <em>Mesh</em> input of the <strong>Distribute
+Points on Faces</strong> node.</li>
+<li>Change the distribution method from <em>Random</em> to <em>Poisson
+Disk</em>. This option prevents scattered objects from overlapping by
+allowing you to set a minimum distance between points.</li>
+</ol>
+<h3 id="step-3-instance-objects-onto-the-points">Step 3: Instance
+Objects onto the Points</h3>
+<p>Now that you have points, you must replace those points with your
+source object.</p>
+<ol type="1">
+<li>Press <code>Shift + A</code>, search for <strong>Instance on
+Points</strong>, and place it to the right of the distribution
+node.</li>
+<li>Connect the <em>Points</em> output of the <strong>Distribute Points
+on Faces</strong> node to the <em>Points</em> input of the
+<strong>Instance on Points</strong> node.</li>
+<li>Drag your source object from the Blender <strong>Outliner</strong>
+directly into the Geometry Nodes editor. This action automatically
+creates an <strong>Object Info</strong> node.</li>
+<li>On the <strong>Object Info</strong> node, check the
+<strong>Relative</strong> box.</li>
+<li>Connect the <em>Geometry</em> output of the <strong>Object
+Info</strong> node to the <em>Instance</em> input of the
+<strong>Instance on Points</strong> node.</li>
+<li>Connect the <em>Instances</em> output of the <strong>Instance on
+Points</strong> node to the <em>Geometry</em> input of the <strong>Group
+Output</strong> node.</li>
+</ol>
+<h3 id="step-4-join-the-original-surface-mesh">Step 4: Join the Original
+Surface Mesh</h3>
+<p>At this stage, your original surface mesh will disappear, leaving
+only the scattered instances. To make the surface visible again:</p>
+<ol type="1">
+<li>Press <code>Shift + A</code> and search for the <strong>Join
+Geometry</strong> node.</li>
+<li>Place the <strong>Join Geometry</strong> node right before the
+<strong>Group Output</strong> node.</li>
+<li>Connect the original <em>Geometry</em> output from the <strong>Group
+Input</strong> node directly into the <strong>Join Geometry</strong>
+node.</li>
+<li>Connect the <em>Instances</em> output of the <strong>Instance on
+Points</strong> node into the <strong>Join Geometry</strong> node as
+well.</li>
+</ol>
+<h3 id="step-5-randomize-rotation-and-scale">Step 5: Randomize Rotation
+and Scale</h3>
+<p>To make the scattered objects look realistic, you should randomize
+their rotation and scale so they do not look identical.</p>
+<ol type="1">
+<li>Press <code>Shift + A</code> and add a <strong>Random Value</strong>
+node. Set its data type dropdown to <strong>Vector</strong>.</li>
+<li>Connect the <em>Value</em> output of this node to the
+<em>Rotation</em> input of the <strong>Instance on Points</strong> node.
+Set the <em>Max</em> X and Y values to <code>0</code> and the Z value to
+<code>360</code> (or <code>6.283</code> in radians) if you only want to
+randomize the rotation on the vertical axis.</li>
+<li>Add another <strong>Random Value</strong> node and set its data type
+to <strong>Float</strong> (or <strong>Vector</strong> if you want
+non-uniform scaling).</li>
+<li>Connect this <em>Value</em> output to the <em>Scale</em> input of
+the <strong>Instance on Points</strong> node. Adjust the <em>Min</em>
+and <em>Max</em> values to control the size variation of your scattered
+objects.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

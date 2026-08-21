@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Dynamic Paint Canvas and Brush Guide - blender</title>
+    <meta name="description" content="Blender's Dynamic Paint is a versatile physics modifier system that turns 3D objects into interactive canvases and brushes to generate dynamic textures, vertex colors, displacements, and wave simulations. This guide explains how the Canvas and Brush comp">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-dynamic-paint-canvas-and-brush-guide">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Dynamic Paint Canvas and Brush Guide - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-dynamic-paint-canvas-and-brush-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Blender's Dynamic Paint is a versatile physics modifier system that turns 3D objects into interactive canvases and brushes to generate dynamic textures, vertex colors, displacements, and wave simulations. This guide explains how the Canvas and Brush comp" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-dynamic-paint-canvas-and-brush-guide">Blender Dynamic
+Paint Canvas and Brush Guide</h1>
+<p>Blender's Dynamic Paint is a versatile physics modifier system that
+turns 3D objects into interactive canvases and brushes to generate
+dynamic textures, vertex colors, displacements, and wave simulations.
+This guide explains how the Canvas and Brush components interact,
+details the primary surface types and brush settings, and provides
+practical use cases for integrating Dynamic Paint into your 3D
+workflow.</p>
+<h3 id="the-core-concept-canvas-vs-brush">The Core Concept: Canvas vs.
+Brush</h3>
+<p>The Dynamic Paint system relies on two main components:</p>
+<ul>
+<li><strong>Canvas:</strong> The object that receives the paint,
+deformation, or simulation data. It acts as the surface being
+altered.</li>
+<li><strong>Brush:</strong> The object that applies the paint, force, or
+deformation onto the Canvas based on its proximity, movement, or mesh
+volume.</li>
+</ul>
+<p>When a Brush enters the influence area of a Canvas during animation
+playback, the Canvas records the interaction based on your defined
+settings.</p>
+<hr />
+<h3 id="the-canvas-surface-types-and-output-formats">The Canvas: Surface
+Types and Output Formats</h3>
+<p>A single Canvas can hold multiple independent surface layers. The
+most critical setting for a Canvas is its <strong>Surface Type</strong>,
+which determines how the surface reacts:</p>
+<ul>
+<li><strong>Paint:</strong> Generates color maps or wet maps. Ideal for
+painting trails, blood splatters, or drying surfaces.</li>
+<li><strong>Displace:</strong> Displaces the mesh geometry dynamically
+based on brush contact, creating indentations or raised geometry.</li>
+<li><strong>Waves:</strong> Generates realistic water ripples and wave
+dynamics upon contact with the brush.</li>
+<li><strong>Weight:</strong> Generates vertex weight groups dynamically,
+which can control particle distribution, modifiers, or material blending
+in real time.</li>
+</ul>
+<h4 id="canvas-output-formats">Canvas Output Formats</h4>
+<p>The Canvas can output data in two primary ways:</p>
+<ol type="1">
+<li><strong>Vertex:</strong> Applies changes directly to the mesh's
+vertex colors, vertex groups, or geometry. This requires high mesh
+resolution for detailed results.</li>
+<li><strong>Image Sequence:</strong> Bakes the simulation data into a
+sequence of UV image textures. This is resolution-independent from the
+mesh geometry and works well for low-poly meshes.</li>
+</ol>
+<hr />
+<h3 id="the-brush-sources-and-influence">The Brush: Sources and
+Influence</h3>
+<p>The Brush defines how the interacting object impacts the Canvas.</p>
+<h4 id="paint-source">Paint Source</h4>
+<p>The <strong>Paint Source</strong> determines what part of the brush
+applies the effect:</p>
+<ul>
+<li><strong>Mesh Volume:</strong> Paints only where the brush mesh
+physically intersects the canvas.</li>
+<li><strong>Proximity:</strong> Paints based on the distance between the
+brush and canvas, even if they do not touch.</li>
+<li><strong>Mesh Volume + Proximity:</strong> Combines both intersection
+and distance falloff.</li>
+<li><strong>Particle System:</strong> Uses an attached particle system
+instead of the mesh geometry to paint on the canvas.</li>
+</ul>
+<h4 id="key-brush-parameters">Key Brush Parameters</h4>
+<ul>
+<li><strong>Paint Color &amp; Alpha:</strong> Controls the color and
+opacity applied to the Canvas.</li>
+<li><strong>Wetness:</strong> Dictates how wet the paint is, enabling
+secondary effects like paint dripping or smudging.</li>
+<li><strong>Absolute Alpha:</strong> Prevents paint from building up
+beyond the brush's set alpha value.</li>
+<li><strong>Velocity:</strong> Allows the speed and direction of the
+brush to influence wave generation or paint scattering.</li>
+</ul>
+<hr />
+<h3 id="practical-applications">Practical Applications</h3>
+<ol type="1">
+<li><strong>Footprints and Tire Tracks:</strong> Set the ground as a
+Canvas with the surface type set to <strong>Displace</strong> or
+<strong>Weight</strong>, and the character's feet or vehicle tires as
+the <strong>Brush</strong> to leave indentations in snow, sand, or
+mud.</li>
+<li><strong>Dynamic Water Ripple Effects:</strong> Set a water plane as
+a Canvas with <strong>Waves</strong>, and any floating or falling object
+as a <strong>Brush</strong> to generate realistic ripples on
+impact.</li>
+<li><strong>Dynamic Material Masks:</strong> Use the Canvas with
+<strong>Weight</strong> or <strong>Paint</strong> to generate a mask
+that reveals a damaged or wet shader underneath as an object scrapes or
+touches the surface.</li>
+<li><strong>Raindrops and Splashes:</strong> Use a particle system
+emitting rain droplets as a <strong>Brush</strong> over a ground
+<strong>Canvas</strong> to create wet maps or surface ripples.</li>
+</ol>
+<hr />
+<h3 id="basic-setup-workflow">Basic Setup Workflow</h3>
+<ol type="1">
+<li>Select the receiver mesh, go to the <strong>Physics
+Properties</strong> tab, click <strong>Dynamic Paint</strong>, set the
+type to <strong>Canvas</strong>, and click <strong>Add
+Canvas</strong>.</li>
+<li>Choose the desired <strong>Surface Type</strong> (e.g., Paint,
+Displace, or Waves).</li>
+<li>Select the interacting mesh, add <strong>Dynamic Paint</strong>, set
+the type to <strong>Brush</strong>, and click <strong>Add
+Brush</strong>.</li>
+<li>Set the <strong>Paint Source</strong> (e.g., Mesh Volume).</li>
+<li>Play the animation timeline to see real-time interaction, or use the
+Canvas <strong>Bake</strong> settings to cache the simulation for final
+rendering.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

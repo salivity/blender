@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Python Interactive Console Explained - blender</title>
+    <meta name="description" content="The Python interactive console in Blender is a built-in command-line environment designed for real-time interaction with Blender's core engine, application programming interface (API), and open project data. This article explores the primary uses of the">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-python-interactive-console-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Python Interactive Console Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-python-interactive-console-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Python interactive console in Blender is a built-in command-line environment designed for real-time interaction with Blender's core engine, application programming interface (API), and open project data. This article explores the primary uses of the" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-python-interactive-console-explained">Blender Python
+Interactive Console Explained</h1>
+<p>The Python interactive console in Blender is a built-in command-line
+environment designed for real-time interaction with Blender's core
+engine, application programming interface (API), and open project data.
+This article explores the primary uses of the console, including rapid
+prototyping, API exploration, scene manipulation, debugging, and
+executing quick automated commands directly inside the 3D viewport
+ecosystem.</p>
+<h3 id="real-time-code-execution-and-testing">Real-Time Code Execution
+and Testing</h3>
+<p>Unlike the standard Text Editor in Blender, which is used to write
+and run full Python scripts or create add-ons, the interactive console
+executes code immediately line by line. This allows users to test
+individual Python expressions, inspect variables, and verify logic
+without having to structure and run an entire script file.</p>
+<h3 id="api-exploration-and-autocompletion">API Exploration and
+Autocompletion</h3>
+<p>The interactive console provides an accessible way to explore
+Blender’s Python API (<code>bpy</code>). It includes built-in
+autocompletion (accessible via the <code>Tab</code> or
+<code>Ctrl+Space</code> shortcuts), which allows developers to browse
+available methods, modules, and properties dynamically. Built-in Python
+functions like <code>dir()</code> and <code>help()</code> can also be
+executed in the console to inspect object types and read documentation
+on the fly.</p>
+<h3 id="inspecting-and-modifying-scene-data">Inspecting and Modifying
+Scene Data</h3>
+<p>The console gives users direct access to Blender's data blocks via
+the <code>bpy.data</code> and <code>bpy.context</code> modules. From the
+console, you can:</p>
+<ul>
+<li>Query scene statistics (such as the number of vertices, meshes, or
+materials).</li>
+<li>Inspect and alter the transform properties (location, rotation,
+scale) of selected objects.</li>
+<li>Change render settings, camera parameters, and world properties
+programmatically.</li>
+</ul>
+<h3 id="prototyping-and-add-on-development">Prototyping and Add-on
+Development</h3>
+<p>When developing Blender add-ons or complex automation scripts,
+developers use the console as a scratchpad. Testing API calls and
+observing immediate changes in the 3D viewport allows developers to
+confirm that their syntax and data targets are correct before
+transferring the code into a dedicated script or add-on package.</p>
+<h3 id="quick-batch-operations-and-one-liners">Quick Batch Operations
+and One-Liners</h3>
+<p>The console is often used for quick administrative tasks across a
+project that would be tedious to perform manually in the user interface.
+For example, a user can write a single-line list comprehension to rename
+hundreds of objects, hide specific collections, or assign materials to
+multiple assets simultaneously.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

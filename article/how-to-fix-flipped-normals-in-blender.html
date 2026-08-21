@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Fix Flipped Normals in Blender - blender</title>
+    <meta name="description" content="Flipped normals are a common issue in 3D modeling that can cause strange shading, rendering artifacts, and texturing errors. This guide provides a quick, step-by-step walkthrough on how to identify reversed faces on your 3D mesh in Blender and how to fix">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-fix-flipped-normals-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Fix Flipped Normals in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-fix-flipped-normals-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Flipped normals are a common issue in 3D modeling that can cause strange shading, rendering artifacts, and texturing errors. This guide provides a quick, step-by-step walkthrough on how to identify reversed faces on your 3D mesh in Blender and how to fix" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-fix-flipped-normals-in-blender">How to Fix Flipped
+Normals in Blender</h1>
+<p>Flipped normals are a common issue in 3D modeling that can cause
+strange shading, rendering artifacts, and texturing errors. This guide
+provides a quick, step-by-step walkthrough on how to identify reversed
+faces on your 3D mesh in Blender and how to fix them using both
+automatic recalculation and manual flipping techniques.</p>
+<h2 id="how-to-identify-flipped-normals">How to Identify Flipped
+Normals</h2>
+<p>Before fixing your mesh, you need to see which faces are pointing the
+wrong way. Blender has a built-in visualization tool for this called
+<strong>Face Orientation</strong>.</p>
+<ol type="1">
+<li>Open your Blender project and select your 3D viewport.</li>
+<li>In the top-right corner of the viewport, click the <strong>Viewport
+Overlays</strong> dropdown menu (the icon looks like two overlapping
+circles).</li>
+<li>Check the box next to <strong>Face Orientation</strong>.</li>
+<li>Your mesh will now display in blue and red:
+<ul>
+<li><strong>Blue</strong> represents the outside (correctly oriented
+faces).</li>
+<li><strong>Red</strong> represents the inside (flipped or reversed
+faces).</li>
+</ul></li>
+</ol>
+<p>If you see red patches on the outer surface of your model, those
+normals are flipped and need to be corrected.</p>
+<h2 id="method-1-automatically-recalculate-normals-fastest">Method 1:
+Automatically Recalculate Normals (Fastest)</h2>
+<p>Blender can automatically analyze your mesh and orient all faces
+outward. This is the quickest way to fix the entire model at once.</p>
+<ol type="1">
+<li>Select your 3D model and press <strong>Tab</strong> to enter
+<strong>Edit Mode</strong>.</li>
+<li>Press <strong>A</strong> on your keyboard to select all vertices,
+edges, and faces.</li>
+<li>Press <strong>Shift + N</strong> (this is the shortcut for
+Recalculate Outside).
+<ul>
+<li><em>Alternative:</em> Go to the top menu and select <strong>Mesh
+&gt; Normals &gt; Recalculate Outside</strong>.</li>
+</ul></li>
+</ol>
+<p>Your red faces should instantly turn blue, indicating that the
+normals are now facing the correct direction.</p>
+<h2 id="method-2-manually-flip-specific-normals">Method 2: Manually Flip
+Specific Normals</h2>
+<p>If automatic recalculation does not fix a specific area, or if you
+are working on an open, flat mesh (like a plane) where Blender cannot
+easily determine the "outside," you can flip selected faces
+manually.</p>
+<ol type="1">
+<li>Enter <strong>Edit Mode</strong> (<strong>Tab</strong>) and switch
+to <strong>Face Select</strong> mode (press <strong>3</strong> on your
+keyboard).</li>
+<li>Select only the red faces that you want to flip.</li>
+<li>Press <strong>Alt + N</strong> to open the Normals menu.</li>
+<li>Select <strong>Flip</strong> from the list.</li>
+</ol>
+<p>The selected faces will reverse their direction and turn blue.</p>
+<h2 id="troubleshooting-why-normals-wont-fix">Troubleshooting: Why
+Normals Won't Fix</h2>
+<p>If your normals refuse to flip or recalculate correctly, it is
+usually due to poor geometry. Check for these common issues:</p>
+<ul>
+<li><strong>Duplicate Vertices:</strong> Press <strong>A</strong> in
+Edit Mode, then press <strong>M</strong> and select <strong>By
+Distance</strong> to remove any overlapping vertices that might confuse
+Blender's calculation.</li>
+<li><strong>Internal Faces:</strong> If you have faces hidden inside
+your mesh, delete them. Blender struggles to calculate "inside" versus
+"outside" if there is geometry inside a closed volume.</li>
+<li><strong>Non-Manifold Geometry:</strong> Ensure your mesh does not
+have edges shared by three or more faces.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

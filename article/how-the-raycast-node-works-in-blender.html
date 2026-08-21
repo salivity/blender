@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How the Raycast Node Works in Blender - blender</title>
+    <meta name="description" content="The Raycast node in Blender Geometry Nodes projects invisible rays from a source geometry in a specified direction to detect intersections with a target geometry. By analyzing where these rays hit, the node retrieves vital spatial data—such as hit loca">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-the-raycast-node-works-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How the Raycast Node Works in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-the-raycast-node-works-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Raycast node in Blender Geometry Nodes projects invisible rays from a source geometry in a specified direction to detect intersections with a target geometry. By analyzing where these rays hit, the node retrieves vital spatial data—such as hit loca" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-the-raycast-node-works-in-blender">How the Raycast Node
+Works in Blender</h1>
+<p>The Raycast node in Blender Geometry Nodes projects invisible rays
+from a source geometry in a specified direction to detect intersections
+with a target geometry. By analyzing where these rays hit, the node
+retrieves vital spatial data—such as hit locations, surface normals, and
+interpolated attributes—making it essential for tasks like projecting
+objects onto terrain, conforming geometry to uneven surfaces, and
+controlling procedural scattering based on line-of-sight.</p>
+<h3 id="core-functionality">Core Functionality</h3>
+<p>At its fundamental level, the Raycast node acts as a geometric
+collision detector. For every point, vertex, or face on the source
+geometry, the node shoots a ray along a defined vector. If that ray
+collides with the target mesh, the node records the collision data and
+outputs various parameters regarding the hit point.</p>
+<h3 id="primary-inputs">Primary Inputs</h3>
+<ul>
+<li><strong>Target Geometry:</strong> The external mesh that the rays
+are being cast toward to detect collisions.</li>
+<li><strong>Source Position:</strong> The starting point from which each
+ray is cast (defaults to the position of the evaluated element).</li>
+<li><strong>Ray Direction:</strong> A vector defining the orientation in
+which the ray travels (commonly negative Z for downward projections onto
+terrain).</li>
+<li><strong>Ray Length:</strong> The maximum distance a ray can travel
+before stopping if it does not encounter the target geometry.</li>
+<li><strong>Attribute:</strong> Any data (such as vertex colors, UV
+maps, or custom values) from the target geometry that you want to sample
+at the exact point of intersection.</li>
+</ul>
+<h3 id="primary-outputs">Primary Outputs</h3>
+<ul>
+<li><strong>Is Hit:</strong> A boolean output indicating whether the ray
+successfully collided with the target surface within the specified ray
+length.</li>
+<li><strong>Hit Position:</strong> The exact 3D coordinates in
+world/local space where the ray intersected the target geometry.</li>
+<li><strong>Hit Normal:</strong> The direction perpendicular to the
+target surface at the exact point of collision, commonly used to align
+the rotation of scattered instances to the slope of a surface.</li>
+<li><strong>Hit Distance:</strong> The float distance from the ray’s
+starting position to the intersection point.</li>
+<li><strong>Interpolated Attribute:</strong> The sampled attribute value
+from the target geometry at the point of impact.</li>
+</ul>
+<h3 id="common-practical-applications">Common Practical
+Applications</h3>
+<ol type="1">
+<li><strong>Terrain Snapping:</strong> Placing objects—such as trees,
+rocks, or buildings—accurately onto uneven terrain by casting rays
+downward from above and moving instances directly to the
+<code>Hit Position</code>.</li>
+<li><strong>Surface Normal Alignment:</strong> Combining the
+<code>Hit Normal</code> output with an Align Euler to Vector node to
+rotate placed assets so they match the slope of hills, cliffs, or curved
+meshes.</li>
+<li><strong>Shrinkwrapping and Conforming:</strong> Deforming clothing,
+straps, or procedural curves to wrap around complex character meshes
+without manual retopology.</li>
+<li><strong>Visibility and Occlusion Masking:</strong> Filtering out
+instances that are hidden beneath overhangs, ceilings, or inside caves
+using the <code>Is Hit</code> or <code>Hit Distance</code>
+thresholds.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

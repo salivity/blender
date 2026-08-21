@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Set From Faces Normal Tool Explained - blender</title>
+    <meta name="description" content="The "Set From Faces" tool in Blender is a specialized normal-editing feature designed to control how light interacts with a 3D mesh's surface without altering its actual geometry. By forcing the custom split normals of selected vertices or edges to align">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-set-from-faces-normal-tool-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Set From Faces Normal Tool Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-set-from-faces-normal-tool-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The "Set From Faces" tool in Blender is a specialized normal-editing feature designed to control how light interacts with a 3D mesh's surface without altering its actual geometry. By forcing the custom split normals of selected vertices or edges to align" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-set-from-faces-normal-tool-explained">Blender Set From
+Faces Normal Tool Explained</h1>
+<p>The "Set From Faces" tool in Blender is a specialized normal-editing
+feature designed to control how light interacts with a 3D mesh's surface
+without altering its actual geometry. By forcing the custom split
+normals of selected vertices or edges to align perfectly with the
+orientation of their connected faces, this tool eliminates shading
+artifacts, creates flat-looking surfaces on low-poly models, and
+maintains clean shading on complex hard-surface objects. This guide
+details how the tool works, its practical applications in 3D modeling,
+and the exact steps to use it.</p>
+<h2 id="what-are-normals-in-blender">What Are Normals in Blender?</h2>
+<p>To understand "Set From Faces," you must first understand surface
+normals. A normal is an invisible vector perpendicular to a surface or
+vertex that tells Blender's rendering engine which direction light
+should bounce off.</p>
+<ul>
+<li><strong>Face Normals:</strong> The exact directional angle of a flat
+polygon.</li>
+<li><strong>Vertex Normals:</strong> Angles assigned to vertices,
+usually averaged across connected faces to create smooth shading.</li>
+<li><strong>Custom Split Normals:</strong> Manually overridden vertex
+normals that allow you to dictate shading angles per face corner,
+independent of automatic smooth shading.</li>
+</ul>
+<p>The <strong>Set From Faces</strong> tool manipulates custom split
+normals.</p>
+<h2 id="what-does-the-set-from-faces-tool-do">What Does the "Set From
+Faces" Tool Do?</h2>
+<p>When you apply "Set From Faces," Blender takes the normal direction
+of the selected face (or faces) and applies that exact direction to all
+vertex corners connected to those faces.</p>
+<p>Normally, when a mesh is set to "Shade Smooth," Blender averages the
+normals at shared vertices, creating smooth shading transitions across
+adjacent faces. Applying "Set From Faces" breaks this automatic
+averaging. It forces the shading vectors of the selected geometry to
+point in the same direction as the flat surface of the faces, resulting
+in completely flat, uniform lighting across those specific areas—even if
+the mesh as a whole uses smooth shading.</p>
+<h2 id="key-use-cases">Key Use Cases</h2>
+<h3 id="1-hard-surface-modeling-artifact-removal">1. Hard-Surface
+Modeling Artifact Removal</h3>
+<p>When working with hard-surface models (like vehicles, machinery, or
+architectural assets), smooth shading can cause unintended shading
+gradients or "stretching" on flat surfaces near bevels or cutouts. Using
+"Set From Faces" on the main flat polygon forces its shading to remain
+completely flat, neutralizing light distortion caused by nearby dense or
+irregular geometry.</p>
+<h3 id="2-game-asset-optimization">2. Game Asset Optimization</h3>
+<p>In game development, keeping polygon counts low is essential. Instead
+of adding extra support loops or bevels to fix shading issues on
+low-poly meshes, technical artists use "Set From Faces" to manipulate
+custom split normals directly. This achieves clean, high-poly-style
+shading on low-poly geometry without adding additional vertices.</p>
+<h3 id="3-stylized-and-low-poly-art-styles">3. Stylized and Low-Poly Art
+Styles</h3>
+<p>For stylized models where specific sections need flat, angular
+shading while adjacent sections remain smooth (such as gems, stylized
+foliage, or armor plates), "Set From Faces" provides precise control
+over which individual faces reflect light as flat surfaces.</p>
+<h2 id="how-to-use-set-from-faces-in-blender">How to Use "Set From
+Faces" in Blender</h2>
+<ol type="1">
+<li><strong>Select the Mesh:</strong> Click on your 3D object in Object
+Mode and press <code>Tab</code> to switch to <strong>Edit
+Mode</strong>.</li>
+<li><strong>Select Geometry:</strong> Switch to Face Select mode
+(<code>3</code>) and select the face or group of faces whose shading you
+want to flatten.</li>
+<li><strong>Open the Normals Menu:</strong> Press <code>Alt + N</code>
+on your keyboard, or navigate to the top menu bar and select
+<strong>Mesh &gt; Normals</strong>.</li>
+<li><strong>Apply the Tool:</strong> Select <strong>Set From
+Faces</strong> from the menu.</li>
+</ol>
+<p><em>Note: In Blender 4.1 and newer, custom normal data is handled
+dynamically through geometry nodes and standard modifiers, but the
+<code>Alt + N &gt; Set From Faces</code> shortcut remains the direct way
+to apply fixed custom normal data to edit-mode selections.</em></p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

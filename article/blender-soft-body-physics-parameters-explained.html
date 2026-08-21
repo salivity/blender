@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Soft Body Physics Parameters Explained - blender</title>
+    <meta name="description" content="Blender's soft body physics engine allows creators to simulate deformable objects like jelly, rubber, cushions, and muscles. Achieving realistic movement requires a solid understanding of several key settings within the physics properties tab. This artic">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-soft-body-physics-parameters-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Soft Body Physics Parameters Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-soft-body-physics-parameters-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Blender's soft body physics engine allows creators to simulate deformable objects like jelly, rubber, cushions, and muscles. Achieving realistic movement requires a solid understanding of several key settings within the physics properties tab. This artic" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-soft-body-physics-parameters-explained">Blender Soft
+Body Physics Parameters Explained</h1>
+<p>Blender's soft body physics engine allows creators to simulate
+deformable objects like jelly, rubber, cushions, and muscles. Achieving
+realistic movement requires a solid understanding of several key
+settings within the physics properties tab. This article provides a
+direct overview of the crucial parameters—such as Mass, Goal, Edges, and
+Self-Collision—that dictate how soft bodies react to gravity, forces,
+and collisions.</p>
+<h2 id="object-mass-and-friction">Object Mass and Friction</h2>
+<p>These fundamental settings dictate the basic physical presence of
+your soft body object.</p>
+<ul>
+<li><strong>Mass:</strong> Specifies the weight of the individual
+vertices. Heavier vertices react more sluggishly to forces but carry
+more momentum, resulting in more pronounced deformation upon
+impact.</li>
+<li><strong>Friction:</strong> Determines the resistance when the soft
+body slides across other collision surfaces. Higher values prevent
+sliding, while lower values cause the object to behave as if it is on a
+slippery surface.</li>
+</ul>
+<h2 id="soft-body-goal">Soft Body Goal</h2>
+<p>The Goal settings act as a magnetic force, pulling the soft body
+vertices toward their original, undeformed positions or animated paths.
+This is essential for objects that need to deform but still follow a
+specific motion path.</p>
+<ul>
+<li><strong>Stiffness:</strong> Controls how tightly the vertices cling
+to the goal. A high stiffness value keeps the object close to its
+original shape, while a low value allows for significant deformation and
+lag behind the animation.</li>
+<li><strong>Damping:</strong> Reduces the oscillation (bounce) of the
+vertices as they try to reach the goal. Higher damping prevents chaotic
+shaking and stabilizes the simulation.</li>
+</ul>
+<h2 id="soft-body-edges-springs">Soft Body Edges (Springs)</h2>
+<p>This section treats the edges of your mesh like physical springs,
+controlling how the internal structure stretches and compresses when
+subjected to external forces.</p>
+<ul>
+<li><strong>Pull:</strong> Defines how resistant the edges are to
+stretching. Lower values allow the object to stretch out easily, like
+chewing gum.</li>
+<li><strong>Push:</strong> Determines how resistant the edges are to
+compressing. Lower values allow the object to squash easily, while
+higher values keep its structural volume intact.</li>
+<li><strong>Damp (Spring Damping):</strong> Controls how quickly the
+spring action loses energy. High damping stops the object from bouncing
+endlessly after an impact, making it look more like wet clay than
+rubber.</li>
+<li><strong>Plasticity:</strong> Controls permanent deformation. When
+set above zero, the object will not return to its original shape after
+being stretched or compressed beyond a certain threshold, simulating
+materials that dent or warp permanently.</li>
+</ul>
+<h2 id="soft-body-self-collision">Soft Body Self Collision</h2>
+<p>Without this setting enabled, a highly deformed soft body will pass
+through its own mesh, ruining the illusion of solidity.</p>
+<ul>
+<li><strong>Self Collision (Toggle):</strong> Activating this forces the
+object to recognize its own geometry during a collision, preventing
+self-intersection.</li>
+<li><strong>Ball Size:</strong> Specifies the calculation boundary
+around each vertex. Adjusting this value ensures vertices do not pass
+through neighboring faces without causing unrealistic jitter.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

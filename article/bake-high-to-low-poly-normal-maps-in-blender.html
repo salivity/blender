@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bake High to Low Poly Normal Maps in Blender - blender</title>
+    <meta name="description" content="Baking a normal map in Blender allows you to transfer intricate geometric details from a high-polygon model onto a performance-friendly low-polygon mesh. This process captures surface lighting details, creating the illusion of complex depth without addin">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/bake-high-to-low-poly-normal-maps-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Bake High to Low Poly Normal Maps in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/bake-high-to-low-poly-normal-maps-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Baking a normal map in Blender allows you to transfer intricate geometric details from a high-polygon model onto a performance-friendly low-polygon mesh. This process captures surface lighting details, creating the illusion of complex depth without addin" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="bake-high-to-low-poly-normal-maps-in-blender">Bake High to Low
+Poly Normal Maps in Blender</h1>
+<p>Baking a normal map in Blender allows you to transfer intricate
+geometric details from a high-polygon model onto a performance-friendly
+low-polygon mesh. This process captures surface lighting details,
+creating the illusion of complex depth without adding extra geometry,
+which is essential for game engines and real-time 3D applications. This
+step-by-step guide walks you through aligning your models, unwrapping
+UVs, configuring material nodes, and executing a clean normal map bake
+using the Cycles rendering engine.</p>
+<h3 id="1-prepare-the-meshes">1. Prepare the Meshes</h3>
+<ol type="1">
+<li>Place both the <strong>High-Poly</strong> and
+<strong>Low-Poly</strong> models in the exact same location in 3D space
+(aligned origins).</li>
+<li>Ensure the <strong>Low-Poly mesh is properly UV unwrapped</strong>
+with minimal stretch and adequate padding between UV islands to prevent
+bleeding.</li>
+<li>Select both meshes, right-click, and select <strong>Shade
+Smooth</strong>.</li>
+</ol>
+<h3 id="2-set-up-the-low-poly-material">2. Set Up the Low-Poly
+Material</h3>
+<ol type="1">
+<li>Switch to the <strong>Shader Editor</strong> tab with the Low-Poly
+model selected.</li>
+<li>Ensure the Low-Poly object has a material assigned to it.</li>
+<li>Press <code>Shift + A</code>, search for <strong>Image
+Texture</strong>, and place the node in the editor. Do not connect it to
+anything yet.</li>
+<li>Click <strong>New</strong> on the Image Texture node:
+<ul>
+<li>Name your image (e.g., <code>Normal_Map</code>).</li>
+<li>Set the resolution (e.g., 2048 x 2048).</li>
+<li>Uncheck <strong>Alpha</strong> unless needed.</li>
+<li>Click <strong>OK</strong>.</li>
+</ul></li>
+<li>Change the <strong>Color Space</strong> of the new Image Texture
+node from <em>sRGB</em> to <strong>Non-Color</strong>.</li>
+<li>Ensure this Image Texture node remains <strong>active</strong>
+(highlighted with a white/yellow border).</li>
+</ol>
+<h3 id="3-configure-render-and-bake-settings">3. Configure Render and
+Bake Settings</h3>
+<ol type="1">
+<li>Go to the <strong>Properties Panel</strong> on the right and select
+the <strong>Render Properties</strong> tab (camera icon).</li>
+<li>Change the <strong>Render Engine</strong> to <strong>Cycles</strong>
+(Normal baking is not supported in Eevee).</li>
+<li>Scroll down and expand the <strong>Bake</strong> section:
+<ul>
+<li>Set <strong>Bake Type</strong> to <strong>Normal</strong>.</li>
+<li>Check the box for <strong>Selected to Active</strong>.</li>
+<li>Expand the <strong>Selected to Active</strong> dropdown menu.</li>
+<li>Increase the <strong>Extrusion</strong> value slightly (e.g.,
+<code>0.01</code> to <code>0.1</code> meters) to cover surface
+variations between the two models. Alternatively, use a custom
+<strong>Cage</strong> object for complex shapes.</li>
+</ul></li>
+</ol>
+<h3 id="4-perform-the-bake">4. Perform the Bake</h3>
+<ol type="1">
+<li>In the 3D Viewport, select the <strong>High-Poly mesh
+first</strong>.</li>
+<li>Hold <code>Shift</code> and select the <strong>Low-Poly mesh
+second</strong> (the Low-Poly object must be the active selection,
+outlined in bright orange).</li>
+<li>Confirm that the Image Texture node is still selected in the Shader
+Editor.</li>
+<li>Click the <strong>Bake</strong> button in the Render Properties
+panel.</li>
+<li>Wait for the bake progress bar at the bottom of the screen to
+complete.</li>
+</ol>
+<h3 id="5-save-and-connect-the-map">5. Save and Connect the Map</h3>
+<ol type="1">
+<li>Open the <strong>Image Editor</strong> workspace and select your
+baked texture map (<code>Normal_Map</code>).</li>
+<li>Go to <strong>Image &gt; Save As...</strong> to save the generated
+image file to your computer.</li>
+<li>In the Shader Editor, connect the <strong>Color</strong> output of
+the Image Texture node to a <strong>Normal Map</strong> node
+(<code>Shift + A &gt; Vector &gt; Normal Map</code>), then connect the
+Normal Map node's output to the <strong>Normal</strong> input of the
+<strong>Principled BSDF</strong> node.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

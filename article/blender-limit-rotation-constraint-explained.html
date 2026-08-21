@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Limit Rotation Constraint Explained - blender</title>
+    <meta name="description" content="The Limit Rotation constraint in Blender restricts the rotational movement of an object or bone along its X, Y, and Z axes within specific minimum and maximum angles. By setting these boundaries, creators can prevent realistic models, character rigs, and">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-limit-rotation-constraint-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Limit Rotation Constraint Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-limit-rotation-constraint-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Limit Rotation constraint in Blender restricts the rotational movement of an object or bone along its X, Y, and Z axes within specific minimum and maximum angles. By setting these boundaries, creators can prevent realistic models, character rigs, and" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-limit-rotation-constraint-explained">Blender Limit
+Rotation Constraint Explained</h1>
+<p>The Limit Rotation constraint in Blender restricts the rotational
+movement of an object or bone along its X, Y, and Z axes within specific
+minimum and maximum angles. By setting these boundaries, creators can
+prevent realistic models, character rigs, and mechanical parts from
+bending or spinning into unnatural positions. This article covers how
+the Limit Rotation constraint functions, its key settings, and practical
+use cases in 3D modeling and animation.</p>
+<h2 id="key-features-and-settings">Key Features and Settings</h2>
+<p>The Limit Rotation constraint works by monitoring the orientation of
+a target object or bone and clamping any rotation that exceeds
+user-defined limits.</p>
+<ul>
+<li><strong>Axis Controls (X, Y, Z):</strong> Each axis has dedicated
+checkbox controls for <strong>Limit Min</strong> and <strong>Limit
+Max</strong>. Checking these boxes activates the rotational boundary for
+that specific axis, allowing you to define the exact minimum and maximum
+angles in degrees.</li>
+<li><strong>Owner Space:</strong> This setting dictates which coordinate
+system the constraint uses to calculate rotation:
+<ul>
+<li><strong>World Space:</strong> Measures rotation relative to the
+global 3D scene grid.</li>
+<li><strong>Local Space:</strong> Measures rotation relative to the
+object's or bone's own local axes, which is essential for character
+rigging.</li>
+<li><strong>Pose Space / Custom Space:</strong> Evaluates rotation
+relative to a parent bone or designated target object.</li>
+</ul></li>
+<li><strong>Affect Transform:</strong> When enabled, this option
+continuously forces the object's actual transform values in the
+Properties panel to match the constrained rotation, rather than just
+visually applying the limit in the viewport.</li>
+</ul>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<h3 id="character-rigging">Character Rigging</h3>
+<p>In character animation, body parts have natural physical limitations.
+For example, a human elbow should only bend on a single axis and cannot
+bend backward. Applying a Limit Rotation constraint to the forearm bone
+keeps the joint movement biologically accurate during pose
+adjustments.</p>
+<h3 id="mechanical-animation">Mechanical Animation</h3>
+<p>Robotics, doors, steering wheels, and mechanical hinges rely on hard
+physical limits. A door hinge should typically stop at 0 degrees when
+closed and around 90 to 120 degrees when open. Using this constraint
+guarantees that hard-surface models do not clip through adjacent
+geometry.</p>
+<h3 id="camera-rigging">Camera Rigging</h3>
+<p>When controlling a viewport camera with a rig, adding rotation limits
+on the pitch and roll axes prevents the camera from flipping upside down
+or clipping through floor geometry.</p>
+<h2 id="how-to-apply-the-constraint">How to Apply the Constraint</h2>
+<ol type="1">
+<li>Select the object or bone you want to restrict.</li>
+<li>Navigate to the <strong>Object Constraint Properties</strong> or
+<strong>Bone Constraint Properties</strong> tab in the Inspector
+panel.</li>
+<li>Click <strong>Add Object Constraint</strong> (or Add Bone
+Constraint) and select <strong>Limit Rotation</strong>.</li>
+<li>Enable the <strong>Limit</strong> checkboxes for the desired axes
+(X, Y, or Z).</li>
+<li>Input your desired <strong>Min</strong> and <strong>Max</strong>
+degree values.</li>
+<li>Set the <strong>Convert</strong> space option to <strong>Local
+Space</strong> if working with rigged bones or relative objects.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

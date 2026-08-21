@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Make Instanced Objects Independent in Blender - blender</title>
+    <meta name="description" content="In Blender, linked duplicates (instanced objects) share the same underlying mesh data, meaning any edit made to one object instantly updates all instances. To modify an instanced object separately without affecting the others, you must make it independen">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-make-instanced-objects-independent-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Make Instanced Objects Independent in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-make-instanced-objects-independent-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In Blender, linked duplicates (instanced objects) share the same underlying mesh data, meaning any edit made to one object instantly updates all instances. To modify an instanced object separately without affecting the others, you must make it independen" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-make-instanced-objects-independent-in-blender">How to
+Make Instanced Objects Independent in Blender</h1>
+<p>In Blender, linked duplicates (instanced objects) share the same
+underlying mesh data, meaning any edit made to one object instantly
+updates all instances. To modify an instanced object separately without
+affecting the others, you must make it independent by converting it into
+a single-user object. This guide covers the quickest and most effective
+methods to decouple object data, materials, and animations in
+Blender.</p>
+<h2
+id="method-1-using-the-make-single-user-menu-fastest-for-multiple-objects">Method
+1: Using the "Make Single User" Menu (Fastest for Multiple Objects)</h2>
+<p>This method allows you to break the link for one or multiple selected
+objects simultaneously using a quick menu or keyboard shortcut.</p>
+<ol type="1">
+<li>Select the instanced object (or multiple objects) in the 3D
+Viewport.</li>
+<li>Press <strong>U</strong> on your keyboard to open the <strong>Make
+Single User</strong> menu. (Alternatively, go to the top menu bar and
+select <strong>Object &gt; Relations &gt; Make Single
+User</strong>).</li>
+<li>Choose <strong>Object &amp; Data</strong>.</li>
+<li>Select whether to apply this to <strong>Selected Objects</strong> or
+<strong>All</strong>. Choosing <strong>Selected Objects</strong> ensures
+only your current selection becomes unique.</li>
+</ol>
+<p>Once completed, the selected object will have its own independent
+mesh data, allowing you to edit its vertices, edges, and faces in Edit
+Mode without altering the original.</p>
+<h2
+id="method-2-using-the-object-data-properties-tab-best-for-single-objects">Method
+2: Using the Object Data Properties Tab (Best for Single Objects)</h2>
+<p>If you only want to make a single object unique, you can quickly
+decouple it through the Data Properties panel.</p>
+<ol type="1">
+<li>Select the instanced object.</li>
+<li>In the Properties Editor on the right, click the <strong>Object Data
+Properties</strong> tab (represented by a green triangle icon).</li>
+<li>Next to the mesh name field, you will see a button displaying a
+number. This number indicates how many objects currently share this mesh
+data.</li>
+<li>Click the <strong>number icon</strong>.</li>
+</ol>
+<p>Clicking the number automatically creates a duplicate copy of the
+mesh data and assigns it solely to the selected object.</p>
+<h2 id="how-to-make-materials-independent">How to Make Materials
+Independent</h2>
+<p>Unlinking an object's mesh data does not automatically unlink its
+material. If you change the material color on an independent object,
+other objects sharing that material will still change. To make a
+material independent:</p>
+<ol type="1">
+<li>Select the object.</li>
+<li>Go to the <strong>Material Properties</strong> tab (represented by a
+pink sphere icon).</li>
+<li>Look next to the material name field for the <strong>number
+icon</strong> indicating shared users.</li>
+<li>Click the <strong>number icon</strong> to make the material unique
+to that object.</li>
+</ol>
+<h2 id="preventing-instances-during-creation">Preventing Instances
+During Creation</h2>
+<p>To avoid creating instanced objects in the future:</p>
+<ul>
+<li>Use <strong>Shift + D</strong> to duplicate objects. This creates a
+fully independent duplicate.</li>
+<li>Avoid using <strong>Alt + D</strong>, which creates a Linked
+Duplicate that shares object data by default.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

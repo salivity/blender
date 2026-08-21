@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Minimize UV Stretching in Blender - blender</title>
+    <meta name="description" content="Minimizing UV stretching in Blender is essential for ensuring textures apply evenly across 3D models without distortion. This guide covers how to identify texture stretching using Blender's built-in stretch visualization overlays, place strategic seams,">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-minimize-uv-stretching-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Minimize UV Stretching in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-minimize-uv-stretching-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Minimizing UV stretching in Blender is essential for ensuring textures apply evenly across 3D models without distortion. This guide covers how to identify texture stretching using Blender's built-in stretch visualization overlays, place strategic seams," />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-minimize-uv-stretching-in-blender">How to Minimize UV
+Stretching in Blender</h1>
+<p>Minimizing UV stretching in Blender is essential for ensuring
+textures apply evenly across 3D models without distortion. This guide
+covers how to identify texture stretching using Blender's built-in
+stretch visualization overlays, place strategic seams, and utilize key
+tools like the Minimize Stretch operator, UV sculpt brushes, and proper
+unwrapping algorithms to achieve clean, uniform UV maps.</p>
+<h2 id="1-apply-object-scale-first">1. Apply Object Scale First</h2>
+<p>Before unwrapping or tweaking UVs, always apply your object's scale
+in Object Mode. Non-uniform scaling distorts the UV calculations.</p>
+<ul>
+<li>Press <code>Ctrl + A</code> in Object Mode and select
+<strong>Scale</strong>.</li>
+</ul>
+<h2 id="2-enable-the-stretch-display-overlay">2. Enable the Stretch
+Display Overlay</h2>
+<p>Visualizing stretching helps you pinpoint distorted areas
+immediately.</p>
+<ol type="1">
+<li>Open the <strong>UV Editor</strong> window.</li>
+<li>Click the <strong>Overlays</strong> dropdown menu in the top-right
+corner of the UV view.</li>
+<li>Check the <strong>Display Stretch</strong> box.</li>
+<li>Choose between <strong>Angle</strong> (measures distortion of
+polygon angles) or <strong>Area</strong> (measures distortion of polygon
+size).</li>
+</ol>
+<ul>
+<li>Dark blue indicates minimal stretching, green/yellow represents
+moderate stretching, and red signals severe distortion.</li>
+</ul>
+<h2 id="3-place-strategic-seams">3. Place Strategic Seams</h2>
+<p>Inadequate or misplaced seams force the UV map to flatten
+unnaturally, creating tension.</p>
+<ul>
+<li>Select sharp edges, hard angles, or hidden areas in Edit Mode.</li>
+<li>Press <code>Right-Click</code> or <code>Ctrl + E</code> and select
+<strong>Mark Seam</strong>.</li>
+<li>Add extra seams around high-curvature areas (like armpits, ears, or
+sharp corners) to allow the mesh to open up cleanly.</li>
+</ul>
+<h2 id="4-use-the-minimize-stretch-tool">4. Use the "Minimize Stretch"
+Tool</h2>
+<p>Blender has a dedicated tool that automatically relaxes vertices to
+reduce distortion.</p>
+<ol type="1">
+<li>In the <strong>UV Editor</strong>, select the vertices you want to
+relax (or press <code>A</code> to select all).</li>
+<li>Go to <strong>UV &gt; Minimize Stretch</strong> (or press
+<code>Ctrl + V</code>).</li>
+<li>Move your mouse to decrease the stretch dynamically, or use the
+<strong>Blend</strong> slider in the bottom-left properties panel to
+fine-tune the result.</li>
+<li>Scroll the mouse wheel to increase or decrease the tool's
+iterations.</li>
+</ol>
+<h2 id="5-switch-the-unwrapping-method">5. Switch the Unwrapping
+Method</h2>
+<p>Blender offers two main unwrapping algorithms. Testing both helps
+determine which suits your topology best.</p>
+<ol type="1">
+<li>Select your mesh in Edit Mode and press
+<code>U &gt; Unwrap</code>.</li>
+<li>Open the <strong>Unwrap</strong> panel in the bottom-left
+corner.</li>
+<li>Toggle the <strong>Method</strong> between:
+<ul>
+<li><strong>Angle Based:</strong> Best for organic shapes (characters,
+creatures, plants).</li>
+<li><strong>Conformal:</strong> Best for hard-surface objects,
+mechanical parts, or simple geometric shapes.</li>
+</ul></li>
+</ol>
+<h2 id="6-relax-uvs-with-uv-sculpt-mode">6. Relax UVs with UV Sculpt
+Mode</h2>
+<p>For complex organic models where automatic tools leave minor
+stretching:</p>
+<ol type="1">
+<li>Switch to <strong>UV Sculpt Mode</strong> in the UV Editor menu
+bar.</li>
+<li>Select the <strong>Relax</strong> brush tool.</li>
+<li>Brush over the stretched areas (highlighted in green/yellow/red) to
+smooth out the vertex density manually.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

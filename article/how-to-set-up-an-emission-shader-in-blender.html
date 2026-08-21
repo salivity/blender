@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Set Up an Emission Shader in Blender - blender</title>
+    <meta name="description" content="Setting up an emission shader in Blender allows you to turn any object into a light source, perfect for creating neon lights, glowing screens, sci-fi elements, and lasers. This guide provides a straightforward walk-through on how to create and adjust emi">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-set-up-an-emission-shader-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Set Up an Emission Shader in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-set-up-an-emission-shader-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Setting up an emission shader in Blender allows you to turn any object into a light source, perfect for creating neon lights, glowing screens, sci-fi elements, and lasers. This guide provides a straightforward walk-through on how to create and adjust emi" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-set-up-an-emission-shader-in-blender">How to Set Up an
+Emission Shader in Blender</h1>
+<p>Setting up an emission shader in Blender allows you to turn any
+object into a light source, perfect for creating neon lights, glowing
+screens, sci-fi elements, and lasers. This guide provides a
+straightforward walk-through on how to create and adjust emission
+materials using both the standard Principled BSDF node and the dedicated
+Emission shader node in Blender.</p>
+<h2 id="method-1-using-the-principled-bsdf-shader">Method 1: Using the
+Principled BSDF Shader</h2>
+<p>The fastest way to add emission to a material is by using the default
+Principled BSDF node.</p>
+<ol type="1">
+<li><strong>Select the Object:</strong> Click on the 3D object you want
+to make glow.</li>
+<li><strong>Add a Material:</strong> Go to the <strong>Material
+Properties</strong> tab (the red sphere icon on the right panel) and
+click <strong>New</strong>.</li>
+<li><strong>Locate Emission Settings:</strong> In the material settings,
+scroll down until you see the <strong>Emission</strong> section.</li>
+<li><strong>Set Emission Color:</strong> Click on the <strong>Emission
+Color</strong> field (default is black) and choose your desired
+color.</li>
+<li><strong>Adjust Strength:</strong> Increase the <strong>Emission
+Strength</strong> value above <code>1.0</code>. Higher values create a
+brighter light output.</li>
+</ol>
+<hr />
+<h2 id="method-2-using-the-dedicated-emission-node">Method 2: Using the
+Dedicated Emission Node</h2>
+<p>For cleaner node setups or complex shading networks, you can use the
+standalone Emission node in the Shader Editor.</p>
+<ol type="1">
+<li><strong>Open the Shader Editor:</strong> Switch to the
+<strong>Shading</strong> workspace at the top of the screen, or split a
+window and set it to <strong>Shader Editor</strong>.</li>
+<li><strong>Add the Emission Node:</strong> Press
+<code>Shift + A</code>, go to <strong>Shader</strong>, and select
+<strong>Emission</strong>.</li>
+<li><strong>Connect to Output:</strong> Drag the green
+<strong>Emission</strong> output plug and connect it to the
+<strong>Surface</strong> input of the <strong>Material Output</strong>
+node. (You can select and delete the default <em>Principled BSDF</em>
+node by pressing <code>X</code>).</li>
+<li><strong>Configure Light Settings:</strong> Set your preferred light
+color in the <strong>Color</strong> box and adjust the brightness using
+the <strong>Strength</strong> field.</li>
+</ol>
+<hr />
+<h2 id="how-to-make-the-glow-visible-in-render-engine">How to Make the
+Glow Visible in Render Engine</h2>
+<p>How your emission material interacts with the scene depends on the
+active render engine:</p>
+<ul>
+<li><strong>Cycles:</strong> Emission shaders automatically cast actual
+light onto surrounding objects without additional setup.</li>
+<li><strong>Eevee:</strong> To get a visible glow effect around the
+emitting object, go to the <strong>Render Properties</strong> tab (the
+camera icon) and check the box for <strong>Bloom</strong>. To make the
+emission cast light on nearby surfaces in Eevee, enable
+<strong>Irradiance Volumes</strong> or use <strong>Raytracing</strong>
+(available in Blender 4.2+).</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

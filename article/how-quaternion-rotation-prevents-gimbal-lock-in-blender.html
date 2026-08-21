@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Quaternion Rotation Prevents Gimbal Lock in Blender - blender</title>
+    <meta name="description" content="Gimbal lock is a common animation issue where an object loses a degree of rotational freedom due to the alignment of two rotational axes. In 3D software like Blender, standard Euler rotations calculate movement sequentially along three distinct axes, mak">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-quaternion-rotation-prevents-gimbal-lock-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Quaternion Rotation Prevents Gimbal Lock in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-quaternion-rotation-prevents-gimbal-lock-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Gimbal lock is a common animation issue where an object loses a degree of rotational freedom due to the alignment of two rotational axes. In 3D software like Blender, standard Euler rotations calculate movement sequentially along three distinct axes, mak" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-quaternion-rotation-prevents-gimbal-lock-in-blender">How
+Quaternion Rotation Prevents Gimbal Lock in Blender</h1>
+<p>Gimbal lock is a common animation issue where an object loses a
+degree of rotational freedom due to the alignment of two rotational
+axes. In 3D software like Blender, standard Euler rotations calculate
+movement sequentially along three distinct axes, making them vulnerable
+to this lockup. By utilizing quaternion rotation for skeletal bones,
+Blender avoids gimbal lock entirely by calculating orientation using a
+four-dimensional system that defines a single axis and angle of rotation
+simultaneously, ensuring smooth and predictable movement across all
+ranges of motion.</p>
+<h3 id="the-mechanism-of-gimbal-lock-in-euler-rotations">The Mechanism
+of Gimbal Lock in Euler Rotations</h3>
+<p>To understand how quaternions solve gimbal lock, it is first
+necessary to understand how Euler angles fail. Euler rotation systems
+calculate orientation by applying three successive rotations around
+individual axes (such as X, Y, and then Z). Because these rotations are
+evaluated in a specific hierarchical sequence, rotating the middle axis
+by 90 degrees causes the first and third axes to align onto the same
+physical plane.</p>
+<p>When this alignment occurs:</p>
+<ul>
+<li>The system loses one of its three rotational degrees of
+freedom.</li>
+<li>Rotating along the first axis produces the exact same motion as
+rotating along the third axis.</li>
+<li>Software cannot determine how to interpolate smoothly between
+keyframes, causing rigs to twitch, flip, or take erratic paths during
+animation.</li>
+</ul>
+<h3 id="how-quaternions-eliminate-the-problem">How Quaternions Eliminate
+the Problem</h3>
+<p>Quaternions eliminate gimbal lock by completely abandoning
+sequential, axis-by-axis rotation. Instead of three angles, a quaternion
+uses four numbers (<span class="math inline">\(W, X, Y, Z\)</span>) to
+define an orientation in three-dimensional space:</p>
+<ol type="1">
+<li><strong>A Vector (<span class="math inline">\(X, Y,
+Z\)</span>):</strong> Represents an arbitrary axis of rotation in 3D
+space.</li>
+<li><strong>A Scalar (<span class="math inline">\(W\)</span>):</strong>
+Represents the amount of rotation around that defined axis.</li>
+</ol>
+<p>Because a quaternion rotates an object around a single, dynamically
+calculated 3D vector in a single mathematical step, there is no
+hierarchy of axes. Since no individual coordinate axes are nested or
+evaluated sequentially, it is mathematically impossible for two axes to
+align and collapse a degree of freedom.</p>
+<h3 id="benefits-for-bone-animation-in-blender">Benefits for Bone
+Animation in Blender</h3>
+<p>In Blender, bones frequently require extreme ranges of motion,
+particularly in ball-and-socket joints like shoulders, hips, and wrists.
+Using quaternion rotation (set as <code>Quaternion (WXYZ)</code> in the
+transform panel) provides specific advantages:</p>
+<ul>
+<li><strong>Smooth Interpolation:</strong> Quaternions use Spherical
+Linear Interpolation (SLERP), which calculates the shortest, most
+natural arc between two orientations.</li>
+<li><strong>Predictable Movement:</strong> Rigged characters can perform
+full 360-degree rotations or complex acrobatic movements without sudden
+flipping or axis locking.</li>
+<li><strong>Continuous Keyframing:</strong> Animators do not need to
+manually correct Euler axis alignments or adjust curve tangents to fix
+interpolation errors caused by locked axes.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create Reusable Node Groups in Blender - blender</title>
+    <meta name="description" content="This guide explains what node groups are in Blender, how they streamline complex workflows across shader, geometry, and compositing editors, and the exact steps to turn them into reusable assets. By grouping nodes and saving them to Blender's Asset Brows">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-create-reusable-node-groups-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Create Reusable Node Groups in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-create-reusable-node-groups-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide explains what node groups are in Blender, how they streamline complex workflows across shader, geometry, and compositing editors, and the exact steps to turn them into reusable assets. By grouping nodes and saving them to Blender's Asset Brows" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-create-reusable-node-groups-in-blender">How to Create
+Reusable Node Groups in Blender</h1>
+<p>This guide explains what node groups are in Blender, how they
+streamline complex workflows across shader, geometry, and compositing
+editors, and the exact steps to turn them into reusable assets. By
+grouping nodes and saving them to Blender's Asset Browser, you can
+create a modular library of custom materials, modifiers, and effects
+that can be instantly dropped into any current or future 3D project.</p>
+<h3 id="what-are-node-groups">What Are Node Groups?</h3>
+<p>A node group is a container that bundles multiple interconnected
+nodes into a single, compact node. Instead of maintaining large, chaotic
+node networks across multiple objects, node groups allow you to collapse
+complex logic into a single node with custom input and output
+sockets.</p>
+<p>Node groups offer several key advantages:</p>
+<ul>
+<li><strong>Clutter Reduction:</strong> Condenses sprawling node trees
+into an organized, readable layout.</li>
+<li><strong>Non-Destructive Tweaking:</strong> Exposes only the
+essential parameters (such as color, roughness, or scale) on the outside
+of the group.</li>
+<li><strong>Global Updates:</strong> When you edit a node group, every
+material or modifier referencing that specific group updates
+simultaneously.</li>
+</ul>
+<h3 id="how-to-create-a-node-group">How to Create a Node Group</h3>
+<ol type="1">
+<li><strong>Select Nodes:</strong> In the Shader, Geometry, or
+Compositor Editor, hold <code>Shift</code> and select the nodes you want
+to combine (do not select the final Material Output node).</li>
+<li><strong>Group Nodes:</strong> Press <code>Ctrl + G</code> (or go to
+<strong>Node &gt; Make Group</strong> in the top menu). The interface
+will immediately switch to the internal view of your new group.</li>
+<li><strong>Configure Inputs and Outputs:</strong> Connect any values
+you want accessible from the outside to the <strong>Group Input</strong>
+and <strong>Group Output</strong> nodes.</li>
+<li><strong>Customize Sockets:</strong> Press <code>N</code> to open the
+sidebar. Under the <strong>Group</strong> or <strong>Node</strong> tab,
+you can rename sockets, set default values, and define minimum/maximum
+slider limits.</li>
+<li><strong>Exit the Group:</strong> Press <code>Tab</code> to return to
+the main node tree. Press <code>Tab</code> again with the group selected
+whenever you need to edit its internal structure.</li>
+</ol>
+<h3 id="how-to-package-node-groups-as-reusable-assets">How to Package
+Node Groups as Reusable Assets</h3>
+<p>To use your node groups across different blend files without manually
+copying and pasting them, save them to Blender's Asset Browser.</p>
+<h4 id="1-name-the-node-group">1. Name the Node Group</h4>
+<p>Select your node group, press <code>N</code> to open the sidebar, and
+give it a clear, descriptive name in the <strong>Node</strong> panel
+(for example, <em>Custom Glass Shader</em> or <em>Procedural Brick
+Generator</em>).</p>
+<h4 id="2-mark-the-node-group-as-an-asset">2. Mark the Node Group as an
+Asset</h4>
+<ol type="1">
+<li>Open the <strong>Outliner</strong> and switch the display mode from
+<em>View Layer</em> to <strong>Blender File</strong>.</li>
+<li>Expand the <strong>Node Groups</strong> folder to locate your newly
+created group.</li>
+<li>Right-click the node group and select <strong>Mark as
+Asset</strong>. A small asset icon will appear next to its name.</li>
+</ol>
+<h4 id="3-organize-in-the-asset-browser">3. Organize in the Asset
+Browser</h4>
+<ol type="1">
+<li>Open the <strong>Asset Browser</strong> editor window in
+Blender.</li>
+<li>Select <strong>Current File</strong> from the library dropdown
+menu.</li>
+<li>Assign the node group to a specific catalog or add tags and
+descriptions in the metadata sidebar (<code>N</code> panel) to make it
+easily searchable.</li>
+</ol>
+<h4 id="4-save-to-your-asset-library">4. Save to Your Asset Library</h4>
+<p>For the asset to appear in all future projects:</p>
+<ol type="1">
+<li>Save the <code>.blend</code> file into a dedicated directory on your
+computer designated for Blender assets.</li>
+<li>Go to <strong>Edit &gt; Preferences &gt; File Paths</strong>.</li>
+<li>Under the <strong>Asset Libraries</strong> section, click the
+<code>+</code> icon and add the folder path where your asset file is
+saved.</li>
+</ol>
+<p>Once configured, your custom node group will be available directly
+from the Asset Browser or the <strong>Add &gt; Group</strong> menu in
+any project.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

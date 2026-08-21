@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Grease Pencil to Bezier Curves in Blender - blender</title>
+    <meta name="description" content="Converting Grease Pencil sketches into 3D Bezier curves in Blender allows you to transform freehand strokes into precise geometry for 3D modeling, beveling, or animation paths. This guide provides a direct, step-by-step walkthrough on how to convert your">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/convert-grease-pencil-to-bezier-curves-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Convert Grease Pencil to Bezier Curves in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/convert-grease-pencil-to-bezier-curves-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Converting Grease Pencil sketches into 3D Bezier curves in Blender allows you to transform freehand strokes into precise geometry for 3D modeling, beveling, or animation paths. This guide provides a direct, step-by-step walkthrough on how to convert your" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="convert-grease-pencil-to-bezier-curves-in-blender">Convert
+Grease Pencil to Bezier Curves in Blender</h1>
+<p>Converting Grease Pencil sketches into 3D Bezier curves in Blender
+allows you to transform freehand strokes into precise geometry for 3D
+modeling, beveling, or animation paths. This guide provides a direct,
+step-by-step walkthrough on how to convert your sketch strokes into
+native 3D Bezier curves and optimize them for your workflow.</p>
+<h3 id="step-1-prepare-your-grease-pencil-drawing">Step 1: Prepare Your
+Grease Pencil Drawing</h3>
+<p>Ensure your Grease Pencil object is finalized and clean before
+conversion.</p>
+<ol type="1">
+<li>Switch to <strong>Object Mode</strong>.</li>
+<li>Left-click to select the Grease Pencil object you want to
+convert.</li>
+<li>(Optional) If you only want to convert specific strokes, switch to
+<strong>Edit Mode</strong>, select the desired strokes, and separate
+them into a new Grease Pencil object using <strong>P &gt; Selected
+Points</strong>.</li>
+</ol>
+<h3 id="step-2-convert-the-stroke-to-a-curve">Step 2: Convert the Stroke
+to a Curve</h3>
+<p>Blender provides a built-in conversion operator to turn Grease Pencil
+data into curve data.</p>
+<ol type="1">
+<li>While in <strong>Object Mode</strong> with your Grease Pencil object
+selected, open the top viewport menu and click
+<strong>Object</strong>.</li>
+<li>Navigate to <strong>Convert</strong> and select
+<strong>Path</strong> or <strong>Curve</strong>. Alternatively,
+right-click the object in the 3D Viewport and choose <strong>Convert To
+&gt; Path / Curve</strong>.</li>
+<li>Blender will generate a new Curve object in the Outliner while
+keeping the original Grease Pencil object intact. You can now hide or
+delete the original Grease Pencil layer.</li>
+</ol>
+<h3 id="step-3-change-the-curve-type-to-bezier">Step 3: Change the Curve
+Type to Bezier</h3>
+<p>Depending on your Blender version and defaults, the generated curve
+may be created as a Poly curve or a NURBS path. To ensure it is a Bezier
+curve:</p>
+<ol type="1">
+<li>Select the newly created curve object and press <strong>Tab</strong>
+to enter <strong>Edit Mode</strong>.</li>
+<li>Press <strong>A</strong> to select all control points.</li>
+<li>Go to the top menu and select <strong>Curve &gt; Set Spline
+Type</strong>.</li>
+<li>Choose <strong>Bezier</strong> from the menu.</li>
+</ol>
+<h3 id="step-4-optimize-and-smooth-the-curve">Step 4: Optimize and
+Smooth the Curve</h3>
+<p>Grease Pencil strokes often create an excessive number of control
+points during conversion. To make the Bezier curve manageable:</p>
+<ol type="1">
+<li>In <strong>Edit Mode</strong> with all points selected
+(<strong>A</strong>), go to <strong>Curve &gt; Clean Up &gt; Decimate
+Curve</strong>.</li>
+<li>Adjust the <strong>Ratio</strong> slider in the lower-left pop-up
+panel to reduce the point count while maintaining the stroke's overall
+shape.</li>
+<li>Press <strong>V</strong> to change handle types (such as
+<strong>Automatic</strong>, <strong>Aligned</strong>, or
+<strong>Free</strong>) to smooth out any sharp transitions.</li>
+</ol>
+<h3 id="step-5-add-3d-depth-optional">Step 5: Add 3D Depth
+(Optional)</h3>
+<p>To give your newly created Bezier curve thickness and 3D volume:</p>
+<ol type="1">
+<li>Select the curve and go to the <strong>Data Properties</strong> tab
+(green curve icon) in the Properties panel.</li>
+<li>Under the <strong>Shape</strong> section, ensure the curve is set to
+<strong>3D</strong>.</li>
+<li>Expand the <strong>Geometry</strong> section.</li>
+<li>Under <strong>Bevel</strong>, increase the <strong>Depth</strong>
+value to add round thickness, or assign an object/profile curve to
+create custom geometry along the stroke.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Export Animations and Blendshapes to FBX in Blender - blender</title>
+    <meta name="description" content="Exporting 3D models with both skeletal animations and blendshapes (shape keys) from Blender to the FBX format requires configuring specific export settings to prevent data loss. This guide provides a straightforward, step-by-step walkthrough to properly">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/export-animations-and-blendshapes-to-fbx-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Export Animations and Blendshapes to FBX in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/export-animations-and-blendshapes-to-fbx-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Exporting 3D models with both skeletal animations and blendshapes (shape keys) from Blender to the FBX format requires configuring specific export settings to prevent data loss. This guide provides a straightforward, step-by-step walkthrough to properly" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="export-animations-and-blendshapes-to-fbx-in-blender">Export
+Animations and Blendshapes to FBX in Blender</h1>
+<p>Exporting 3D models with both skeletal animations and blendshapes
+(shape keys) from Blender to the FBX format requires configuring
+specific export settings to prevent data loss. This guide provides a
+straightforward, step-by-step walkthrough to properly prepare your mesh,
+configure Blender's FBX exporter, and ensure your animations and morph
+targets import seamlessly into game engines like Unity and Unreal Engine
+or other 3D software.</p>
+<h3 id="step-1-prepare-your-mesh-armature-and-blendshapes">Step 1:
+Prepare Your Mesh, Armature, and Blendshapes</h3>
+<ol type="1">
+<li><strong>Verify Shape Keys:</strong> Select your mesh and navigate to
+the <strong>Object Data Properties</strong> tab (green triangle icon).
+Ensure all required morph targets are listed under the <strong>Shape
+Keys</strong> panel.</li>
+<li><strong>Organize Animations:</strong> Open the <strong>Dope
+Sheet</strong> editor and switch the mode to the <strong>Action
+Editor</strong> or the <strong>Nonlinear Animation (NLA)</strong>
+editor. Ensure your skeletal animation tracks and any animated shape key
+channels are properly keyed or pushed down to NLA strips.</li>
+<li><strong>Apply Transforms:</strong> Select both your mesh and
+armature in the 3D Viewport, press <code>Ctrl + A</code>, and select
+<strong>All Transforms</strong>. This ensures the rotation, location,
+and scale are standardized to prevent scaling or orientation errors
+during export.</li>
+</ol>
+<h3 id="step-2-open-the-fbx-export-window">Step 2: Open the FBX Export
+Window</h3>
+<ol type="1">
+<li>Select the mesh and the armature in the viewport.</li>
+<li>Go to <strong>File &gt; Export &gt; FBX (.fbx)</strong> in the top
+menu bar.</li>
+</ol>
+<h3 id="step-3-configure-export-settings">Step 3: Configure Export
+Settings</h3>
+<p>In the export panel on the right side of the file browser, configure
+the following tabs:</p>
+<h4 id="main--include">Main &amp; Include</h4>
+<ul>
+<li><strong>Limit to:</strong> Check <strong>Selected
+Objects</strong>.</li>
+<li><strong>Object Types:</strong> Shift-click to select only
+<strong>Armature</strong> and <strong>Mesh</strong>.</li>
+</ul>
+<h4 id="transform">Transform</h4>
+<ul>
+<li><strong>Scale:</strong> Set to <code>1.0</code>.</li>
+<li><strong>Apply Scalings:</strong> Set to <strong>FBX All</strong> or
+<strong>All Local</strong> to ensure proper scaling in external
+applications.</li>
+<li><strong>Forward:</strong> <code>-Z Forward</code></li>
+<li><strong>Up:</strong> <code>Y Up</code></li>
+</ul>
+<h4 id="geometry">Geometry</h4>
+<ul>
+<li><strong>Apply Modifiers:</strong> Uncheck this option if your
+blendshapes disappear, or ensure that the Armature modifier is at the
+bottom of the stack. <em>Note: Blender cannot export blendshapes if
+modifiers that change mesh topology are set to be applied
+automatically.</em></li>
+<li><strong>Smoothing:</strong> Set to <strong>Face</strong> or
+<strong>Normals Only</strong> depending on your target engine's
+requirement.</li>
+</ul>
+<h4 id="armature">Armature</h4>
+<ul>
+<li><strong>Primary Bone Axis:</strong> <code>Y Axis</code></li>
+<li><strong>Secondary Bone Axis:</strong> <code>X Axis</code></li>
+<li><strong>Armature FBXNode Type:</strong> Set to <strong>Null</strong>
+(recommended for game engines to avoid creating an extra root
+bone).</li>
+<li><strong>Add Leaf Bones:</strong> <strong>Uncheck</strong> this box
+to prevent Blender from adding extra, unnecessary dummy bones to the
+tips of bone chains.</li>
+<li><strong>Only Deform Bones:</strong> Check this if you used control
+rigs (like Rigify) and only want bones that directly deform the
+mesh.</li>
+</ul>
+<h4 id="bake-animation">Bake Animation</h4>
+<ul>
+<li><strong>Bake Animation:</strong> Ensure this box is
+<strong>checked</strong>.</li>
+<li><strong>Key All Bones:</strong> Checked.</li>
+<li><strong>NLA Strips:</strong> Checked (if using NLA tracks).</li>
+<li><strong>All Actions:</strong> Checked (if you want to export all
+unlinked actions saved in your project file).</li>
+<li><strong>Force Start/End Keying:</strong> Checked.</li>
+<li><strong>Shape Keys:</strong> <strong>Checked</strong> (This is
+critical to include animated blendshape curves in the FBX file).</li>
+</ul>
+<h3 id="step-4-export-and-verify">Step 4: Export and Verify</h3>
+<ol type="1">
+<li>Choose your destination folder and name your file.</li>
+<li>Click <strong>Export FBX</strong>.</li>
+<li>Import the generated <code>.fbx</code> file into your destination
+software (such as Unity, Unreal Engine, or a new Blender scene) to
+verify that the skeletal animations play correctly and the blendshape
+sliders/animations function as intended.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

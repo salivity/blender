@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Geometry Nodes Dual Mesh Node Explained - blender</title>
+    <meta name="description" content="The Dual Mesh node in Blender Geometry Nodes transforms a polygonal mesh by converting its faces into vertices and its vertices into faces. This article explains how the Dual Mesh node works, its primary procedural use cases—such as generating hexagona">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-geometry-nodes-dual-mesh-node-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Geometry Nodes Dual Mesh Node Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-geometry-nodes-dual-mesh-node-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Dual Mesh node in Blender Geometry Nodes transforms a polygonal mesh by converting its faces into vertices and its vertices into faces. This article explains how the Dual Mesh node works, its primary procedural use cases—such as generating hexagona" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-geometry-nodes-dual-mesh-node-explained">Blender
+Geometry Nodes Dual Mesh Node Explained</h1>
+<p>The Dual Mesh node in Blender Geometry Nodes transforms a polygonal
+mesh by converting its faces into vertices and its vertices into faces.
+This article explains how the Dual Mesh node works, its primary
+procedural use cases—such as generating hexagonal grids, Voronoi
+patterns, and architectural wireframes—and the essential settings
+required to control its output effectively.</p>
+<h3 id="how-the-dual-mesh-node-works">How the Dual Mesh Node Works</h3>
+<p>In mathematical geometry, a "dual graph" is created by placing a new
+point at the center of every existing face and connecting those points
+across adjacent edges.</p>
+<p>The Dual Mesh node applies this concept to 3D geometry:</p>
+<ul>
+<li><strong>Faces become vertices:</strong> A single vertex is generated
+at the center of every original face.</li>
+<li><strong>Vertices become faces:</strong> Each original vertex is
+replaced by an n-sided polygon, where the number of sides matches the
+number of edges that originally connected to that vertex.</li>
+<li><strong>Edges are reconfigured:</strong> New edges are drawn between
+the new vertices, crossing over the midpoints of the original
+edges.</li>
+</ul>
+<h3 id="primary-use-cases">Primary Use Cases</h3>
+<h4 id="1-creating-hexagonal-and-honeycomb-patterns">1. Creating
+Hexagonal and Honeycomb Patterns</h4>
+<p>When applied to a standard triangulated mesh—such as an Ico Sphere or
+a subdivided plane converted to triangles—the Dual Mesh node converts
+triangles into hexagons and pentagons. This makes it the standard method
+in Blender for generating soccer ball patterns, geodesic domes, and
+honeycomb grids without manual modeling.</p>
+<h4 id="2-procedural-voronoi-cell-generation">2. Procedural Voronoi Cell
+Generation</h4>
+<p>By combining point distributions (such as Poisson Disk sampling),
+Delaunay triangulation, and the Dual Mesh node, you can generate
+authentic 3D or 2D Voronoi cell layouts. This is commonly used for
+organic texturing, cracked surfaces, insect wings, and cellular
+structures.</p>
+<h4 id="3-architectural-structures-and-wireframes">3. Architectural
+Structures and Wireframes</h4>
+<p>The node is frequently paired with nodes like <strong>Extrude
+Mesh</strong>, <strong>Mesh to Curve</strong>, and <strong>Curve to
+Mesh</strong> to create complex architectural facades, sci-fi paneling,
+space frames, and procedural scaffolding.</p>
+<h3 id="node-inputs-and-settings">Node Inputs and Settings</h3>
+<ul>
+<li><strong>Mesh:</strong> The input geometry that you want to calculate
+the dual form for.</li>
+<li><strong>Keep Boundaries:</strong> A boolean toggle that dictates how
+the node handles the perimeter of non-closed surfaces. When enabled, it
+attempts to preserve the shape of the outer border by calculating
+partial faces along the boundary edges instead of trimming them.</li>
+</ul>
+<h3 id="typical-workflow-example">Typical Workflow Example</h3>
+<p>A common procedural setup using the Dual Mesh node involves:</p>
+<ol type="1">
+<li>Adding an <strong>Ico Sphere</strong> or a <strong>Grid</strong>
+node.</li>
+<li>Passing the geometry through a <strong>Triangulate</strong> node (if
+not already fully triangulated).</li>
+<li>Connecting the geometry to the <strong>Dual Mesh</strong> node to
+convert the triangular layout into a hexagonal mesh.</li>
+<li>Using an <strong>Extrude Mesh</strong> or <strong>Scale
+Elements</strong> node to inset, bevel, or extrude the resulting dual
+faces for the final model.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

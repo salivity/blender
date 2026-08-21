@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create Realistic Cloth Simulation in Blender - blender</title>
+    <meta name="description" content="Creating convincing fabric in 3D can be challenging, but Blender’s built-in physics engine makes it highly accessible. This guide provides a step-by-step walkthrough on how to set up, refine, and bake a realistic cloth simulation in Blender. You will l">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-create-realistic-cloth-simulation-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Create Realistic Cloth Simulation in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-create-realistic-cloth-simulation-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Creating convincing fabric in 3D can be challenging, but Blender’s built-in physics engine makes it highly accessible. This guide provides a step-by-step walkthrough on how to set up, refine, and bake a realistic cloth simulation in Blender. You will l" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-create-realistic-cloth-simulation-in-blender">How to
+Create Realistic Cloth Simulation in Blender</h1>
+<p>Creating convincing fabric in 3D can be challenging, but Blender’s
+built-in physics engine makes it highly accessible. This guide provides
+a step-by-step walkthrough on how to set up, refine, and bake a
+realistic cloth simulation in Blender. You will learn how to prepare
+your mesh, configure collision objects, adjust key physics settings for
+realism, and apply final modifiers to achieve natural-looking folds and
+wrinkles.</p>
+<h2 id="step-1-prepare-your-mesh-geometry">Step 1: Prepare Your Mesh
+Geometry</h2>
+<p>The quality of your cloth simulation depends heavily on the geometry
+of your mesh. Cloth requires a dense, evenly spaced grid of vertices to
+bend and fold realistically.</p>
+<ol type="1">
+<li>Add a plane to your scene (<code>Shift + A</code> &gt;
+<strong>Mesh</strong> &gt; <strong>Plane</strong>).</li>
+<li>Enter Edit Mode (<code>Tab</code>).</li>
+<li>Right-click and select <strong>Subdivide</strong>.</li>
+<li>In the subdivision operator box in the bottom-left corner, set the
+number of cuts to at least <strong>30 to 50</strong>.</li>
+<li>Exit Edit Mode (<code>Tab</code>).</li>
+</ol>
+<h2 id="step-2-enable-cloth-physics">Step 2: Enable Cloth Physics</h2>
+<p>Once your geometry is ready, you need to assign the cloth physics
+properties to your mesh.</p>
+<ol type="1">
+<li>Select your subdivided plane.</li>
+<li>Go to the <strong>Physics Properties</strong> tab on the right-hand
+panel (represented by a circular physics icon).</li>
+<li>Click on the <strong>Cloth</strong> button.</li>
+<li>At the top of the Cloth panel, you can choose a preset (such as
+<strong>Cotton</strong>, <strong>Silk</strong>, or
+<strong>Denim</strong>) from the presets dropdown menu to instantly
+configure the physical properties of your fabric.</li>
+</ol>
+<h2 id="step-3-configure-collision-objects">Step 3: Configure Collision
+Objects</h2>
+<p>To prevent your cloth from falling endlessly through the scene, you
+must set up objects for it to interact with.</p>
+<ol type="1">
+<li>Add a collision object, such as a sphere or a table model, and
+position it directly beneath your cloth mesh.</li>
+<li>Select the collision object.</li>
+<li>Go to the <strong>Physics Properties</strong> tab and click
+<strong>Collision</strong>.</li>
+<li>Leave the default settings as they are for now; the cloth will now
+detect this object and drape over it.</li>
+</ol>
+<h2 id="step-4-fine-tune-settings-for-realism">Step 4: Fine-Tune
+Settings for Realism</h2>
+<p>Default cloth settings often look floaty or suffer from clipping.
+Adjust these key parameters to drastically improve realism:</p>
+<ul>
+<li><strong>Quality Steps:</strong> Located at the top of the Cloth
+panel. Increase this value from 5 to <strong>8 or 12</strong>. Higher
+steps increase simulation accuracy and reduce clipping, though they
+require more processing power.</li>
+<li><strong>Self Collisions:</strong> Scroll down to the
+<strong>Collisions</strong> dropdown menu inside the Cloth settings.
+Enable the checkbox for <strong>Self Collisions</strong>. This prevents
+the cloth from passing through itself when it folds.</li>
+<li><strong>Distance:</strong> Under the Collisions dropdown, reduce
+both the object collision distance and self-collision distance to around
+<strong>0.015m</strong> or <strong>0.01m</strong> to prevent the cloth
+from hovering unnaturally above surfaces.</li>
+<li><strong>Air Viscosity:</strong> Under the <strong>Physical
+Properties</strong> sub-tab, slightly increase the air viscosity to add
+more air resistance, which prevents the cloth from falling too
+quickly.</li>
+</ul>
+<h2 id="step-5-add-modifiers-for-final-polish">Step 5: Add Modifiers for
+Final Polish</h2>
+<p>Even a good simulation can look blocky and paper-thin without proper
+modifiers. Apply these modifiers to give the cloth physical weight and
+smoothness.</p>
+<ol type="1">
+<li>Right-click your cloth mesh and select <strong>Shade
+Smooth</strong>.</li>
+<li>Go to the <strong>Modifier Properties</strong> tab (wrench icon).
+Note that Blender automatically placed a <em>Cloth</em> modifier in the
+stack.</li>
+<li>Add a <strong>Subdivision Surface</strong> modifier. Crucially,
+place this modifier <strong>below</strong> the Cloth modifier in the
+stack. This smooths out the folds generated by the simulation.</li>
+<li>Add a <strong>Solidify</strong> modifier below the Subdivision
+Surface modifier to give the fabric a realistic thickness. Set the
+thickness to a very low value, such as <strong>0.002m</strong>.</li>
+</ol>
+<h2 id="step-6-bake-the-simulation">Step 6: Bake the Simulation</h2>
+<p>Baking calculates the physics and locks the animation into memory,
+allowing you to playback the simulation smoothly.</p>
+<ol type="1">
+<li>Select the cloth object and return to the <strong>Physics
+Properties</strong> tab.</li>
+<li>Scroll down to the <strong>Cache</strong> panel.</li>
+<li>Set your desired frame start and end points.</li>
+<li>Click <strong>Bake</strong>.</li>
+</ol>
+<p>Once the progress bar completes, press the Spacebar to play back your
+highly realistic, fully interacting cloth simulation.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shrinkwrap Retopology Workflow in Blender - blender</title>
+    <meta name="description" content="The shrinkwrap-based retopology workflow in Blender is a semi-automated technique used to create clean, optimized, low-polygon geometry over a high-density 3D sculpt. By combining Blender's Shrinkwrap modifier with face-snapping tools and viewport visibi">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/shrinkwrap-retopology-workflow-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shrinkwrap Retopology Workflow in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/shrinkwrap-retopology-workflow-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The shrinkwrap-based retopology workflow in Blender is a semi-automated technique used to create clean, optimized, low-polygon geometry over a high-density 3D sculpt. By combining Blender's Shrinkwrap modifier with face-snapping tools and viewport visibi" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="shrinkwrap-retopology-workflow-in-blender">Shrinkwrap Retopology
+Workflow in Blender</h1>
+<p>The shrinkwrap-based retopology workflow in Blender is a
+semi-automated technique used to create clean, optimized, low-polygon
+geometry over a high-density 3D sculpt. By combining Blender's
+Shrinkwrap modifier with face-snapping tools and viewport visibility
+settings, artists can quickly lay down topology while the software
+automatically forces the new vertices to conform tightly to the
+underlying high-poly surface. This guide covers the essential setup,
+modifier configurations, modeling techniques, and finalization steps
+required to master this efficient retopology pipeline.</p>
+<h2 id="understanding-the-shrinkwrap-workflow">Understanding the
+Shrinkwrap Workflow</h2>
+<p>Retopology is necessary to convert dense, unorganized sculpts into
+lightweight meshes with clean edge loops suitable for animation, UV
+unwrapping, and game engine integration. The traditional manual method
+involves placing every vertex directly on the surface, which can be slow
+and prone to surface unevenness.</p>
+<p>The Shrinkwrap modifier accelerates this process by projecting new
+geometry directly onto the target high-poly mesh in real time. This
+allows you to focus on edge flow and quad distribution without
+constantly adjusting individual vertex depths.</p>
+<h2 id="initial-scene-and-mesh-setup">Initial Scene and Mesh Setup</h2>
+<ol type="1">
+<li><strong>Prepare the High-Poly Mesh:</strong> Ensure your sculpted
+object has its scale applied (<code>Ctrl + A</code> &gt; <strong>Apply
+All Transforms</strong>). Give it a clear name, such as
+<code>Sculpt_HighPoly</code>.</li>
+<li><strong>Create the Retopology Mesh:</strong> In Object Mode, add a
+simple mesh, such as a <strong>Single Plane</strong>
+(<code>Shift + A</code> &gt; <strong>Mesh</strong> &gt;
+<strong>Plane</strong>). Name it <code>Retopo_LowPoly</code>.</li>
+<li><strong>Configure Viewport Display:</strong>
+<ul>
+<li>Select <code>Retopo_LowPoly</code>.</li>
+<li>Go to the <strong>Object Properties</strong> tab (orange square
+icon).</li>
+<li>Expand <strong>Viewport Display</strong> and check <strong>In
+Front</strong>. This ensures your new topology is always visible over
+the dense sculpt.</li>
+</ul></li>
+</ol>
+<h2 id="configuring-modifiers">Configuring Modifiers</h2>
+<p>Add the following modifiers to your <code>Retopo_LowPoly</code> mesh
+in the <strong>Modifier Properties</strong> tab:</p>
+<h3 id="1-mirror-modifier-optional-for-symmetrical-models">1. Mirror
+Modifier (Optional, for Symmetrical Models)</h3>
+<ul>
+<li>Place it at the top of the modifier stack.</li>
+<li>Enable the appropriate axis (usually <strong>X</strong>).</li>
+<li>Check <strong>Clipping</strong> to prevent vertices along the center
+line from crossing over.</li>
+</ul>
+<h3 id="2-shrinkwrap-modifier">2. Shrinkwrap Modifier</h3>
+<ul>
+<li><strong>Target:</strong> Select your <code>Sculpt_HighPoly</code>
+object.</li>
+<li><strong>Wrap Method:</strong> Set to <strong>Target Normal
+Project</strong> or <strong>Nearest Surface Point</strong> (Target
+Normal Project provides the most predictable results for character
+surfaces).</li>
+<li><strong>Snap Mode:</strong> Set to <strong>On Surface</strong>.</li>
+<li><strong>Offset:</strong> Set a slight positive value (e.g.,
+<code>0.001 m</code> to <code>0.005 m</code>) to prevent the
+retopologized mesh from clipping inside the sculpt during editing.</li>
+</ul>
+<h2 id="snapping-tool-configuration">Snapping Tool Configuration</h2>
+<p>To ensure vertices stick to the surface as you create and move
+them:</p>
+<ul>
+<li>Enable <strong>Snapping</strong> by clicking the magnet icon at the
+top of the 3D viewport (or press <code>Shift + Tab</code>).</li>
+<li>Set <strong>Snap Base</strong> to <strong>Closest</strong>.</li>
+<li>Set <strong>Snap To</strong> to <strong>Face Project</strong>.</li>
+<li>Enable <strong>Project Individual Elements</strong>.</li>
+</ul>
+<h2 id="the-retopology-process">The Retopology Process</h2>
+<p>With the modifiers and snapping enabled, switch to <strong>Edit
+Mode</strong> (<code>Tab</code>) on the <code>Retopo_LowPoly</code> mesh
+to build your topology:</p>
+<ol type="1">
+<li><strong>Establish Major Edge Loops:</strong> Use the <strong>Poly
+Build</strong> tool or standard extrusion (<code>E</code>) to create the
+primary loops around critical anatomical features, such as eyes, mouth,
+nose, joints, and silhouettes.</li>
+<li><strong>Bridge the Loops:</strong> Fill the open spaces between
+major loops using the <strong>Grid Fill</strong> tool or by bridging
+edge loops with <code>F</code>.</li>
+<li><strong>Relaxing Vertices:</strong> If the mesh begins to bunch up,
+use the <strong>Mesh &gt; Relax</strong> command or the <strong>Smooth
+Vertex</strong> tool. The Shrinkwrap modifier will automatically keep
+the relaxed vertices pinned to the high-poly surface.</li>
+</ol>
+<h2 id="finalizing-the-mesh">Finalizing the Mesh</h2>
+<p>Once the entire surface is covered with clean, all-quad topology:</p>
+<ol type="1">
+<li>Switch back to <strong>Object Mode</strong>.</li>
+<li>If satisfied with the alignment, apply the <strong>Mirror
+Modifier</strong> (if used).</li>
+<li>Apply the <strong>Shrinkwrap Modifier</strong> to bake the vertex
+positions permanently into the low-poly mesh.</li>
+<li>Recalculate mesh normals by entering Edit Mode, selecting all
+geometry (<code>A</code>), and pressing <code>Shift + N</code>.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

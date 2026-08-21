@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender F-Curve Modifiers Explained - blender</title>
+    <meta name="description" content="F-Curve modifiers in Blender are non-destructive tools applied to animation curves within the Graph Editor, allowing animators to procedurally automate, alter, and control motion without manually setting endless keyframes. By modifying raw animation data">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-f-curve-modifiers-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender F-Curve Modifiers Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-f-curve-modifiers-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="F-Curve modifiers in Blender are non-destructive tools applied to animation curves within the Graph Editor, allowing animators to procedurally automate, alter, and control motion without manually setting endless keyframes. By modifying raw animation data" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-f-curve-modifiers-explained">Blender F-Curve Modifiers
+Explained</h1>
+<p>F-Curve modifiers in Blender are non-destructive tools applied to
+animation curves within the Graph Editor, allowing animators to
+procedurally automate, alter, and control motion without manually
+setting endless keyframes. By modifying raw animation data
+mathematically, these modifiers can generate continuous loops, random
+handheld camera noise, hard value limits, or stylized stepped motion.
+This guide covers what F-Curve modifiers are, the most common types
+available, and the step-by-step process for applying them to your 3D
+projects.</p>
+<hr />
+<h3 id="what-are-f-curves-and-f-curve-modifiers">What Are F-Curves and
+F-Curve Modifiers?</h3>
+<p>In Blender, an <strong>F-Curve</strong> (Function Curve) represents
+the change of an animated property (such as Location, Rotation, or
+Scale) over time. Keyframes define points on this curve, and
+interpolation handles the transition between them.</p>
+<p><strong>F-Curve Modifiers</strong> are procedural operations stacked
+on top of existing F-Curves. Similar to mesh modifiers in the 3D
+Viewport, F-Curve modifiers alter the curve's output non-destructively.
+The original keyframes remain unchanged, allowing you to tweak, toggle,
+or delete modifier effects at any point in your workflow.</p>
+<hr />
+<h3 id="common-f-curve-modifiers-and-their-uses">Common F-Curve
+Modifiers and Their Uses</h3>
+<ul>
+<li><strong>Noise:</strong> Adds procedural, algorithmic randomness to a
+curve. It is ideal for simulating camera shake, natural handheld
+movement, flickering lights, or organic idle twitches on
+characters.</li>
+<li><strong>Cycles:</strong> Creates looping motion automatically. It
+can repeat a walk cycle or rotating wheel indefinitely before and after
+the actual keyframes, with options to loop in place or offset
+continuously.</li>
+<li><strong>Stepped Interpolation:</strong> Holds the value of a curve
+for a specified number of frames, creating a stepped or stop-motion
+effect. This is popular for stylized, lower-frame-rate animation styles
+(such as 2D/anime looks or LEGO animations).</li>
+<li><strong>Limits:</strong> Sets strict minimum and maximum boundaries
+for values or time. This prevents values from exceeding physical
+constraints, such as mechanical parts over-rotating or objects sinking
+below the floor.</li>
+<li><strong>Envelope:</strong> Uses control points to scale the
+amplitude and baseline of the curve across specific frame ranges.</li>
+<li><strong>Generator:</strong> Creates standard mathematical curves
+(such as straight linear trends or polynomials) from scratch without
+needing any keyframes.</li>
+</ul>
+<hr />
+<h3 id="how-to-use-f-curve-modifiers-in-blender">How to Use F-Curve
+Modifiers in Blender</h3>
+<ol type="1">
+<li><strong>Set Up Keyframes:</strong> Add at least one or two keyframes
+to an object property (e.g., press <code>I</code> to keyframe
+Rotation).</li>
+<li><strong>Open the Graph Editor:</strong> Switch an editor window to
+the <strong>Graph Editor</strong> (or press <code>Ctrl + Tab</code> in
+the Timeline / Dope Sheet).</li>
+<li><strong>Select the Channel:</strong> In the channel list on the left
+side of the Graph Editor, click on the specific channel you want to
+modify (e.g., <em>Z Rotation</em> or <em>X Location</em>).</li>
+<li><strong>Open the Sidebar:</strong> Press <code>N</code> on your
+keyboard to open the Graph Editor’s right-hand properties sidebar.</li>
+<li><strong>Access the Modifiers Tab:</strong> In the sidebar, select
+the <strong>Modifiers</strong> tab.</li>
+<li><strong>Add Modifier:</strong> Click the <strong>Add
+Modifier</strong> dropdown menu and choose the desired modifier (e.g.,
+<em>Noise</em> or <em>Cycles</em>).</li>
+<li><strong>Adjust Parameters:</strong> Tweak settings such as
+<em>Scale</em>, <em>Strength</em>, or <em>Blend Type</em> directly in
+the panel. The curve in the viewport will update immediately to reflect
+the changes.</li>
+</ol>
+<hr />
+<h3 id="why-use-f-curve-modifiers">Why Use F-Curve Modifiers?</h3>
+<ul>
+<li><strong>Time Efficiency:</strong> Automating repetitive motion like
+idle breathing, engine vibration, or looping cycles saves hours of
+manual keyframing.</li>
+<li><strong>Non-Destructive Workflow:</strong> You can adjust the
+underlying animation keyframes at any time without having to rebuild the
+procedural effects.</li>
+<li><strong>Easy Layering:</strong> You can stack multiple modifiers on
+a single curve (for example, combining <em>Cycles</em> with a subtle
+<em>Noise</em> modifier) to create complex, realistic motion.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

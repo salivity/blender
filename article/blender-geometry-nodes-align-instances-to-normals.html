@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Geometry Nodes: Align Instances to Normals - blender</title>
+    <meta name="description" content="This guide explains how to properly align instanced objects to the surface normals of a target mesh using Blender's Geometry Nodes. By utilizing the built-in normal data from point distribution along with the Align Euler to Vector node, you can ensure th">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-geometry-nodes-align-instances-to-normals">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Geometry Nodes: Align Instances to Normals - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-geometry-nodes-align-instances-to-normals" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide explains how to properly align instanced objects to the surface normals of a target mesh using Blender's Geometry Nodes. By utilizing the built-in normal data from point distribution along with the Align Euler to Vector node, you can ensure th" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-geometry-nodes-align-instances-to-normals">Blender
+Geometry Nodes: Align Instances to Normals</h1>
+<p>This guide explains how to properly align instanced objects to the
+surface normals of a target mesh using Blender's Geometry Nodes. By
+utilizing the built-in normal data from point distribution along with
+the Align Euler to Vector node, you can ensure that scattered objects
+like trees, rocks, or debris naturally orient themselves perpendicular
+to any curved or uneven surface.</p>
+<h3 id="step-1-set-up-the-base-geometry-nodes-tree">Step 1: Set Up the
+Base Geometry Nodes Tree</h3>
+<ol type="1">
+<li>Select your target mesh and navigate to the <strong>Geometry
+Nodes</strong> workspace.</li>
+<li>Click <strong>New</strong> to create a new Geometry Node
+modifier.</li>
+<li>Disconnect or split the line between the <strong>Group
+Input</strong> and <strong>Group Output</strong> nodes.</li>
+</ol>
+<h3 id="step-2-distribute-points-on-the-surface">Step 2: Distribute
+Points on the Surface</h3>
+<ol type="1">
+<li>Press <code>Shift + A</code> and add a <strong>Distribute Points on
+Faces</strong> node.</li>
+<li>Connect the <code>Geometry</code> output of the <strong>Group
+Input</strong> node to the <code>Mesh</code> input of the
+<strong>Distribute Points on Faces</strong> node.</li>
+<li>Choose either <strong>Random</strong> or <strong>Poisson
+Disk</strong> distribution depending on your spacing needs.</li>
+</ol>
+<h3 id="step-3-instance-objects-on-the-points">Step 3: Instance Objects
+on the Points</h3>
+<ol type="1">
+<li>Add an <strong>Instance on Points</strong> node.</li>
+<li>Connect the <code>Points</code> output of the <strong>Distribute
+Points on Faces</strong> node to the <code>Points</code> input of the
+<strong>Instance on Points</strong> node.</li>
+<li>Bring your asset into the node tree using an <strong>Object
+Info</strong> or <strong>Collection Info</strong> node.</li>
+<li>Connect the <code>Geometry</code> or <code>Instances</code> output
+of the asset node into the <code>Instance</code> input of the
+<strong>Instance on Points</strong> node.</li>
+<li>Connect the <code>Instances</code> output of the <strong>Instance on
+Points</strong> node to the <strong>Group Output</strong> node (or use a
+<strong>Join Geometry</strong> node if you want to keep the original
+surface visible).</li>
+</ol>
+<h3 id="step-4-align-rotation-to-surface-normals">Step 4: Align Rotation
+to Surface Normals</h3>
+<p>To give instances the correct orientation based on surface normals,
+use an alignment node:</p>
+<ol type="1">
+<li>Add an <strong>Align Euler to Vector</strong> node
+(<code>Shift + A</code> &gt; <strong>Utilities</strong> &gt;
+<strong>Rotation</strong> &gt; <strong>Align Euler to
+Vector</strong>).</li>
+<li>Connect the <strong>Normal</strong> output from the
+<strong>Distribute Points on Faces</strong> node into the
+<strong>Vector</strong> input of the <strong>Align Euler to
+Vector</strong> node.</li>
+<li>Connect the <strong>Rotation</strong> output of the <strong>Align
+Euler to Vector</strong> node to the <strong>Rotation</strong> input of
+the <strong>Instance on Points</strong> node.</li>
+</ol>
+<h3 id="step-5-configure-alignment-settings">Step 5: Configure Alignment
+Settings</h3>
+<ul>
+<li><strong>Axis:</strong> Set this to the axis of your original source
+object that should point outward from the surface (typically
+<strong>Z</strong> for objects standing upright).</li>
+<li><strong>Pivot:</strong> Set this to <strong>Auto</strong> (or
+specify an axis if you want to restrict rotation).</li>
+</ul>
+<h3 id="optional-adding-random-local-rotation">Optional: Adding Random
+Local Rotation</h3>
+<p>To prevent all instances from facing the exact same direction while
+maintaining normal alignment:</p>
+<ol type="1">
+<li>Add a <strong>Rotate Euler</strong> node between the <strong>Align
+Euler to Vector</strong> node and the <strong>Instance on
+Points</strong> node.</li>
+<li>Set the mode to <strong>Axis Angle</strong> or
+<strong>Euler</strong>, and switch the type to
+<strong>Local</strong>.</li>
+<li>Add a <strong>Random Value</strong> node (set to Float), set the
+range from <code>0</code> to <code>tau</code> (or <code>6.283</code>),
+and connect it to the <strong>Z</strong> rotation axis to introduce
+random spin around the surface normal.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

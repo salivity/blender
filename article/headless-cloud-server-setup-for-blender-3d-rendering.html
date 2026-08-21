@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headless Cloud Server Setup for Blender 3D Rendering - blender</title>
+    <meta name="description" content="This article provides a step-by-step guide to configuring a headless Linux cloud server for automated Blender 3D rendering. It covers provisioning the cloud instance, installing core dependencies and GPU drivers, deploying standalone Blender binaries, co">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/headless-cloud-server-setup-for-blender-3d-rendering">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Headless Cloud Server Setup for Blender 3D Rendering - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/headless-cloud-server-setup-for-blender-3d-rendering" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a step-by-step guide to configuring a headless Linux cloud server for automated Blender 3D rendering. It covers provisioning the cloud instance, installing core dependencies and GPU drivers, deploying standalone Blender binaries, co" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="headless-cloud-server-setup-for-blender-3d-rendering">Headless
+Cloud Server Setup for Blender 3D Rendering</h1>
+<p>This article provides a step-by-step guide to configuring a headless
+Linux cloud server for automated Blender 3D rendering. It covers
+provisioning the cloud instance, installing core dependencies and GPU
+drivers, deploying standalone Blender binaries, configuring hardware
+acceleration via command-line arguments and Python scripts, and
+automating the rendering pipeline for scalable background
+processing.</p>
+<h2 id="1-provision-the-cloud-instance">1. Provision the Cloud
+Instance</h2>
+<p>Select a reliable cloud provider (such as AWS, Google Cloud, Azure,
+or DigitalOcean) and deploy an instance running <strong>Ubuntu 22.04
+LTS</strong> or <strong>Ubuntu 24.04 LTS</strong>.</p>
+<ul>
+<li><strong>CPU Rendering:</strong> Select compute-optimized instances
+(e.g., AWS <code>c6i</code> or <code>c7i</code> series) with high core
+counts.</li>
+<li><strong>GPU Rendering:</strong> Select GPU-accelerated instances
+(e.g., AWS <code>g4dn</code>, <code>g5</code>, or GCP <code>a2</code>)
+equipped with NVIDIA GPUs for CUDA and OptiX support.</li>
+</ul>
+<p>Ensure your SSH keys are configured correctly to maintain secure,
+remote command-line access.</p>
+<h2 id="2-install-required-system-dependencies">2. Install Required
+System Dependencies</h2>
+<p>Connect to your instance via SSH and update the system packages:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt upgrade <span class="at">-y</span></span></code></pre></div>
+<p>Install essential libraries required by Blender to run without an
+active display server (X11/Wayland):</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">-y</span> build-essential curl wget xz-utils libgl1 libglu1-mesa libxi6 libxrender1 libxfixes3 libxkbcommon0 libsm6</span></code></pre></div>
+<h3
+id="optional-install-nvidia-drivers-and-cuda-for-gpu-instances">Optional:
+Install NVIDIA Drivers and CUDA (For GPU Instances)</h3>
+<p>If using an NVIDIA GPU, install the appropriate proprietary
+drivers:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> apt install <span class="at">-y</span> nvidia-driver-535 nvidia-utils-535</span></code></pre></div>
+<p>Reboot the server to load the kernel modules:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> reboot</span></code></pre></div>
+<p>Verify the installation after reconnecting:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">nvidia-smi</span></span></code></pre></div>
+<h2 id="3-download-and-install-blender">3. Download and Install
+Blender</h2>
+<p>Using official tarball releases ensures access to the exact Blender
+version required for your project without desktop package overhead.</p>
+<ol type="1">
+<li>Locate the download URL for the desired Linux version from the
+official release archives.</li>
+<li>Download and extract the archive to <code>/opt</code>:</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /tmp</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wget</span> https://download.blender.org/release/Blender4.2/blender-4.2.0-linux-x64.tar.xz</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> tar <span class="at">-xvf</span> blender-4.2.0-linux-x64.tar.xz <span class="at">-C</span> /opt/</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> mv /opt/blender-4.2.0-linux-x64 /opt/blender</span></code></pre></div>
+<ol start="3" type="1">
+<li>Create a symbolic link to make Blender accessible system-wide:</li>
+</ol>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> ln <span class="at">-s</span> /opt/blender/blender /usr/local/bin/blender</span></code></pre></div>
+<ol start="4" type="1">
+<li>Verify the installation:</li>
+</ol>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">--version</span></span></code></pre></div>
+<h2 id="4-run-headless-render-jobs-via-command-line">4. Run Headless
+Render Jobs via Command Line</h2>
+<p>Blender executes in headless mode using the <code>-b</code> (or
+<code>--background</code>) flag.</p>
+<h3 id="single-frame-render">Single Frame Render</h3>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> /path/to/project.blend <span class="at">-o</span> /path/to/output/frame_### <span class="at">-F</span> PNG <span class="at">-f</span> 1</span></code></pre></div>
+<h3 id="full-animation-render">Full Animation Render</h3>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> /path/to/project.blend <span class="at">-o</span> /path/to/output/frame_### <span class="at">-s</span> 1 <span class="at">-e</span> 250 <span class="at">-a</span></span></code></pre></div>
+<h3 id="key-flags">Key Flags:</h3>
+<ul>
+<li><code>-b</code>: Runs Blender in the background without UI.</li>
+<li><code>-o</code>: Defines the output directory and file naming
+pattern (<code>###</code> represents padded frame numbers).</li>
+<li><code>-F</code>: Overrides the output format (e.g.,
+<code>PNG</code>, <code>JPEG</code>, <code>OPEN_EXR</code>,
+<code>FFMPEG</code>).</li>
+<li><code>-s</code> and <code>-e</code>: Specify the start and end
+frames.</li>
+<li><code>-f</code>: Renders a specific frame number.</li>
+<li><code>-a</code>: Renders the full animation sequence.</li>
+</ul>
+<h2 id="5-enable-gpu-acceleration-via-python-script">5. Enable GPU
+Acceleration via Python Script</h2>
+<p>To ensure Cycles uses your cloud GPU (CUDA or OptiX), create a Python
+setup script named <code>enable_gpu.py</code>:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> bpy</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> enable_gpus(device_type<span class="op">=</span><span class="st">&#39;OPTIX&#39;</span>):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    preferences <span class="op">=</span> bpy.context.preferences</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    cycles_preferences <span class="op">=</span> preferences.addons[<span class="st">&#39;cycles&#39;</span>].preferences</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    cycles_preferences.compute_device_type <span class="op">=</span> device_type</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Refresh devices list</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    cycles_preferences.get_devices()</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> device <span class="kw">in</span> cycles_preferences.devices:</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        device.use <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f&quot;Activated device: </span><span class="sc">{</span>device<span class="sc">.</span>name<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>device<span class="sc">.</span><span class="bu">type</span><span class="sc">}</span><span class="ss">)&quot;</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    bpy.context.scene.cycles.device <span class="op">=</span> <span class="st">&#39;GPU&#39;</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>enable_gpus(<span class="st">&#39;OPTIX&#39;</span>)  <span class="co"># Use &#39;CUDA&#39; if OptiX is unavailable</span></span></code></pre></div>
+<p>Execute your render job by passing the script with the
+<code>-P</code> (or <code>--python</code>) flag:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> project.blend <span class="at">-P</span> enable_gpu.py <span class="at">-o</span> //output/frame_### <span class="at">-a</span></span></code></pre></div>
+<h2 id="6-automate-the-workflow">6. Automate the Workflow</h2>
+<p>To scale and automate batch rendering tasks:</p>
+<ul>
+<li><strong>Job Automation:</strong> Use Bash scripts or systemd
+services to poll storage buckets (such as AWS S3 or Google Cloud
+Storage) for incoming <code>.blend</code> files.</li>
+<li><strong>Storage Synchronization:</strong> Use tools like
+<code>rclone</code> or the AWS CLI to sync rendered outputs
+automatically to persistent cloud storage:
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="ex">aws</span> s3 sync /path/to/output/ s3://your-render-bucket/outputs/</span></code></pre></div></li>
+<li><strong>Cost Optimization:</strong> For large batch queues, deploy
+this configuration using Cloud-init scripts on Spot/Preemptible
+instances to minimize infrastructure costs, terminating the instances
+automatically once the render queue is empty.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

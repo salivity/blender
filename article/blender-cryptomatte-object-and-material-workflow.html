@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Cryptomatte Object and Material Workflow - blender</title>
+    <meta name="description" content="Cryptomatte in Blender is an automated masking and matte generation standard that separates objects, materials, and asset hierarchies into distinct layers during rendering. This workflow eliminates the need for manual color IDs or index passes by encodin">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-cryptomatte-object-and-material-workflow">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Cryptomatte Object and Material Workflow - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-cryptomatte-object-and-material-workflow" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Cryptomatte in Blender is an automated masking and matte generation standard that separates objects, materials, and asset hierarchies into distinct layers during rendering. This workflow eliminates the need for manual color IDs or index passes by encodin" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-cryptomatte-object-and-material-workflow">Blender
+Cryptomatte Object and Material Workflow</h1>
+<p>Cryptomatte in Blender is an automated masking and matte generation
+standard that separates objects, materials, and asset hierarchies into
+distinct layers during rendering. This workflow eliminates the need for
+manual color IDs or index passes by encoding unique identification data
+and pixel coverage directly into the render output. By utilizing the
+Cryptomatte system within Blender's Cycles engine and the Compositor,
+artists can quickly isolate, color-grade, and adjust specific parts of a
+complex 3D scene in post-production with sub-pixel accuracy and
+automatic motion blur support.</p>
+<h2 id="understanding-the-three-cryptomatte-layers">Understanding the
+Three Cryptomatte Layers</h2>
+<p>Blender organizes Cryptomatte data into three primary categories
+based on scene organization:</p>
+<ul>
+<li><strong>Crypto Object:</strong> Generates distinct mattes based on
+individual mesh objects in the Outliner. This level is ideal when you
+need to isolate a single specific prop, character part, or standalone
+geometric element.</li>
+<li><strong>Crypto Material:</strong> Separates regions based on
+assigned shader materials. If multiple objects share the same material,
+selecting that material in post-production will create a matte
+encompassing every surface where that shader appears.</li>
+<li><strong>Crypto Asset:</strong> Groups mattes based on the
+highest-level parent in a transform hierarchy or collection. This is
+useful for complex, multi-part models (such as a vehicle consisting of
+hundreds of individual meshes) so the entire asset can be selected with
+a single click.</li>
+</ul>
+<h2 id="setting-up-cryptomatte-in-blender">Setting Up Cryptomatte in
+Blender</h2>
+<p>To enable and configure Cryptomatte passes prior to rendering:</p>
+<ol type="1">
+<li><strong>Select the Render Engine:</strong> Ensure the render engine
+is set to <strong>Cycles</strong>, as Cryptomatte natively supports
+accurate coverage and sample-depth data in Cycles.</li>
+<li><strong>Enable Passes:</strong> Navigate to the <strong>View Layer
+Properties</strong> panel on the right sidebar, expand the
+<strong>Passes</strong> tab, and locate the <strong>Cryptomatte</strong>
+section.</li>
+<li><strong>Check Output Types:</strong> Enable the checkboxes for
+<strong>Object</strong>, <strong>Material</strong>, and
+<strong>Asset</strong> depending on which isolation levels your project
+requires.</li>
+<li><strong>Set Levels (Accuracy):</strong> Adjust the
+<strong>Cryptomatte Levels</strong> setting (default is usually 6). This
+defines how many overlapping objects or transparent surfaces per pixel
+can be stored simultaneously.</li>
+</ol>
+<h2 id="output-format-requirements">Output Format Requirements</h2>
+<p>Because Cryptomatte stores precise identification hashes and
+floating-point coverage values, standard image formats like JPEG or PNG
+cannot contain this metadata.</p>
+<ul>
+<li>Set the output file format in <strong>Output Properties</strong> to
+<strong>OpenEXR MultiLayer</strong>.</li>
+<li>Use a <strong>Float (Full)</strong> 32-bit or <strong>Float
+(Half)</strong> 16-bit color depth to preserve the numerical hashes
+needed by compositing software.</li>
+</ul>
+<h2 id="compositing-and-isolating-elements">Compositing and Isolating
+Elements</h2>
+<p>Once the scene is rendered, you can extract the mattes directly
+inside Blender's <strong>Compositor</strong>:</p>
+<ol type="1">
+<li>Open the <strong>Compositor</strong> workspace and check <strong>Use
+Nodes</strong>.</li>
+<li>Add a <strong>Cryptomatte</strong> node (<strong>Add &gt; Matte &gt;
+Cryptomatte</strong>).</li>
+<li>Connect the <strong>Image</strong> output from the <strong>Render
+Layers</strong> node to the <strong>Image</strong> input of the
+Cryptomatte node.</li>
+<li>Set the <strong>Layer</strong> dropdown on the Cryptomatte node to
+<strong>CryptoObject</strong>, <strong>CryptoMaterial</strong>, or
+<strong>CryptoAsset</strong>.</li>
+<li>Plug the <strong>Image</strong> output of the Cryptomatte node into
+a <strong>Viewer</strong> node to see the rendered frame or the
+color-coded pick pass.</li>
+<li>Use the <strong>Add (Pipette/Plus Icon)</strong> button on the
+Cryptomatte node and click directly on the desired object, material, or
+asset in the viewport backdrop to add its ID to the Matte ID list.</li>
+<li>The <strong>Matte</strong> output socket of the Cryptomatte node now
+provides a clean, anti-aliased black-and-white alpha mask suitable for
+mixing nodes, color correction, and depth-of-field masking.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

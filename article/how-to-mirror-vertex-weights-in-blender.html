@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Mirror Vertex Weights in Blender - blender</title>
+    <meta name="description" content="Mirroring vertex weights in Blender allows you to quickly copy weight painting data from one side of a 3D model to the other across a specified axis. This process saves time during character rigging by ensuring symmetrical mesh deformation without manual">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-mirror-vertex-weights-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Mirror Vertex Weights in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-mirror-vertex-weights-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Mirroring vertex weights in Blender allows you to quickly copy weight painting data from one side of a 3D model to the other across a specified axis. This process saves time during character rigging by ensuring symmetrical mesh deformation without manual" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-mirror-vertex-weights-in-blender">How to Mirror Vertex
+Weights in Blender</h1>
+<p>Mirroring vertex weights in Blender allows you to quickly copy weight
+painting data from one side of a 3D model to the other across a
+specified axis. This process saves time during character rigging by
+ensuring symmetrical mesh deformation without manually painting both
+sides. By using Blender’s built-in tools—such as the Symmetrize function
+in Weight Paint Mode, the Mirror Vertex Group option, or the Mirror
+Modifier—you can automatically copy and transfer vertex groups using
+standard left-to-right naming conventions.</p>
+<h2 id="important-prerequisite-naming-conventions">Important
+Prerequisite: Naming Conventions</h2>
+<p>Before mirroring weights, ensure your vertex groups or bones use
+Blender’s standard symmetry suffixes. Blender relies on these extensions
+to recognize opposite sides:</p>
+<ul>
+<li>Left side: <code>.L</code>, <code>_L</code>, <code>.l</code>, or
+<code>_l</code> (e.g., <code>Arm.L</code>)</li>
+<li>Right side: <code>.R</code>, <code>_R</code>, <code>.r</code>, or
+<code>_r</code> (e.g., <code>Arm.R</code>)</li>
+</ul>
+<hr />
+<h2 id="method-1-symmetrize-all-weights-weight-paint-mode">Method 1:
+Symmetrize All Weights (Weight Paint Mode)</h2>
+<p>This is the fastest method to mirror all vertex weights across the
+entire mesh at once.</p>
+<ol type="1">
+<li>Select your mesh and switch to <strong>Weight Paint
+Mode</strong>.</li>
+<li>Click on the <strong>Weights</strong> menu in the top-left corner of
+the 3D Viewport.</li>
+<li>Select <strong>Symmetrize</strong>.</li>
+<li>Open the <strong>Symmetrize</strong> operator panel in the
+bottom-left corner of the screen.</li>
+<li>Set the <strong>Direction</strong> to match your model's orientation
+(for example, <code>-X to +X</code> or <code>+X to -X</code>).</li>
+</ol>
+<p>Blender will automatically mirror the active weights and assign them
+to the corresponding opposite vertex groups.</p>
+<hr />
+<h2 id="method-2-mirror-a-single-vertex-group">Method 2: Mirror a Single
+Vertex Group</h2>
+<p>If you only want to mirror the weight data of one specific bone or
+group, use the Object Data Properties panel.</p>
+<ol type="1">
+<li>Select your mesh and go to the <strong>Object Data
+Properties</strong> tab (green triangle icon).</li>
+<li>Expand the <strong>Vertex Groups</strong> section and select the
+group you want to mirror (e.g., <code>Bicep.L</code>).</li>
+<li>Click the <strong>downward arrow icon</strong> on the right side of
+the Vertex Groups list.</li>
+<li>Select <strong>Copy Vertex Group</strong>. This creates a group
+named <code>Bicep.L_copy</code>.</li>
+<li>Click the downward arrow icon again and select <strong>Mirror Vertex
+Group</strong>.</li>
+<li>In the operator box at the bottom-left, ensure <strong>Mirror
+Weights</strong> is checked and the axis is correctly configured
+(usually X-axis).</li>
+<li>Rename the copied group to the opposite suffix (e.g., rename
+<code>Bicep.L_copy</code> to <code>Bicep.R</code>).</li>
+</ol>
+<hr />
+<h2 id="method-3-using-the-mirror-modifier">Method 3: Using the Mirror
+Modifier</h2>
+<p>If you are building a mesh from scratch, you can mirror weights
+dynamically using the Mirror Modifier.</p>
+<ol type="1">
+<li>Select your mesh in <strong>Object Mode</strong>.</li>
+<li>Go to the <strong>Modifier Properties</strong> tab (blue wrench
+icon) and add a <strong>Mirror</strong> modifier.</li>
+<li>Enable the <strong>Vertex Groups</strong> checkbox in the Mirror
+Modifier settings.</li>
+<li>Ensure your mesh has vertex groups assigned with standard
+<code>.L</code> and <code>.R</code> suffixes.</li>
+<li>Apply the modifier when your topology and rigging layout are
+complete.</li>
+</ol>
+<hr />
+<h2 id="troubleshooting-weight-mirroring-issues">Troubleshooting Weight
+Mirroring Issues</h2>
+<ul>
+<li><strong>Topology Mismatch:</strong> Automatic mirroring requires
+symmetrical topology. If your mesh topology is asymmetrical, go to
+<strong>Edit Mode</strong>, select all vertices, press <code>F3</code>,
+search for <strong>Symmetrize</strong>, and mirror the geometry
+first.</li>
+<li><strong>Incorrect Axis:</strong> Blender mirrors along the object's
+<strong>Local Origin</strong> by default. If weights mirror incorrectly,
+switch to <strong>Object Mode</strong>, press <code>Ctrl + A</code>, and
+select <strong>Apply All Transforms</strong> to reset the origin and
+rotation.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

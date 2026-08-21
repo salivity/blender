@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Cloth Pressure for Inflatables in Blender - blender</title>
+    <meta name="description" content="This guide explains how to use the Cloth simulation's Pressure setting in Blender to create realistic inflatable objects like balloons, cushions, and pool floats. By configuring a closed 3D mesh, enabling cloth physics, and adjusting the internal pressur">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-cloth-pressure-for-inflatables-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Cloth Pressure for Inflatables in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-cloth-pressure-for-inflatables-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide explains how to use the Cloth simulation's Pressure setting in Blender to create realistic inflatable objects like balloons, cushions, and pool floats. By configuring a closed 3D mesh, enabling cloth physics, and adjusting the internal pressur" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-cloth-pressure-for-inflatables-in-blender">How to Use
+Cloth Pressure for Inflatables in Blender</h1>
+<p>This guide explains how to use the Cloth simulation's Pressure
+setting in Blender to create realistic inflatable objects like balloons,
+cushions, and pool floats. By configuring a closed 3D mesh, enabling
+cloth physics, and adjusting the internal pressure parameters, you can
+quickly simulate expanding, airtight objects without complex manual
+modeling.</p>
+<h2 id="1-prepare-the-base-mesh">1. Prepare the Base Mesh</h2>
+<ol type="1">
+<li>Add or model a closed 3D object (such as a UV Sphere, Cube, or a
+custom low-poly model).</li>
+<li>Ensure the mesh has clean, evenly distributed topology. Add a
+<strong>Subdivision Surface</strong> modifier or manually subdivide the
+mesh in Edit Mode to provide enough geometry for the cloth to bend.</li>
+<li>Check face normals by entering <strong>Edit Mode</strong>, selecting
+all faces (<strong>A</strong>), and pressing <strong>Shift + N</strong>
+to ensure all normals face outward. An inverted normal will cause the
+pressure to collapse the object rather than inflate it.</li>
+</ol>
+<h2 id="2-enable-the-cloth-modifier">2. Enable the Cloth Modifier</h2>
+<ol type="1">
+<li>Select your object and navigate to the <strong>Physics
+Properties</strong> tab on the right-hand panel.</li>
+<li>Click on <strong>Cloth</strong> to add the simulation modifier to
+the object.</li>
+<li>In the Cloth settings, expand the <strong>Physical
+Properties</strong> section. You can leave the base settings at default
+or select a preset like <em>Silk</em> or <em>Rubber</em> depending on
+the stiffness you want for the outer skin.</li>
+</ol>
+<h2 id="3-configure-the-pressure-settings">3. Configure the Pressure
+Settings</h2>
+<ol type="1">
+<li>Scroll down within the Cloth settings to find the
+<strong>Pressure</strong> panel and check the box to enable it.</li>
+<li>Adjust the key pressure parameters:
+<ul>
+<li><strong>Pressure:</strong> Set a positive value (e.g., between
+<code>2.0</code> and <code>10.0</code>) to force the mesh outward.
+Higher values create a stiffer, more inflated look.</li>
+<li><strong>Custom Volume:</strong> Check this if you want the object to
+target a specific volume rather than continuously expanding.</li>
+<li><strong>Pressure Scale:</strong> Adjust this to control how quickly
+the pressure builds up during the animation.</li>
+</ul></li>
+</ol>
+<h2 id="4-adjust-gravity-and-collisions">4. Adjust Gravity and
+Collisions</h2>
+<ol type="1">
+<li>If you want the object to inflate on a surface, add a floor plane
+and assign a <strong>Collision</strong> modifier to it from the Physics
+tab.</li>
+<li>In the Cloth settings under <strong>Field Weights</strong>, reduce
+<strong>Gravity</strong> to <code>0</code> if you want the object to
+float, or leave it at <code>1.0</code> if it should rest on a collision
+surface.</li>
+<li>Expand the <strong>Collisions</strong> panel in the Cloth settings
+and check <strong>Self Collisions</strong> to prevent the mesh from
+intersecting with itself during inflation.</li>
+</ol>
+<h2 id="5-run-and-bake-the-simulation">5. Run and Bake the
+Simulation</h2>
+<ol type="1">
+<li>Return to frame 1 and press <strong>Spacebar</strong> in the
+Timeline to play the simulation and observe the inflation.</li>
+<li>If the shape wrinkles too much, increase the
+<strong>Tension</strong> and <strong>Compression</strong> values in the
+<em>Stiffness</em> section.</li>
+<li>Once satisfied with the result, open the <strong>Cache</strong>
+panel in the Cloth settings and click <strong>Bake</strong> to lock in
+the simulation data.</li>
+<li>Add a <strong>Subdivision Surface</strong> modifier below the Cloth
+modifier in the Modifier stack and enable <strong>Shade Smooth</strong>
+for the final render.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

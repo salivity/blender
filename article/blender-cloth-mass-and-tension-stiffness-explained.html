@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Cloth Mass and Tension Stiffness Explained - blender</title>
+    <meta name="description" content="In Blender's cloth simulation system, achieving realistic fabric behavior relies heavily on fine-tuning physical properties. This guide explains the exact roles of two fundamental parameters: Mass and Tension Stiffness. Understanding how these settings g">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-cloth-mass-and-tension-stiffness-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Cloth Mass and Tension Stiffness Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-cloth-mass-and-tension-stiffness-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="In Blender's cloth simulation system, achieving realistic fabric behavior relies heavily on fine-tuning physical properties. This guide explains the exact roles of two fundamental parameters: Mass and Tension Stiffness. Understanding how these settings g" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-cloth-mass-and-tension-stiffness-explained">Blender
+Cloth Mass and Tension Stiffness Explained</h1>
+<p>In Blender's cloth simulation system, achieving realistic fabric
+behavior relies heavily on fine-tuning physical properties. This guide
+explains the exact roles of two fundamental parameters:
+<strong>Mass</strong> and <strong>Tension Stiffness</strong>.
+Understanding how these settings govern the weight, momentum, and
+elasticity of your 3D mesh allows you to accurately simulate everything
+from light, floating silk to heavy, rigid canvas or stretchy
+spandex.</p>
+<h2 id="what-does-cloth-mass-control">What Does Cloth Mass Control?</h2>
+<p>Cloth Mass determines the weight of the fabric, calculated per vertex
+(or total object mass depending on the workflow). It defines how the
+cloth responds to external forces such as gravity, wind, collisions, and
+inertia.</p>
+<ul>
+<li><strong>Inertia and Gravity Response:</strong> Higher mass gives the
+cloth more physical momentum. Heavy cloth pulls downward strongly under
+gravity, falls faster through resistance, and takes more force to change
+direction when moving. Low-mass cloth feels floaty, reacts instantly to
+small air currents, and settles gently.</li>
+<li><strong>Force Field Interaction:</strong> Wind and turbulence fields
+push low-mass cloth easily, making it ideal for flags, banners, or
+lightweight curtains. High-mass cloth resists wind forces and requires
+significantly higher force strengths to move.</li>
+<li><strong>Practical Examples:</strong>
+<ul>
+<li><strong>Low Mass (0.05 – 0.15 kg):</strong> Silk, satin, thin paper,
+lightweight sheer curtains.</li>
+<li><strong>Medium Mass (0.3 – 0.5 kg):</strong> Cotton t-shirts, light
+blankets, standard clothing.</li>
+<li><strong>High Mass (1.0 – 3.0+ kg):</strong> Heavy leather, denim,
+canvas, thick burlap sacks, heavy rugs.</li>
+</ul></li>
+</ul>
+<h2 id="what-does-tension-stiffness-control">What Does Tension Stiffness
+Control?</h2>
+<p>Tension Stiffness controls the cloth’s resistance to being stretched
+along the edges of its mesh. It dictates how much the fabric can
+elongate when pulled by gravity, motion, or collisions.</p>
+<ul>
+<li><strong>Stretch Resistance:</strong> When tension stiffness is high,
+the distance between vertices remains rigid, preventing the cloth from
+deforming like rubber. When tension stiffness is low, the mesh stretches
+easily under load.</li>
+<li><strong>Draping and Wrinkle Formation:</strong> High tension
+stiffness creates broad, sharp folds and maintains the cloth's original
+dimensions. Low tension stiffness produces softer, sagging folds and
+allows the fabric to hang noticeably lower under its own weight.</li>
+<li><strong>Practical Examples:</strong>
+<ul>
+<li><strong>Low Tension Stiffness (1.0 – 5.0):</strong> Spandex,
+rubberized sheets, knitted wool, elastic sportswear.</li>
+<li><strong>Medium Tension Stiffness (15.0 – 35.0):</strong> Standard
+cotton, polyester blends.</li>
+<li><strong>High Tension Stiffness (50.0 – 100.0+):</strong> Stiff
+denim, sails, thick canvas, non-elastic leather.</li>
+</ul></li>
+</ul>
+<h2 id="how-mass-and-tension-stiffness-work-together">How Mass and
+Tension Stiffness Work Together</h2>
+<p>Mass and tension stiffness are directly codependent. If you increase
+the cloth mass without increasing the tension stiffness, the fabric's
+heavier weight will naturally stretch the mesh downward, causing
+unnatural rubbery sagging.</p>
+<p>To achieve realistic results:</p>
+<ul>
+<li><strong>Heavy, Non-Stretchy Fabrics (e.g., Denim):</strong> Pair
+high mass with high tension stiffness.</li>
+<li><strong>Light, Non-Stretchy Fabrics (e.g., Silk):</strong> Pair low
+mass with high tension stiffness.</li>
+<li><strong>Heavy, Elastic Fabrics (e.g., Thick Knits):</strong> Pair
+medium-to-high mass with low-to-medium tension stiffness.</li>
+</ul>
+<p>If high-mass cloth continues to stretch unrealistically even with
+high tension values, increase the <strong>Simulation Quality
+Steps</strong> in the Cloth settings to give Blender more calculation
+passes per frame to enforce structural stiffness.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

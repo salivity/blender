@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the Fill Tool in Blender Texture Paint - blender</title>
+    <meta name="description" content="The Fill tool in Blender’s Texture Paint mode is a essential feature designed to rapidly flood large areas, UV islands, or an entire 3D model with a solid color, gradient, or texture pattern. Instead of manually brushing over large surfaces, the Fill t">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-the-fill-tool-in-blender-texture-paint">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use the Fill Tool in Blender Texture Paint - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-the-fill-tool-in-blender-texture-paint" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Fill tool in Blender’s Texture Paint mode is a essential feature designed to rapidly flood large areas, UV islands, or an entire 3D model with a solid color, gradient, or texture pattern. Instead of manually brushing over large surfaces, the Fill t" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-the-fill-tool-in-blender-texture-paint">How to Use
+the Fill Tool in Blender Texture Paint</h1>
+<p>The Fill tool in Blender’s Texture Paint mode is a essential feature
+designed to rapidly flood large areas, UV islands, or an entire 3D model
+with a solid color, gradient, or texture pattern. Instead of manually
+brushing over large surfaces, the Fill tool applies color instantly
+across the active texture map based on your selected settings. This
+article provides a quick, clear guide on what the Fill tool is, its key
+settings, and how to use it effectively in your 3D texturing
+workflow.</p>
+<h2 id="what-is-the-fill-tool">What is the Fill Tool?</h2>
+<p>The Fill tool acts like the paint bucket tool found in standard 2D
+image editing software. In Blender, it allows artists to apply color or
+textures across a 3D mesh's UV map with a single click. It is primarily
+used for establishing base colors, applying background coats, or quickly
+re-coloring entire sections of a 3D asset.</p>
+<h2 id="key-settings-of-the-fill-tool">Key Settings of the Fill
+Tool</h2>
+<p>When you select the Fill tool from the toolbar on the left side of
+the screen, several key options appear in the <strong>Active Tool and
+Workspace Settings</strong> panel:</p>
+<ul>
+<li><strong>Color / Color Palette:</strong> Defines the primary color
+used to fill the model. You can select a color using the color wheel or
+pick from a predefined palette.</li>
+<li><strong>Blend Mode:</strong> Determines how the fill color mixes
+with the existing texture.
+<ul>
+<li><em>Mix:</em> Replaces existing pixels with the new color.</li>
+<li><em>Multiply:</em> Darkens the underlying texture using the fill
+color.</li>
+<li><em>Overlay/Add/Subtract:</em> Allows for non-destructive color
+grading and shading effects.</li>
+</ul></li>
+<li><strong>Strength:</strong> Controls the opacity of the fill
+operation. A value of 1.0 completely covers the surface, while lower
+values blend the fill color transparently over the underlying
+layer.</li>
+<li><strong>Color Source:</strong> Switches the fill type between a
+solid <strong>Color</strong> or a <strong>Gradient</strong>.</li>
+</ul>
+<h2 id="how-to-use-the-fill-tool-step-by-step">How to Use the Fill Tool
+Step-by-Step</h2>
+<ol type="1">
+<li><strong>Prepare Your Mesh:</strong> Ensure your 3D object is
+unwrapped (has UV coordinates) and has a material with an active Image
+Texture assigned.</li>
+<li><strong>Enter Texture Paint Mode:</strong> Select your object and
+switch from <em>Object Mode</em> to <em>Texture Paint</em> mode using
+the top-left mode dropdown menu.</li>
+<li><strong>Select the Fill Tool:</strong> Click the
+<strong>Fill</strong> icon (shaped like a paint bucket) in the toolbar
+on the left side of the 3D Viewport.</li>
+<li><strong>Choose Color and Strength:</strong> Adjust your desired base
+color and ensure the <strong>Strength</strong> is set to
+<code>1.0</code> for full coverage.</li>
+<li><strong>Apply the Fill:</strong> Click anywhere on the 3D model in
+the Viewport, or click directly on the canvas inside the <strong>Image
+Editor</strong> window while set to <em>Paint</em> mode.</li>
+</ol>
+<h2 id="useful-tips-for-the-fill-tool">Useful Tips for the Fill
+Tool</h2>
+<ul>
+<li><strong>Face Selection Masking:</strong> Enable <strong>Paint
+Mask</strong> or <strong>3D Viewport Selection Masking</strong> in the
+top header. Select only specific faces or UV islands, then use the Fill
+tool to color those selected areas without affecting the rest of the
+mesh.</li>
+<li><strong>Clearing Textures:</strong> To quickly reset a texture map
+back to a blank canvas, select white (or a default neutral color) and
+click the mesh with the Fill tool set to <em>Mix</em> at
+<code>1.0</code> strength.</li>
+<li><strong>Gradient Fills:</strong> Switch the Color Source to
+<em>Gradient</em> in the tool settings to drag and drop smooth color
+transitions directly across your 3D geometry.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

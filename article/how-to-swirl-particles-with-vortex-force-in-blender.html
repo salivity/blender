@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Swirl Particles with Vortex Force in Blender - blender</title>
+    <meta name="description" content="Using a Vortex Force Field in Blender is the most effective way to create spiral, whirlpool, or tornado-like particle animations. This guide covers how to set up an emitter particle system, add and align the Vortex Force Field, adjust key parameters such">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-swirl-particles-with-vortex-force-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Swirl Particles with Vortex Force in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-swirl-particles-with-vortex-force-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Using a Vortex Force Field in Blender is the most effective way to create spiral, whirlpool, or tornado-like particle animations. This guide covers how to set up an emitter particle system, add and align the Vortex Force Field, adjust key parameters such" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-swirl-particles-with-vortex-force-in-blender">How to
+Swirl Particles with Vortex Force in Blender</h1>
+<p>Using a Vortex Force Field in Blender is the most effective way to
+create spiral, whirlpool, or tornado-like particle animations. This
+guide covers how to set up an emitter particle system, add and align the
+Vortex Force Field, adjust key parameters such as strength and inflow,
+and fine-tune the simulation to achieve a smooth swirling effect.</p>
+<h2 id="step-1-create-the-particle-emitter">Step 1: Create the Particle
+Emitter</h2>
+<ol type="1">
+<li>Open Blender and ensure you are in the 3D Viewport.</li>
+<li>Add a mesh to act as your particle source by pressing <strong>Shift
++ A</strong> and selecting <strong>Mesh &gt; Grid</strong> (or a Plane /
+UV Sphere).</li>
+<li>Navigate to the <strong>Particle Properties</strong> tab on the
+right panel (icon with three dots and lines).</li>
+<li>Click the <strong>+</strong> button to add a new particle system and
+set the type to <strong>Emitter</strong>.</li>
+<li>In the <strong>Emission</strong> settings:
+<ul>
+<li>Set the <strong>Number</strong> of particles (e.g., 1000 to
+5000).</li>
+<li>Set the <strong>Frame Start</strong> to 1 and <strong>End</strong>
+to 100.</li>
+<li>Increase the <strong>Lifetime</strong> to 150 to ensure particles
+stay visible throughout the swirl.</li>
+</ul></li>
+</ol>
+<h2 id="step-2-add-the-vortex-force-field">Step 2: Add the Vortex Force
+Field</h2>
+<ol type="1">
+<li>Press <strong>Shift + A</strong> in the 3D Viewport.</li>
+<li>Hover over <strong>Force Field</strong> and select
+<strong>Vortex</strong>.</li>
+<li>Position the Vortex Force Field near or directly above your emitter
+mesh using the <strong>G</strong> key.</li>
+</ol>
+<h2 id="step-3-align-the-vortex-axis">Step 3: Align the Vortex Axis</h2>
+<p>The Vortex force rotates particles around its local
+<strong>Z-axis</strong>.</p>
+<ul>
+<li>To swirl particles horizontally around a central point, keep the
+Vortex upright (Z-axis pointing up).</li>
+<li>To swirl particles horizontally or diagonally, select the Vortex and
+press <strong>R</strong>, followed by the axis key (<strong>X</strong>
+or <strong>Y</strong>), to rotate the field in the desired
+direction.</li>
+</ul>
+<h2 id="step-4-configure-vortex-settings">Step 4: Configure Vortex
+Settings</h2>
+<p>Select the Vortex object and go to the <strong>Physics
+Properties</strong> tab (icon with a bouncing ball around a ring):</p>
+<ul>
+<li><strong>Strength:</strong> Controls the rotational speed of the
+swirl. Positive values rotate particles counterclockwise, while negative
+values rotate them clockwise. Set this between <code>2.0</code> and
+<code>10.0</code> to start.</li>
+<li><strong>Inflow:</strong> Controls whether particles are pulled
+inward toward the center or pushed outward. A positive value pulls
+particles inward (like a whirlpool), while a negative value flings them
+outward.</li>
+<li><strong>Shape:</strong> Keep it set to <strong>Point</strong> for an
+omnidirectional field or change to <strong>Plane</strong> if you want
+the force distributed along a flat surface.</li>
+<li><strong>Falloff:</strong> In the <strong>Falloff</strong> section,
+adjust the <strong>Power</strong> to control how quickly the force
+weakens with distance. Set <strong>Power</strong> to <code>0</code> for
+an even force across the entire scene, or <code>2.0</code> for a
+realistic drop-off.</li>
+</ul>
+<h2 id="step-5-adjust-scene-gravity-and-particle-dynamics">Step 5:
+Adjust Scene Gravity and Particle Dynamics</h2>
+<p>To prevent default gravity from pulling your particles straight down
+before they can swirl:</p>
+<ol type="1">
+<li>Select your particle emitter mesh.</li>
+<li>Go to the <strong>Particle Properties</strong> tab.</li>
+<li>Expand the <strong>Field Weights</strong> panel.</li>
+<li>Reduce the <strong>Gravity</strong> slider from <code>1.0</code> to
+<code>0.0</code> (or a low value like <code>0.1</code>).</li>
+<li>Set the <strong>Vortex</strong> weight slider to
+<code>1.0</code>.</li>
+</ol>
+<h2 id="step-6-bake-and-fine-tune-the-simulation">Step 6: Bake and
+Fine-Tune the Simulation</h2>
+<ol type="1">
+<li>Press the <strong>Spacebar</strong> to play the animation and
+preview the swirl.</li>
+<li>If particles move too fast or erratically, add a <strong>Drag Force
+Field</strong> (<strong>Shift + A &gt; Force Field &gt; Drag</strong>)
+to slow them down smoothly.</li>
+<li>Once satisfied with the motion, select your emitter, go to
+<strong>Particle Properties &gt; Cache</strong>, and click
+<strong>Bake</strong> to lock in the simulation for rendering.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Are Motion Paths in Blender and How to Use Them - blender</title>
+    <meta name="description" content="This article provides a comprehensive overview of the Motion Paths feature in Blender, explaining what it is, why it is essential for animation, and how to generate and customize it. You will learn how this visual tool helps animators track trajectory, r">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-are-motion-paths-in-blender-and-how-to-use-them">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Are Motion Paths in Blender and How to Use Them - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-are-motion-paths-in-blender-and-how-to-use-them" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides a comprehensive overview of the Motion Paths feature in Blender, explaining what it is, why it is essential for animation, and how to generate and customize it. You will learn how this visual tool helps animators track trajectory, r" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-are-motion-paths-in-blender-and-how-to-use-them">What Are
+Motion Paths in Blender and How to Use Them</h1>
+<p>This article provides a comprehensive overview of the Motion Paths
+feature in Blender, explaining what it is, why it is essential for
+animation, and how to generate and customize it. You will learn how this
+visual tool helps animators track trajectory, refine spacing, and smooth
+out animation arcs for both general objects and rigged character
+bones.</p>
+<h2 id="understanding-motion-paths-in-blender">Understanding Motion
+Paths in Blender</h2>
+<p>Motion Paths is a built-in visualization tool in Blender that
+displays the exact trajectory of an animated object, camera, light, or
+armature bone across a specified range of frames. Rendered in the 3D
+Viewport as a continuous colored line with distinct points, it acts like
+a 3D motion trail that reveals the spatial path an element travels over
+time.</p>
+<p>Instead of relying solely on playback or scrubbing the timeline to
+evaluate motion, animators use Motion Paths to visually inspect the
+quality of their movement arcs directly in 3D space.</p>
+<h2 id="why-use-motion-paths-in-animation">Why Use Motion Paths in
+Animation?</h2>
+<p>Tracking arcs is one of the fundamental principles of animation.
+Motion Paths serve several key purposes:</p>
+<ul>
+<li><strong>Checking Arcs:</strong> Organic movements rarely follow
+straight lines. Motion Paths make it easy to spot flat spots, unwanted
+corners, or unnatural trajectories.</li>
+<li><strong>Evaluating Spacing and Timing:</strong> The distance between
+points on a motion path represents the object's speed. Closely spaced
+dots indicate slower motion (ease-in/ease-out), while widely spaced dots
+show rapid movement.</li>
+<li><strong>Debugging Jitter:</strong> Any sudden spikes or hitches in
+an animation curve become immediately visible in the viewport without
+needing to open the Graph Editor.</li>
+</ul>
+<h2 id="how-to-enable-motion-paths-in-blender">How to Enable Motion
+Paths in Blender</h2>
+<p>Blender allows you to generate motion paths for entire objects or
+individual pose bones within an armature.</p>
+<h3 id="for-objects">For Objects</h3>
+<ol type="1">
+<li>Select the animated object in the <strong>3D Viewport</strong>.</li>
+<li>Go to the <strong>Object Properties</strong> tab (represented by an
+orange square icon) in the Properties panel.</li>
+<li>Scroll down and expand the <strong>Motion Paths</strong> panel.</li>
+<li>Set the <strong>Range</strong> by defining the
+<strong>Start</strong> and <strong>End</strong> frame, or choose
+<strong>Around Frame</strong> to track a specific window around the
+current frame.</li>
+<li>Click <strong>Calculate</strong>.</li>
+</ol>
+<h3 id="for-bones-character-animation">For Bones (Character
+Animation)</h3>
+<ol type="1">
+<li>Select the Armature and switch to <strong>Pose Mode</strong>.</li>
+<li>Select the specific bone(s) you wish to track (such as a hand, foot,
+or head).</li>
+<li>Open the <strong>Pose</strong> menu in the top header, navigate to
+<strong>Motion Paths</strong>, and click <strong>Calculate</strong>.
+Alternatively, access this from the <strong>Bone Properties</strong> or
+<strong>Armature Properties</strong> tab under the <em>Motion Paths</em>
+sub-panel.</li>
+<li>Choose your frame range and hit <strong>OK</strong>.</li>
+</ol>
+<h2 id="key-settings-and-customization">Key Settings and
+Customization</h2>
+<p>Blender offers several display options to tailor how motion paths
+look:</p>
+<ul>
+<li><strong>Display Range:</strong> Choose <em>In Range</em> to bake the
+path over a fixed frame interval, or <em>Around Frame</em> to
+dynamically display a set number of frames before and after the
+playhead.</li>
+<li><strong>Frame Numbers:</strong> Toggling frame numbers shows numeric
+labels on each point along the curve, making it straightforward to match
+a specific curve point to a frame on the timeline.</li>
+<li><strong>Keyframes:</strong> Enables visual indicators specifically
+on the frames where keyframes exist.</li>
+<li><strong>Color Customization:</strong> You can adjust the path's
+color and thickness to maintain visibility against complex backgrounds
+or dense rigs.</li>
+</ul>
+<h2 id="updating-and-clearing-paths">Updating and Clearing Paths</h2>
+<p>Motion paths do not automatically recalculate in real-time when you
+adjust keyframes. If you modify your animation in the Timeline, Dope
+Sheet, or Graph Editor, you must click <strong>Update Paths</strong> in
+the Motion Paths panel to refresh the display. Once you are finished
+refining your curves, click <strong>Clear Paths</strong> to remove the
+visual lines from your viewport.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

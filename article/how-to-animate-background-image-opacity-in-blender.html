@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Animate Background Image Opacity in Blender - blender</title>
+    <meta name="description" content="Animating the opacity of a background image in Blender allows you to create smooth fades, reference overlays, or dynamic visual effects during animation. Depending on whether you are working with viewport reference images or setting up a scene for final">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-animate-background-image-opacity-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Animate Background Image Opacity in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-animate-background-image-opacity-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Animating the opacity of a background image in Blender allows you to create smooth fades, reference overlays, or dynamic visual effects during animation. Depending on whether you are working with viewport reference images or setting up a scene for final" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-animate-background-image-opacity-in-blender">How to
+Animate Background Image Opacity in Blender</h1>
+<p>Animating the opacity of a background image in Blender allows you to
+create smooth fades, reference overlays, or dynamic visual effects
+during animation. Depending on whether you are working with viewport
+reference images or setting up a scene for final rendering, you can
+achieve this effect by keyframing the opacity settings in the Data
+Properties panel or by controlling the Alpha channel inside the Shader
+Editor.</p>
+<h2 id="method-1-animating-opacity-for-viewport-reference-images">Method
+1: Animating Opacity for Viewport Reference Images</h2>
+<p>If you are using a reference image directly in the viewport or
+attached to a camera view, you can keyframe its built-in opacity
+setting.</p>
+<ol type="1">
+<li><strong>Select the Image:</strong> Click on the Reference Image in
+your 3D Viewport, or select your Camera if the image is set as a Camera
+Background Image.</li>
+<li><strong>Open Object Data Properties:</strong> Navigate to the
+<strong>Object Data Properties</strong> tab (represented by an image
+icon for reference images, or a camera icon for cameras) in the
+right-hand Properties panel.</li>
+<li><strong>Enable Opacity:</strong> Ensure the <strong>Opacity</strong>
+checkbox is enabled.</li>
+<li><strong>Set the Initial Keyframe:</strong>
+<ul>
+<li>Move the timeline cursor to the starting frame.</li>
+<li>Adjust the <strong>Opacity</strong> slider to your desired starting
+value (e.g., <code>1.0</code> for fully visible or <code>0.0</code> for
+transparent).</li>
+<li>Hover your mouse over the Opacity slider and press
+<strong><code>I</code></strong> on your keyboard (or right-click and
+select <strong>Insert Keyframe</strong>). The slider box will turn
+yellow.</li>
+</ul></li>
+<li><strong>Set the End Keyframe:</strong>
+<ul>
+<li>Move the timeline cursor to the frame where the fade should
+finish.</li>
+<li>Change the <strong>Opacity</strong> slider to the target value.</li>
+<li>Hover over the slider and press <strong><code>I</code></strong>
+again to insert the second keyframe.</li>
+</ul></li>
+</ol>
+<h2
+id="method-2-animating-opacity-for-rendered-planes-shader-editor">Method
+2: Animating Opacity for Rendered Planes (Shader Editor)</h2>
+<p>If your background image is a 3D mesh (such as a plane created via
+<em>Import Images as Planes</em>) and needs to appear in final renders,
+animate its material alpha value.</p>
+<ol type="1">
+<li><strong>Select the Background Mesh:</strong> Click on the plane
+containing your background image.</li>
+<li><strong>Open the Shader Editor:</strong> Switch a workspace window
+to the <strong>Shader Editor</strong>.</li>
+<li><strong>Locate the Alpha Input:</strong> Find the <strong>Principled
+BSDF</strong> node connected to the Material Output.</li>
+<li><strong>Adjust Blend Mode (Eevee only):</strong> If using Eevee, go
+to <strong>Material Properties</strong> &gt; <strong>Settings</strong>
+and change <strong>Blend Mode</strong> to <strong>Alpha Blend</strong>
+so transparency displays correctly.</li>
+<li><strong>Keyframe the Alpha Value:</strong>
+<ul>
+<li>Move to your starting frame on the Timeline.</li>
+<li>Hover over the <strong>Alpha</strong> value slot on the Principled
+BSDF node.</li>
+<li>Set the value and press <strong><code>I</code></strong> to insert a
+keyframe.</li>
+<li>Move to the ending frame, change the <strong>Alpha</strong> value,
+and press <strong><code>I</code></strong> again.</li>
+</ul></li>
+</ol>
+<h2 id="fine-tuning-the-animation">Fine-Tuning the Animation</h2>
+<p>To adjust the speed and interpolation of the opacity fade:</p>
+<ol type="1">
+<li>Open the <strong>Graph Editor</strong> window.</li>
+<li>Select your image or plane.</li>
+<li>Tweak the keyframe handles to change the transition curve from
+linear to smooth (bezier) or custom easing curves.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

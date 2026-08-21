@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use the Grease Pencil Tint Tool in Blender - blender</title>
+    <meta name="description" content="The Grease Pencil Tint tool in Blender is a specialized brush feature that allows 2D artists and animators to interactively recolor existing strokes and fills using vertex colors without altering the underlying materials. This guide explains what the Tin">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-the-grease-pencil-tint-tool-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use the Grease Pencil Tint Tool in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-the-grease-pencil-tint-tool-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Grease Pencil Tint tool in Blender is a specialized brush feature that allows 2D artists and animators to interactively recolor existing strokes and fills using vertex colors without altering the underlying materials. This guide explains what the Tin" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-the-grease-pencil-tint-tool-in-blender">How to Use
+the Grease Pencil Tint Tool in Blender</h1>
+<p>The Grease Pencil Tint tool in Blender is a specialized brush feature
+that allows 2D artists and animators to interactively recolor existing
+strokes and fills using vertex colors without altering the underlying
+materials. This guide explains what the Tint tool is, how it functions
+within the 2D animation pipeline, and the exact steps required to
+dynamically paint, shade, and adjust stroke colors directly on your
+canvas.</p>
+<h2 id="what-is-the-grease-pencil-tint-tool">What is the Grease Pencil
+Tint Tool?</h2>
+<p>The Tint tool modifies the vertex color data of Grease Pencil
+strokes. Instead of creating a new material for every color variation,
+the Tint tool acts like a traditional digital painting brush, applying a
+color overlay directly onto targeted strokes. It supports various blend
+modes (such as Mix, Multiply, and Add) and pressure sensitivity, making
+it ideal for adding highlights, shadows, soft gradients, and subtle
+color variations across complex drawings.</p>
+<h2 id="how-to-recolor-strokes-interactively">How to Recolor Strokes
+Interactively</h2>
+<p>To interactively recolor your Grease Pencil strokes using the Tint
+tool, follow these steps:</p>
+<h3 id="1-enter-vertex-paint-mode">1. Enter Vertex Paint Mode</h3>
+<ol type="1">
+<li>Select your Grease Pencil object in the 3D Viewport.</li>
+<li>Open the Mode dropdown menu in the top-left corner of the viewport
+and switch from <strong>Object Mode</strong> or <strong>Draw
+Mode</strong> to <strong>Vertex Paint Mode</strong>.</li>
+</ol>
+<h3 id="2-select-the-tint-tool">2. Select the Tint Tool</h3>
+<ol type="1">
+<li>In the left-hand toolbar (press <code>T</code> if hidden), select
+the <strong>Tint</strong> brush tool.</li>
+<li>In the top Header bar or the <strong>Tool Settings</strong> panel on
+the right, pick the color you want to apply using the color wheel.</li>
+</ol>
+<h3 id="3-adjust-brush-settings">3. Adjust Brush Settings</h3>
+<ul>
+<li><strong>Radius (<code>F</code>):</strong> Sets the size of the brush
+influence area.</li>
+<li><strong>Strength (<code>Shift + F</code>):</strong> Controls the
+opacity and intensity of the applied color per stroke.</li>
+<li><strong>Blend Mode:</strong> Choose how the new color interacts with
+existing stroke colors. <strong>Mix</strong> replaces the color, while
+<strong>Multiply</strong> is ideal for shading and <strong>Add</strong>
+is ideal for lighting effects.</li>
+<li><strong>Falloff:</strong> Adjust the curve profile to achieve either
+hard-edged color applications or smooth, airbrushed transitions.</li>
+</ul>
+<h3 id="4-paint-directly-over-strokes">4. Paint Directly Over
+Strokes</h3>
+<p>Click and drag across your Grease Pencil strokes in the viewport. The
+brush will interactively apply the tint only where the brush cursor
+intersects stroke vertices. Because the tint operates on vertex colors,
+your original vector line geometry remains fully intact and
+editable.</p>
+<h2 id="restricting-the-tint-area">Restricting the Tint Area</h2>
+<p>To avoid accidentally tinting neighboring strokes, use Grease Pencil
+masks:</p>
+<ul>
+<li><strong>Material Masking:</strong> Enable the Material lock icon in
+the brush settings to restrict color changes to strokes that share a
+specific material.</li>
+<li><strong>Layer Masking:</strong> Lock layers in the Grease Pencil
+Layer panel to prevent the Tint tool from affecting background or
+foreground elements.</li>
+<li><strong>Selection Masking:</strong> Switch to edit selection mode
+within Vertex Paint to tint only specifically selected points or stroke
+segments.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

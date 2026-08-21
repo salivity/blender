@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Fix Non-Manifold Geometry in Blender - blender</title>
+    <meta name="description" content="Non-manifold geometry refers to 3D meshes with structures that cannot exist in the physical, real world, often causing severe issues during rendering, subdivision, texturing, and 3D printing. This guide explains the primary causes of non-manifold meshes">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-fix-non-manifold-geometry-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Fix Non-Manifold Geometry in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-fix-non-manifold-geometry-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Non-manifold geometry refers to 3D meshes with structures that cannot exist in the physical, real world, often causing severe issues during rendering, subdivision, texturing, and 3D printing. This guide explains the primary causes of non-manifold meshes" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-fix-non-manifold-geometry-in-blender">How to Fix
+Non-Manifold Geometry in Blender</h1>
+<p>Non-manifold geometry refers to 3D meshes with structures that cannot
+exist in the physical, real world, often causing severe issues during
+rendering, subdivision, texturing, and 3D printing. This guide explains
+the primary causes of non-manifold meshes—such as internal faces,
+duplicate vertices, and disconnected edges—and provides straightforward,
+step-by-step methods to identify and eliminate them using Blender's
+built-in tools.</p>
+<h2 id="what-causes-non-manifold-geometry">What Causes Non-Manifold
+Geometry?</h2>
+<p>A manifold mesh represents a "watertight" volume where every edge
+connects to exactly two faces. Geometry becomes non-manifold due to
+several common modeling errors:</p>
+<ul>
+<li><strong>Internal Faces:</strong> Faces located entirely inside a
+closed mesh, resulting in edges connected to three or more faces.</li>
+<li><strong>Duplicate Vertices and Overlapping Edges:</strong> Multiple
+vertices occupying the exact same 3D coordinate without being joined,
+creating disconnected micro-seams.</li>
+<li><strong>Edges with 3+ Connected Faces (T-Junctions):</strong> Occurs
+when multiple geometry shells share a single edge or when extrusions are
+done incorrectly.</li>
+<li><strong>Bowtie / Hourglass Vertices:</strong> A single vertex shared
+by two distinct polyhedra or face surfaces with no connecting edge
+between them.</li>
+<li><strong>Open Holes or Inverted Normals:</strong> Missing faces on
+what should be a closed volume, or face normals pointing inward rather
+than outward.</li>
+</ul>
+<hr />
+<h2 id="how-to-eliminate-non-manifold-geometry-in-blender">How to
+Eliminate Non-Manifold Geometry in Blender</h2>
+<h3 id="1-merge-duplicate-vertices">1. Merge Duplicate Vertices</h3>
+<p>Extrusions canceled with a right-click often leave duplicate geometry
+behind. To remove them:</p>
+<ol type="1">
+<li>Tab into <strong>Edit Mode</strong>.</li>
+<li>Press <strong>A</strong> to select the entire mesh.</li>
+<li>Press <strong>M</strong> and select <strong>By
+Distance</strong>.</li>
+<li>Adjust the merge threshold in the bottom-left pop-up panel if
+necessary.</li>
+</ol>
+<hr />
+<h3 id="2-locate-non-manifold-elements-automatically">2. Locate
+Non-Manifold Elements Automatically</h3>
+<p>Blender has dedicated selection tools to highlight problematic areas
+instantly:</p>
+<ol type="1">
+<li>In <strong>Edit Mode</strong>, switch to <strong>Vertex</strong> or
+<strong>Edge Select</strong> mode.</li>
+<li>Deselect all geometry (<strong>Alt + A</strong>).</li>
+<li>Go to the top menu: <strong>Select &gt; Select All by Trait &gt; Non
+Manifold</strong> (or press <strong>Shift + Ctrl + Alt +
+M</strong>).</li>
+<li>Inspect the highlighted regions to determine the issue (e.g., holes,
+stray edges, or shared points).</li>
+</ol>
+<hr />
+<h3 id="3-remove-interior-faces">3. Remove Interior Faces</h3>
+<p>Interior faces trap geometry inside an otherwise clean exterior
+shell:</p>
+<ol type="1">
+<li>In <strong>Edit Mode</strong>, deselect everything (<strong>Alt +
+A</strong>).</li>
+<li>Go to <strong>Select &gt; Select All by Trait &gt; Interior
+Faces</strong>.</li>
+<li>Press <strong>X</strong> (or <strong>Delete</strong>) and select
+<strong>Faces</strong>.</li>
+</ol>
+<hr />
+<h3 id="4-close-open-holes">4. Close Open Holes</h3>
+<p>If the mesh is meant to be a watertight solid for 3D printing or
+physics simulations:</p>
+<ol type="1">
+<li>Switch to <strong>Edge Select</strong> mode.</li>
+<li>Select the open boundary edge loop by <strong>Alt + Left
+Clicking</strong> the perimeter.</li>
+<li>Press <strong>F</strong> to create a face, or use <strong>Face &gt;
+Grid Fill</strong> for cleaner quad topology.</li>
+</ol>
+<hr />
+<h3 id="5-recalculate-inconsistent-normals">5. Recalculate Inconsistent
+Normals</h3>
+<p>Flipped face directions frequently mimic manifold errors during
+slicing or rendering:</p>
+<ol type="1">
+<li>In <strong>Edit Mode</strong>, press <strong>A</strong> to select
+all geometry.</li>
+<li>Press <strong>Shift + N</strong> (or go to <strong>Mesh &gt; Normals
+&gt; Recalculate Outside</strong>).</li>
+</ol>
+<hr />
+<h3 id="6-use-the-3d-print-toolbox-for-automated-cleanup">6. Use the
+3D-Print Toolbox for Automated Cleanup</h3>
+<p>For complex meshes, Blender includes an automated cleanup add-on:</p>
+<ol type="1">
+<li>Go to <strong>Edit &gt; Preferences &gt; Add-ons</strong> and search
+for <strong>3D Print Toolbox</strong>. Check the box to enable it.</li>
+<li>Open the sidebar in the 3D Viewport by pressing <strong>N</strong>,
+then navigate to the <strong>3D-Print</strong> tab.</li>
+<li>Click <strong>Check All</strong> under the <em>Analyze</em> section
+to view a report of all non-manifold elements.</li>
+<li>Click <strong>Make Manifold</strong> under the <em>Clean Up</em>
+section to allow Blender to automatically resolve common edge, vertex,
+and face errors.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

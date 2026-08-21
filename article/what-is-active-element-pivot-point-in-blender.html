@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is Active Element Pivot Point in Blender? - blender</title>
+    <meta name="description" content="The Active Element pivot point in Blender is a transform reference setting that uses the last selected object, vertex, edge, or face as the absolute center for transformation tools like rotation, scaling, and mirroring. By focusing transforms around this">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-active-element-pivot-point-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is Active Element Pivot Point in Blender? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-active-element-pivot-point-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Active Element pivot point in Blender is a transform reference setting that uses the last selected object, vertex, edge, or face as the absolute center for transformation tools like rotation, scaling, and mirroring. By focusing transforms around this" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-active-element-pivot-point-in-blender">What Is Active
+Element Pivot Point in Blender?</h1>
+<p>The Active Element pivot point in Blender is a transform reference
+setting that uses the last selected object, vertex, edge, or face as the
+absolute center for transformation tools like rotation, scaling, and
+mirroring. By focusing transforms around this specifically highlighted
+selection rather than the center of a group or the 3D Cursor, artists
+gain precise control over alignment, modeling geometry, and scene
+organization.</p>
+<h2 id="understanding-the-active-element">Understanding the Active
+Element</h2>
+<p>In Blender, when you select multiple items, the last item you select
+becomes the "Active Element." It is visually distinguished from the rest
+of the selection by a lighter orange or white highlight.</p>
+<p>When the Pivot Point mode is set to <strong>Active Element</strong>,
+all transformation operations (Rotate, Scale, Mirror) recalculate their
+center point around the origin or center of this specific active item,
+regardless of how many other items are selected.</p>
+<h2 id="primary-uses-of-the-active-element-pivot-point">Primary Uses of
+the Active Element Pivot Point</h2>
+<h3 id="1-rotating-multiple-objects-around-a-specific-object">1.
+Rotating Multiple Objects Around a Specific Object</h3>
+<p>Instead of manually moving the 3D Cursor to an object's location to
+act as a hinge, you can simply select all surrounding objects, select
+the hinge object last, set the pivot point to Active Element, and
+rotate. All selected objects will orbit seamlessly around the active
+object's pivot center.</p>
+<h3 id="2-precise-geometry-scaling-in-edit-mode">2. Precise Geometry
+Scaling in Edit Mode</h3>
+<p>In Edit Mode, scaling a group of vertices can cause unwanted shifting
+if scaled from the default Median Point. Setting the pivot point to
+Active Element allows you to select a reference vertex, edge, or face
+last. When you scale, the entire selection shrinks toward or expands
+away from that chosen reference point, keeping the active element's
+relative position anchored.</p>
+<h3 id="3-aligning-objects-and-components">3. Aligning Objects and
+Components</h3>
+<p>Active Element simplifies aligning elements along a single plane or
+axis:</p>
+<ul>
+<li>Select the vertices or objects you want to align.</li>
+<li>Select the target vertex or object last so it becomes active.</li>
+<li>Scale along a specific axis to zero (e.g., <code>S</code> +
+<code>Z</code> + <code>0</code>).</li>
+<li>All selected elements will flatten directly to the Z-position of the
+active element without moving the active element itself.</li>
+</ul>
+<h3 id="4-non-destructive-assembly-and-mechanical-rigging">4.
+Non-Destructive Assembly and Mechanical Rigging</h3>
+<p>When building complex hard-surface models—such as mechanical arms,
+doors, or robotic joints—you often need pieces to rotate around a
+specific bolt or pin. The Active Element pivot point eliminates the need
+to continuously re-position the 3D Cursor, speeding up test rotations
+and layout adjustments.</p>
+<h2 id="how-to-enable-active-element-pivot-point">How to Enable Active
+Element Pivot Point</h2>
+<ol type="1">
+<li><strong>Header Menu:</strong> Click the <strong>Pivot Point</strong>
+dropdown menu at the top center of the 3D Viewport (represented by an
+icon showing two connected dots) and select <strong>Active
+Element</strong>.</li>
+<li><strong>Keyboard Shortcut:</strong> Press the <strong>Period
+(<code>.</code>)</strong> key on your keyboard to open the Pivot Point
+pie menu, then select <strong>Active Element</strong> (or press
+<code>4</code>).</li>
+</ol>
+<h2 id="active-element-vs-other-pivot-points">Active Element vs. Other
+Pivot Points</h2>
+<ul>
+<li><strong>Median Point:</strong> Calculates the average center of all
+selected items. Moving or scaling affects everything relative to an
+arbitrary center.</li>
+<li><strong>Bounding Box Center:</strong> Uses the center of an
+imaginary box enclosing all selected objects.</li>
+<li><strong>3D Cursor:</strong> Rotates or scales around the location of
+the 3D Cursor, requiring manual placement.</li>
+<li><strong>Active Element:</strong> Offers dynamic, targeted control
+based entirely on your last selection, requiring zero manual cursor
+placement.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

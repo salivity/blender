@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Object Coordinates Instead of UVs in Blender - blender</title>
+    <meta name="description" content="Using object coordinates in Blender allows you to project materials onto 3D models based on their local space origin, completely bypassing the need for manual UV unwrapping. This method is ideal for procedural textures, quick prototyping, and static non-">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-object-coordinates-instead-of-uvs-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Object Coordinates Instead of UVs in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-object-coordinates-instead-of-uvs-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Using object coordinates in Blender allows you to project materials onto 3D models based on their local space origin, completely bypassing the need for manual UV unwrapping. This method is ideal for procedural textures, quick prototyping, and static non-" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-object-coordinates-instead-of-uvs-in-blender">How to
+Use Object Coordinates Instead of UVs in Blender</h1>
+<p>Using object coordinates in Blender allows you to project materials
+onto 3D models based on their local space origin, completely bypassing
+the need for manual UV unwrapping. This method is ideal for procedural
+textures, quick prototyping, and static non-deforming objects where UV
+seams would otherwise disrupt the design. By routing the Object output
+of the Texture Coordinate node directly into your shader setup, textures
+automatically scale and map seamlessly across your object's
+surfaces.</p>
+<h2
+id="step-by-step-guide-to-setting-up-object-coordinates">Step-by-Step
+Guide to Setting Up Object Coordinates</h2>
+<p>To use object coordinates instead of UVs in Blender, follow these
+steps within the Shader Editor:</p>
+<ol type="1">
+<li><strong>Open the Shader Editor:</strong> Select your 3D object,
+switch to the <strong>Shading Workspace</strong> or change a viewport
+window to the <strong>Shader Editor</strong>, and ensure a material is
+assigned.</li>
+<li><strong>Add a Texture Coordinate Node:</strong> Press
+<code>Shift + A</code>, go to <strong>Input</strong>, and select
+<strong>Texture Coordinate</strong>. Place this node to the left of your
+texture nodes.</li>
+<li><strong>Connect the Object Socket:</strong> Click and drag from the
+<strong>Object</strong> output socket of the Texture Coordinate node
+into the <strong>Vector</strong> input socket of your Image Texture or
+Procedural Texture node (e.g., Noise Texture, Voronoi Texture).</li>
+<li><strong>Add a Mapping Node (Optional):</strong> For control over
+position, rotation, and scale, press <code>Shift + A</code>, go to
+<strong>Vector</strong>, and add a <strong>Mapping</strong> node. Insert
+it between the Texture Coordinate node and your texture node by
+connecting <strong>Object Output -&gt; Vector Input</strong> and
+<strong>Vector Output -&gt; Vector Input</strong>.</li>
+</ol>
+<h2 id="key-differences-between-object-coordinates-and-uvs">Key
+Differences Between Object Coordinates and UVs</h2>
+<ul>
+<li><strong>Origin Alignment:</strong> Object coordinates calculate
+texture placement from the object's origin point (0,0,0 in local space).
+Moving the origin alters the texture placement.</li>
+<li><strong>3D Projection vs. 2D Mapping:</strong> UV mapping flattens a
+3D mesh onto a 2D plane. Object coordinates project textures through 3D
+space, eliminating visible UV seams on procedural shaders.</li>
+<li><strong>Aspect Ratio Maintenance:</strong> Unlike standard UV
+mapping, which can stretch if face ratios vary, object coordinates
+maintain uniform scale across all sides of the mesh by default.</li>
+</ul>
+<h2 id="important-adjustments-and-tips">Important Adjustments and
+Tips</h2>
+<ul>
+<li><strong>Apply Object Scale:</strong> If textures look stretched or
+distorted, select your object in Object Mode and press
+<code>Ctrl + A</code> &gt; <strong>Apply Scale</strong>. Unapplied scale
+transforms directly affect how object coordinates render.</li>
+<li><strong>Box Projection for Image Textures:</strong> When using
+standard 2D image textures with Object coordinates, change the
+projection mode on the Image Texture node from <strong>Flat</strong> to
+<strong>Box</strong>. Increase the <strong>Blend</strong> slider
+slightly to smoothly blend the overlapping texture edges.</li>
+<li><strong>Using Another Object as the Coordinate Target:</strong>
+Inside the Texture Coordinate node, use the <strong>Object</strong>
+eye-dropper tool to select another object (such as an Empty). The
+texture mapping will then follow the transformation and origin of that
+target object instead of the mesh itself.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

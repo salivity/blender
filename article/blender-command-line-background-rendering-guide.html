@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Command-Line Background Rendering Guide - blender</title>
+    <meta name="description" content="Rendering Blender projects via the command line enables headless, background processing that significantly reduces system resource overhead and accelerates render times. By bypassing the Graphical User Interface (GUI), you can execute automated batch job">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-command-line-background-rendering-guide">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Command-Line Background Rendering Guide - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-command-line-background-rendering-guide" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Rendering Blender projects via the command line enables headless, background processing that significantly reduces system resource overhead and accelerates render times. By bypassing the Graphical User Interface (GUI), you can execute automated batch job" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-command-line-background-rendering-guide">Blender
+Command-Line Background Rendering Guide</h1>
+<p>Rendering Blender projects via the command line enables headless,
+background processing that significantly reduces system resource
+overhead and accelerates render times. By bypassing the Graphical User
+Interface (GUI), you can execute automated batch jobs, queue multiple
+scene renders, and manage tasks on remote servers or local machines
+without interrupting your regular workflow.</p>
+<h2 id="setting-up-the-blender-environment">Setting Up the Blender
+Environment</h2>
+<p>To execute commands, your system must know where the Blender binary
+is located. You can either navigate directly to the Blender installation
+directory or add Blender to your system's <code>PATH</code> environment
+variable.</p>
+<ul>
+<li><strong>Windows:</strong> Default location is typically
+<code>C:\Program Files\Blender Foundation\Blender [Version]\blender.exe</code>.</li>
+<li><strong>macOS:</strong> Default location is
+<code>/Applications/Blender.app/Contents/MacOS/Blender</code>.</li>
+<li><strong>Linux:</strong> Often accessible globally via
+<code>blender</code>, or located at <code>/usr/bin/blender</code> or
+your custom extracted directory.</li>
+</ul>
+<h2 id="core-command-syntax">Core Command Syntax</h2>
+<p>The basic syntax for headless rendering requires the <code>-b</code>
+(or <code>--background</code>) argument, which tells Blender to load
+without opening the user interface:</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> path/to/your_file.blend <span class="pp">[</span><span class="ss">options</span><span class="pp">]</span></span></code></pre></div>
+<p><em>Note: Order matters in Blender CLI arguments. The <code>-b</code>
+flag and the file path must be placed before the render commands to
+ensure the scene loads into background mode before executing the
+render.</em></p>
+<h2 id="essential-arguments-for-background-rendering">Essential
+Arguments for Background Rendering</h2>
+<ul>
+<li><code>-b</code> / <code>--background</code>: Runs Blender in
+headless mode.</li>
+<li><code>-f &lt;frame&gt;</code>: Renders a specific frame (e.g.,
+<code>-f 1</code> or <code>-f 1,3,5</code> or
+<code>-f 1..10</code>).</li>
+<li><code>-s &lt;frame&gt;</code>: Sets the start frame for an animation
+sequence.</li>
+<li><code>-e &lt;frame&gt;</code>: Sets the end frame for an animation
+sequence.</li>
+<li><code>-a</code> / <code>--render-anim</code>: Initiates rendering of
+the entire animation range defined in the file or specified by
+<code>-s</code> and <code>-e</code>.</li>
+<li><code>-o &lt;path&gt;</code>: Overrides the output path and filename
+prefix (e.g., <code>-o //render/output_####</code>).</li>
+<li><code>-F &lt;format&gt;</code>: Overrides the output file format
+(e.g., <code>PNG</code>, <code>JPEG</code>, <code>OPEN_EXR</code>,
+<code>FFMPEG</code>).</li>
+<li><code>-E &lt;engine&gt;</code>: Overrides the render engine (e.g.,
+<code>CYCLES</code>, <code>BLENDER_EEVEE_NEXT</code>).</li>
+</ul>
+<h2 id="common-rendering-examples">Common Rendering Examples</h2>
+<h3 id="rendering-a-single-still-frame">Rendering a Single Still
+Frame</h3>
+<p>To render frame 45 and save it to a specific directory:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> scene.blend <span class="at">-o</span> //renders/frame_#### <span class="at">-F</span> PNG <span class="at">-f</span> 45</span></code></pre></div>
+<h3 id="rendering-a-specific-frame-range">Rendering a Specific Frame
+Range</h3>
+<p>To render frames 100 through 250 as an animation:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> scene.blend <span class="at">-s</span> 100 <span class="at">-e</span> 250 <span class="at">-a</span></span></code></pre></div>
+<h3 id="changing-the-render-engine-and-compute-device">Changing the
+Render Engine and Compute Device</h3>
+<p>To force the use of the Cycles render engine on a headless
+server:</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> scene.blend <span class="at">-E</span> CYCLES <span class="at">-s</span> 1 <span class="at">-e</span> 50 <span class="at">-a</span></span></code></pre></div>
+<h2 id="automating-background-jobs">Automating Background Jobs</h2>
+<h3 id="windows-batch-scripts">Windows Batch Scripts</h3>
+<p>Create a <code>.bat</code> file to render multiple files
+sequentially:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cmd"><code class="sourceCode dosbat"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">@</span><span class="bu">echo off</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;C:\Program Files\Blender Foundation\Blender 4.x\blender.exe&quot;</span> -b <span class="st">&quot;project_01.blend&quot;</span> <span class="at">-a</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="st">&quot;C:\Program Files\Blender Foundation\Blender 4.x\blender.exe&quot;</span> -b <span class="st">&quot;project_02.blend&quot;</span> <span class="at">-a</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">pause</span></span></code></pre></div>
+<h3 id="linuxmacos-background-execution">Linux/macOS Background
+Execution</h3>
+<p>To run a render job that continues running after closing the
+terminal, use <code>nohup</code> or backgrounding:</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nohup</span> blender <span class="at">-b</span> project.blend <span class="at">-a</span> <span class="op">&gt;</span> render.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">&amp;</span></span></code></pre></div>
+<ul>
+<li><code>nohup</code>: Prevents the process from aborting when the
+terminal closes.</li>
+<li><code>&gt; render.log 2&gt;&amp;1</code>: Redirects both standard
+output and error messages to a log file.</li>
+<li><code>&amp;</code>: Sends the process to run in the background.</li>
+</ul>
+<h2 id="executing-python-scripts-for-dynamic-configurations">Executing
+Python Scripts for Dynamic Configurations</h2>
+<p>You can inject Python code to modify scene settings, switch GPUs, or
+adjust sampling before rendering begins using the <code>-P</code>
+flag:</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">blender</span> <span class="at">-b</span> project.blend <span class="at">-P</span> configure_gpu.py <span class="at">-a</span></span></code></pre></div>
+<p>The specified Python script runs after the <code>.blend</code> file
+is loaded but before the render execution begins, allowing for
+programmatic control over the render settings.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Lock Specific Vertex Groups in Blender - blender</title>
+    <meta name="description" content="Locking specific vertex groups in Blender prevents accidental changes to weight paint data, skeletal rigging assignments, and modifier influences during the modeling or animating process. By using the padlock icon next to any vertex group in the Object D">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-lock-specific-vertex-groups-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Lock Specific Vertex Groups in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-lock-specific-vertex-groups-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Locking specific vertex groups in Blender prevents accidental changes to weight paint data, skeletal rigging assignments, and modifier influences during the modeling or animating process. By using the padlock icon next to any vertex group in the Object D" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-lock-specific-vertex-groups-in-blender">How to Lock
+Specific Vertex Groups in Blender</h1>
+<p>Locking specific vertex groups in Blender prevents accidental changes
+to weight paint data, skeletal rigging assignments, and modifier
+influences during the modeling or animating process. By using the
+padlock icon next to any vertex group in the Object Data Properties
+panel or the Weight Paint interface, you can instantly freeze its weight
+values. This guide provides clear, step-by-step instructions on how to
+lock single or multiple vertex groups in Blender to streamline your
+workflow.</p>
+<h2 id="method-1-lock-vertex-groups-in-object-data-properties">Method 1:
+Lock Vertex Groups in Object Data Properties</h2>
+<p>The direct method to lock vertex groups works in any interaction mode
+(Object Mode, Edit Mode, or Weight Paint Mode).</p>
+<ol type="1">
+<li>Select your mesh object in the 3D Viewport.</li>
+<li>Navigate to the <strong>Object Data Properties</strong> tab (the
+green triangle icon) in the Properties panel on the right side of the
+screen.</li>
+<li>Expand the <strong>Vertex Groups</strong> section to view the full
+list of groups assigned to the object.</li>
+<li>Locate the specific vertex group you want to protect.</li>
+<li>Click the <strong>Padlock icon</strong> next to the vertex group's
+name.</li>
+</ol>
+<p>When the padlock icon is closed, the vertex weights for that group
+cannot be modified by painting, normalization tools, or manual entry in
+Edit Mode. Click the lock icon again to unlock it.</p>
+<h2 id="method-2-lock-vertex-groups-in-weight-paint-mode">Method 2: Lock
+Vertex Groups in Weight Paint Mode</h2>
+<p>If you are currently weight painting a character or asset, you can
+manage vertex group locks directly from the viewport interface.</p>
+<ol type="1">
+<li>Select your mesh and switch to <strong>Weight Paint Mode</strong>
+using the mode selector in the top-left of the viewport (or press
+<code>Ctrl + Tab</code>).</li>
+<li>Open the Sidebar by pressing <strong>N</strong> on your keyboard if
+it is not visible.</li>
+<li>Select the <strong>Tool</strong> tab.</li>
+<li>Expand the <strong>Options</strong> section.</li>
+<li>Under the vertex group settings, you will see your list of groups
+with lock icons beside them. Click the padlock icon to lock or unlock
+any group while painting.</li>
+</ol>
+<h2 id="useful-lock-tools-and-shortcuts">Useful Lock Tools and
+Shortcuts</h2>
+<p>Blender offers built-in batch operations to manage locks across
+complex rigs with dozens of vertex groups:</p>
+<ul>
+<li><strong>Lock All / Unlock All:</strong> Click the down-arrow icon
+(Vertex Group Specials menu) on the right side of the Vertex Groups
+list. Select <strong>Lock All Groups</strong> to freeze every group, or
+<strong>Unlock All Groups</strong> to remove all protections.</li>
+<li><strong>Invert Locks:</strong> In the same Specials menu, choose
+<strong>Invert Locks</strong> to lock all unlocked groups and unlock all
+locked ones simultaneously.</li>
+<li><strong>Lock Unselected (Weight Paint Mode):</strong> In Weight
+Paint Mode, open the <strong>Weights</strong> menu from the top viewport
+bar and select <strong>Lock Unselected</strong>. This automatically
+locks every vertex group except the one currently selected for
+editing.</li>
+</ul>
+<h2 id="why-lock-vertex-groups">Why Lock Vertex Groups?</h2>
+<ul>
+<li><strong>Prevent Weight Normalization Shifts:</strong> When
+auto-normalizing weights during skinning, locked groups will retain
+their exact weight values while unlocked groups adjust around them.</li>
+<li><strong>Protect Completed Rigging:</strong> Locking finished body
+parts (such as the head or torso) ensures you do not accidentally paint
+over them when working on adjacent areas like the neck or
+shoulders.</li>
+<li><strong>Maintain Modifier Precision:</strong> Masks, hair particle
+distributions, and displacement modifiers relying on specific vertex
+groups remain accurate without risk of accidental edits.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

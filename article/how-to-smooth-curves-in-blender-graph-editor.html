@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Smooth Curves in Blender Graph Editor - blender</title>
+    <meta name="description" content="This guide explains how to smooth animation curves (F-Curves) using Blender's Graph Editor. You will learn the most effective methods to remove jitter and achieve fluid motion, including using built-in smoothing operators, adjusting keyframe handle types">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-smooth-curves-in-blender-graph-editor">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Smooth Curves in Blender Graph Editor - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-smooth-curves-in-blender-graph-editor" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide explains how to smooth animation curves (F-Curves) using Blender's Graph Editor. You will learn the most effective methods to remove jitter and achieve fluid motion, including using built-in smoothing operators, adjusting keyframe handle types" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-smooth-curves-in-blender-graph-editor">How to Smooth
+Curves in Blender Graph Editor</h1>
+<p>This guide explains how to smooth animation curves (F-Curves) using
+Blender's Graph Editor. You will learn the most effective methods to
+remove jitter and achieve fluid motion, including using built-in
+smoothing operators, adjusting keyframe handle types, and applying
+non-destructive curve modifiers.</p>
+<h2 id="1-using-the-smooth-keys-operator">1. Using the Smooth Keys
+Operator</h2>
+<p>The fastest way to smooth out jagged keyframes directly on an
+animation curve is using the built-in Smooth Keys tool.</p>
+<ol type="1">
+<li>Switch to the <strong>Graph Editor</strong> workspace.</li>
+<li>Select the channels or individual animation curves you want to
+smooth.</li>
+<li>Box-select the keyframes you wish to adjust.</li>
+<li>Press <strong>Alt + O</strong> (or go to <strong>Key &gt; Smooth
+Keys</strong> in the top menu).</li>
+<li>Repeat the shortcut multiple times to increase the smoothing
+effect.</li>
+<li>Open the <strong>Operator Panel</strong> in the bottom-left corner
+of the viewport immediately after running the command to fine-tune the
+<strong>Factor</strong> and <strong>Iterations</strong>.</li>
+</ol>
+<h2 id="2-using-the-gaussian-smooth-filter">2. Using the Gaussian Smooth
+Filter</h2>
+<p>Blender includes an advanced Gaussian blur filter designed for motion
+capture cleanup and dense keyframe data.</p>
+<ol type="1">
+<li>Select the target keyframes in the Graph Editor.</li>
+<li>Go to <strong>Key &gt; Filter Keys &gt; Smooth
+(Gaussian)</strong>.</li>
+<li>In the pop-up settings in the bottom-left corner, adjust:
+<ul>
+<li><strong>Factor:</strong> Controls the strength of the smoothing
+effect.</li>
+<li><strong>Sigma:</strong> Sets the width of the Gaussian blur blur
+kernel.</li>
+<li><strong>Filter Time:</strong> Toggles smoothing across the time
+axis.</li>
+</ul></li>
+</ol>
+<h2 id="3-adjusting-keyframe-handle-types">3. Adjusting Keyframe Handle
+Types</h2>
+<p>Jerkiness in animation curves often results from misaligned or sharp
+Bezier handles. Changing handle types creates natural transitions
+between keyframes.</p>
+<ol type="1">
+<li>Select the keyframes on your curve.</li>
+<li>Press <strong>V</strong> to open the <strong>Set Keyframe Handle
+Type</strong> menu.</li>
+<li>Choose one of the following options:
+<ul>
+<li><strong>Automatic:</strong> Smooths the curve automatically based on
+adjacent keyframe positions.</li>
+<li><strong>Auto Clamped:</strong> Smooths curves while preventing
+overshoot beyond the keyframe values.</li>
+<li><strong>Aligned:</strong> Keeps handles locked in a straight
+180-degree line to ensure seamless velocity transitions without abrupt
+angle changes.</li>
+</ul></li>
+</ol>
+<h2 id="4-decimating-and-cleaning-dense-keyframes">4. Decimating and
+Cleaning Dense Keyframes</h2>
+<p>If raw keyframe density prevents smooth interpolation (common with
+baked physics or motion capture), clean the curve before smoothing.</p>
+<ol type="1">
+<li>Select the dense keyframes.</li>
+<li>Go to <strong>Key &gt; Decimate (Ratio)</strong> or <strong>Decimate
+(Error)</strong>.</li>
+<li>Adjust the threshold in the operator box to remove redundant keys
+while preserving the overall curve shape.</li>
+<li>Apply <strong>Alt + O</strong> to the remaining keys to finalize the
+smoothing.</li>
+</ol>
+<h2 id="5-applying-a-smooth-f-curve-modifier">5. Applying a Smooth
+F-Curve Modifier</h2>
+<p>For a non-destructive approach that preserves your original
+keyframes, use an F-Curve modifier.</p>
+<ol type="1">
+<li>Select the specific animation curve channel on the left sidebar of
+the Graph Editor.</li>
+<li>Press <strong>N</strong> to open the right-side properties panel and
+switch to the <strong>Modifiers</strong> tab.</li>
+<li>Click <strong>Add Modifier</strong> and select
+<strong>Smooth</strong>.</li>
+<li>Adjust the <strong>Smooth Factor</strong> and
+<strong>Iterations</strong> to dynamically filter out high-frequency
+noise without altering original key positions.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

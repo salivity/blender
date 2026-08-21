@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is Index of Refraction (IOR) in Blender? - blender</title>
+    <meta name="description" content="The Index of Refraction (IOR) in Blender is a material property that determines how light bends when passing through a surface, as well as how reflective that surface is at different angles. Controlling IOR is essential for creating realistic transparent">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-index-of-refraction-ior-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is Index of Refraction (IOR) in Blender? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-index-of-refraction-ior-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Index of Refraction (IOR) in Blender is a material property that determines how light bends when passing through a surface, as well as how reflective that surface is at different angles. Controlling IOR is essential for creating realistic transparent" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-index-of-refraction-ior-in-blender">What Is Index of
+Refraction (IOR) in Blender?</h1>
+<p>The Index of Refraction (IOR) in Blender is a material property that
+determines how light bends when passing through a surface, as well as
+how reflective that surface is at different angles. Controlling IOR is
+essential for creating realistic transparent and semi-transparent
+materials like glass, water, ice, and gemstones. This article explains
+what IOR represents, how Blender uses it in shaders like the Principled
+BSDF, and provides common IOR values to help you achieve physically
+accurate 3D renders.</p>
+<h2 id="how-light-bending-works-in-3d-rendering">How Light Bending Works
+in 3D Rendering</h2>
+<p>In physics, the Index of Refraction measures how much light slows
+down and changes direction when entering a material from a vacuum or
+air. In Blender, this calculation dictates two main visual
+behaviors:</p>
+<ol type="1">
+<li><strong>Refraction:</strong> The bending and distortion of light
+passing through a transparent object.</li>
+<li><strong>Reflection (Fresnel Effect):</strong> How reflective an
+object appears depending on the angle from which you view it.</li>
+</ol>
+<p>An IOR value of 1.000 means light travels straight through an object
+without bending or reflecting, rendering the object completely
+invisible. Values above 1.000 bend light more sharply, producing
+stronger visual distortion and increasing surface reflectivity.</p>
+<h2 id="using-ior-in-blender-nodes">Using IOR in Blender Nodes</h2>
+<p>Blender uses IOR across several core shaders inside the Shader
+Editor:</p>
+<ul>
+<li><strong>Principled BSDF:</strong> Controls both refraction (when the
+Transmission value is above 0) and the Fresnel reflection curve. The
+default value is set to 1.450.</li>
+<li><strong>Glass BSDF:</strong> Uses IOR to simultaneously simulate
+light reflection and refraction through a medium.</li>
+<li><strong>Refraction BSDF:</strong> Uses IOR strictly to bend
+transmitted light without adding specular highlights or
+reflections.</li>
+</ul>
+<h2 id="common-real-world-ior-values">Common Real-World IOR Values</h2>
+<p>To maintain physical accuracy in your scenes, set Blender's IOR
+values to match real-world measurements:</p>
+<ul>
+<li><strong>Air:</strong> 1.000</li>
+<li><strong>Ice:</strong> 1.309</li>
+<li><strong>Water:</strong> 1.333</li>
+<li><strong>Clear Plastic / Acrylic:</strong> 1.490</li>
+<li><strong>Standard Crown Glass:</strong> 1.520</li>
+<li><strong>Flint Glass (Heavy):</strong> 1.620</li>
+<li><strong>Diamond:</strong> 2.417</li>
+</ul>
+<h2 id="ior-in-opaque-materials">IOR in Opaque Materials</h2>
+<p>IOR is not limited to glass or liquids. Even on completely opaque
+surfaces, IOR dictates specular reflectivity via the Fresnel effect.
+Looking directly at a surface shows its baseline reflection, while
+viewing it from a grazing angle increases reflectivity toward 100%.
+Adjusting IOR on non-transmissive surfaces changes how prominent these
+edge reflections appear.</p>
+<h2 id="tips-for-getting-accurate-refraction-results">Tips for Getting
+Accurate Refraction Results</h2>
+<ul>
+<li><strong>Check Mesh Normals:</strong> Blender uses the orientation of
+face normals to determine whether light is entering or exiting a mesh.
+If normals point inside out, refraction will calculate incorrectly and
+make glass look solid or black.</li>
+<li><strong>Ensure Surface Thickness:</strong> Refraction relies on
+light entering and exiting a volume. Single-sided planes with high IOR
+values distort light endlessly; use actual mesh volume or a Solidify
+modifier for glass objects.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Object Offset in Blender Array Modifier - blender</title>
+    <meta name="description" content="The Array Modifier in Blender allows you to create multiple duplicates of an object, and utilizing the Object Offset feature provides precise control over their transformation. By linking the array to a target object—typically an Empty—you can dynami">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-object-offset-in-blender-array-modifier">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Object Offset in Blender Array Modifier - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-object-offset-in-blender-array-modifier" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Array Modifier in Blender allows you to create multiple duplicates of an object, and utilizing the Object Offset feature provides precise control over their transformation. By linking the array to a target object—typically an Empty—you can dynami" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-object-offset-in-blender-array-modifier">How to Use
+Object Offset in Blender Array Modifier</h1>
+<p>The Array Modifier in Blender allows you to create multiple
+duplicates of an object, and utilizing the Object Offset feature
+provides precise control over their transformation. By linking the array
+to a target object—typically an Empty—you can dynamically rotate, scale,
+and move the duplicated items to create complex shapes like circular
+patterns, spirals, and staircases. This guide provides a direct,
+step-by-step process for setting up and mastering the Object Offset
+feature in Blender.</p>
+<h3 id="step-1-set-up-your-base-mesh-and-empty">Step 1: Set Up Your Base
+Mesh and Empty</h3>
+<ol type="1">
+<li>Select your main object in the 3D Viewport.</li>
+<li>Press <code>Shift + A</code> and select <strong>Empty &gt; Plain
+Axes</strong>. This Empty object will act as the control anchor for your
+array duplicates.</li>
+<li>Ensure both your main object and the Empty share the exact same
+origin point for predictable transformations (usually the center of your
+object or the 3D Cursor).</li>
+</ol>
+<h3 id="step-2-apply-scale-and-rotation">Step 2: Apply Scale and
+Rotation</h3>
+<p>Incorrect scale or rotation values will cause unpredictable array
+behavior.</p>
+<ol type="1">
+<li>Select your main object, press <code>Ctrl + A</code>, and choose
+<strong>All Transforms</strong> (or <strong>Rotation &amp;
+Scale</strong>).</li>
+<li>Select the Empty object, press <code>Ctrl + A</code>, and choose
+<strong>All Transforms</strong>.</li>
+</ol>
+<h3 id="step-3-configure-the-array-modifier">Step 3: Configure the Array
+Modifier</h3>
+<ol type="1">
+<li>Select your main object and go to the <strong>Modifier
+Properties</strong> tab (wrench icon) on the right panel.</li>
+<li>Click <strong>Add Modifier</strong> and select
+<strong>Array</strong>.</li>
+<li>Increase the <strong>Count</strong> value to the total number of
+duplicates you want.</li>
+<li>Uncheck <strong>Relative Offset</strong> (and <strong>Constant
+Offset</strong> if enabled).</li>
+<li>Check the box next to <strong>Object Offset</strong> to expand its
+settings.</li>
+<li>Click the <strong>Object</strong> field inside the Object Offset
+section and select your <strong>Empty</strong> from the list (or use the
+eyedropper tool to click the Empty in the viewport).</li>
+</ol>
+<h3 id="step-4-transform-the-empty-to-control-the-array">Step 4:
+Transform the Empty to Control the Array</h3>
+<p>Now that the Array Modifier is linked to the Empty, any
+transformation applied to the Empty will offset each subsequent copy in
+the array relative to the previous one.</p>
+<ul>
+<li><strong>For Circular Arrays:</strong> Select the Empty, press
+<code>R</code>, and rotate it along a specific axis (e.g.,
+<code>R</code> then <code>Z</code> to rotate on the Z-axis). If your
+object count is 12, rotating the Empty by 30 degrees (360 / 12) creates
+a full, perfectly spaced circle.</li>
+<li><strong>For Spirals or Staircases:</strong> Select the Empty, press
+<code>G</code> then <code>Z</code> to move it vertically, and press
+<code>R</code> then <code>Z</code> to rotate it simultaneously.</li>
+<li><strong>For Scaling/Sizing Effects:</strong> Select the Empty and
+press <code>S</code> to scale it up or down. Each duplicate in the array
+will grow or shrink incrementally relative to the previous
+duplicate.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

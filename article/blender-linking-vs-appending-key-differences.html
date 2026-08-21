@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Linking vs Appending: Key Differences - blender</title>
+    <meta name="description" content="When working with multiple projects in Blender, reusing 3D models, materials, and collections across different files is essential for an efficient workflow. Blender provides two primary methods for importing external assets: Linking and Appending. While">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-linking-vs-appending-key-differences">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Linking vs Appending: Key Differences - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-linking-vs-appending-key-differences" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="When working with multiple projects in Blender, reusing 3D models, materials, and collections across different files is essential for an efficient workflow. Blender provides two primary methods for importing external assets: Linking and Appending. While" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-linking-vs-appending-key-differences">Blender Linking vs
+Appending: Key Differences</h1>
+<p>When working with multiple projects in Blender, reusing 3D models,
+materials, and collections across different files is essential for an
+efficient workflow. Blender provides two primary methods for importing
+external assets: <strong>Linking</strong> and
+<strong>Appending</strong>. While both allow you to bring data from one
+<code>.blend</code> file into another, they handle the imported data
+fundamentally differently. Appending imports a completely independent,
+editable copy of the asset, whereas linking creates a dynamic reference
+to the original source file. Understanding these differences determines
+how your project manages file sizes, asset updates, and collaborative
+pipelines.</p>
+<h2 id="what-is-appending">What is Appending?</h2>
+<p>Appending creates a standalone duplicate of the chosen data-block
+(such as an object, mesh, or material) from an external
+<code>.blend</code> file into your active scene. Once appended, the
+asset is entirely disconnected from its source file.</p>
+<ul>
+<li><strong>Full Editability:</strong> You can modify geometry, change
+textures, and alter animations immediately, just as if the asset were
+created directly in the current file.</li>
+<li><strong>File Size:</strong> Appending increases your project's file
+size because all mesh data and textures are saved directly inside the
+current <code>.blend</code> file.</li>
+<li><strong>Independence:</strong> Any changes made to the original
+asset in its source file will not update in the file where it was
+appended, and vice versa.</li>
+</ul>
+<h2 id="what-is-linking">What is Linking?</h2>
+<p>Linking creates an external reference (a pointer) to the data located
+in the source <code>.blend</code> file. The data is read dynamically
+from the source whenever the current file is opened.</p>
+<ul>
+<li><strong>Non-Destructive References:</strong> Linked assets are
+read-only by default. To move, pose, or adjust linked objects, you must
+create a Library Override.</li>
+<li><strong>Automatic Updates:</strong> If the original asset is updated
+or modified in its source file, those changes will automatically reflect
+across every project file where the asset is linked.</li>
+<li><strong>Optimized File Size:</strong> Linking keeps file sizes small
+because the heavy data (such as high-poly geometry) remains stored in
+the original file.</li>
+<li><strong>File Path Dependency:</strong> If the source file is moved,
+renamed, or deleted, the linked asset will break in the destination
+file.</li>
+</ul>
+<h2 id="key-comparison">Key Comparison</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Appending</th>
+<th style="text-align: left;">Linking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Data Type</strong></td>
+<td style="text-align: left;">Direct copy (independent)</td>
+<td style="text-align: left;">Reference/pointer (dependent)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Editability</strong></td>
+<td style="text-align: left;">Fully editable immediately</td>
+<td style="text-align: left;">Read-only (requires Library Overrides to
+edit)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>File Size Impact</strong></td>
+<td style="text-align: left;">Increases the active file size</td>
+<td style="text-align: left;">Minimal impact on active file size</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Updates</strong></td>
+<td style="text-align: left;">Stays static; does not receive source
+updates</td>
+<td style="text-align: left;">Automatically updates when the source file
+changes</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>File Portability</strong></td>
+<td style="text-align: left;">Easy to share as a single file</td>
+<td style="text-align: left;">Requires maintaining relative file
+paths</td>
+</tr>
+</tbody>
+</table>
+<h2 id="when-to-append-vs-when-to-link">When to Append vs. When to
+Link</h2>
+<p><strong>Choose Appending when:</strong></p>
+<ul>
+<li>You need to heavily customize or alter the asset specifically for
+the current project.</li>
+<li>You are working on a standalone scene and do not want to manage
+external folder structures.</li>
+<li>You plan to send the <code>.blend</code> file to a client or another
+artist without packing external dependencies.</li>
+</ul>
+<p><strong>Choose Linking when:</strong></p>
+<ul>
+<li>You are working on large-scale environments, films, or team
+productions where a master asset (like a character or prop) must remain
+consistent across multiple shot files.</li>
+<li>You need to update a shared asset in one place and have it propagate
+everywhere instantly.</li>
+<li>You need to reduce RAM usage and maintain small file sizes across
+extensive project libraries.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

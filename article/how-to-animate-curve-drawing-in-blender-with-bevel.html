@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Animate Curve Drawing in Blender with Bevel - blender</title>
+    <meta name="description" content="Animating a procedural curve drawing effect in Blender is a straightforward technique commonly used for motion graphics, handwriting effects, and growing vines. By adjusting the curve's bevel depth and keyframing the Start and End mapping factors under t">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-animate-curve-drawing-in-blender-with-bevel">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Animate Curve Drawing in Blender with Bevel - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-animate-curve-drawing-in-blender-with-bevel" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Animating a procedural curve drawing effect in Blender is a straightforward technique commonly used for motion graphics, handwriting effects, and growing vines. By adjusting the curve's bevel depth and keyframing the Start and End mapping factors under t" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-animate-curve-drawing-in-blender-with-bevel">How to
+Animate Curve Drawing in Blender with Bevel</h1>
+<p>Animating a procedural curve drawing effect in Blender is a
+straightforward technique commonly used for motion graphics, handwriting
+effects, and growing vines. By adjusting the curve's bevel depth and
+keyframing the Start and End mapping factors under the Object Data
+properties, you can precisely control how and when a curve appears along
+its path. This guide explains how to set up your curve geometry and
+configure these factors to create a seamless drawing animation.</p>
+<h3 id="step-1-add-and-shape-your-curve">Step 1: Add and Shape Your
+Curve</h3>
+<ol type="1">
+<li>In the 3D Viewport, press <strong>Shift + A</strong> and select
+<strong>Curve</strong> &gt; <strong>Bézier</strong> (or
+<strong>Path</strong> / <strong>Nurbs Curve</strong>).</li>
+<li>Switch to <strong>Edit Mode</strong> (<strong>Tab</strong>) to
+shape, extrude (<strong>E</strong>), and position your curve as
+desired.</li>
+<li>Return to <strong>Object Mode</strong> (<strong>Tab</strong>).</li>
+</ol>
+<h3 id="step-2-add-bevel-geometry-to-the-curve">Step 2: Add Bevel
+Geometry to the Curve</h3>
+<p>For the Start and End factors to be visible, the curve must have
+geometric thickness:</p>
+<ol type="1">
+<li>Select the curve and open the <strong>Object Data
+Properties</strong> panel (the green curve icon on the right).</li>
+<li>Expand the <strong>Geometry</strong> section, then expand the
+<strong>Bevel</strong> sub-section.</li>
+<li>Set the <strong>Bevel Depth</strong> to a value greater than
+<code>0</code> (e.g., <code>0.05 m</code>) to give the curve
+volume.</li>
+<li>(Optional) Increase the <strong>Resolution</strong> slider for a
+smoother, rounder profile.</li>
+</ol>
+<h3 id="step-3-configure-start-and-end-mapping-factors">Step 3:
+Configure Start and End Mapping Factors</h3>
+<p>Under the same <strong>Geometry</strong> tab, locate the
+<strong>Start &amp; End Mapping</strong> (or <strong>Bevel
+Factor</strong>) section. Here you will find two primary sliders:</p>
+<ul>
+<li><strong>Factor Start:</strong> Controls the beginning point of the
+visible bevel along the curve (values range from <code>0.0</code> to
+<code>1.0</code>).</li>
+<li><strong>Factor End:</strong> Controls the termination point of the
+visible bevel along the curve (values range from <code>0.0</code> to
+<code>1.0</code>).</li>
+</ul>
+<h3 id="step-4-keyframe-the-drawing-animation">Step 4: Keyframe the
+Drawing Animation</h3>
+<p>To animate a standard "draw on" effect from start to finish:</p>
+<ol type="1">
+<li>Move the timeline playhead to your starting frame (e.g., Frame
+1).</li>
+<li>In the curve properties, set <strong>Factor End</strong> to
+<code>0.0</code>.</li>
+<li>Hover your mouse over the <strong>Factor End</strong> field and
+press <strong>I</strong> (or click the dot next to the field) to insert
+a keyframe.</li>
+<li>Move the timeline playhead to your end frame (e.g., Frame 60).</li>
+<li>Set <strong>Factor End</strong> to <code>1.0</code>.</li>
+<li>Hover over the <strong>Factor End</strong> field and press
+<strong>I</strong> to insert the second keyframe.</li>
+</ol>
+<h3 id="step-5-advanced-variations">Step 5: Advanced Variations</h3>
+<h4 id="creating-a-tracing-or-worm-effect">Creating a Tracing or "Worm"
+Effect</h4>
+<p>To make a line segment travel along the path rather than just
+growing:</p>
+<ol type="1">
+<li>Animate <strong>Factor End</strong> from <code>0.0</code> to
+<code>1.0</code>.</li>
+<li>Offset the animation of <strong>Factor Start</strong> so it follows
+slightly behind <strong>Factor End</strong> (for example, keyframe
+<strong>Factor Start</strong> from <code>0.0</code> to <code>1.0</code>
+between Frame 15 and Frame 75).</li>
+</ol>
+<h4 id="reversing-the-drawing-direction">Reversing the Drawing
+Direction</h4>
+<p>If the curve draws in the wrong direction:</p>
+<ol type="1">
+<li>Enter <strong>Edit Mode</strong> (<strong>Tab</strong>).</li>
+<li>Select all control points (<strong>A</strong>).</li>
+<li>Go to the top viewport menu and choose <strong>Segment</strong> &gt;
+<strong>Switch Direction</strong>.</li>
+</ol>
+<h3 id="step-6-adjust-timing-in-the-graph-editor">Step 6: Adjust Timing
+in the Graph Editor</h3>
+<p>To change the pacing of the drawing effect:</p>
+<ol type="1">
+<li>Open the <strong>Graph Editor</strong> or <strong>Dope
+Sheet</strong> workspace.</li>
+<li>Select your keyframes to modify the interpolation (press
+<strong>T</strong> to switch between <strong>Linear</strong>,
+<strong>Bézier</strong>, or other easing modes) to achieve the desired
+acceleration and deceleration for your animation.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Instance on Points in Blender Geometry Nodes - blender</title>
+    <meta name="description" content="Instancing objects onto points using Blender's Geometry Nodes is a powerful, non-destructive method for scattering assets like grass, rocks, trees, or repetitive mechanical parts across a surface. This step-by-step guide explains how to generate points o">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-instance-on-points-in-blender-geometry-nodes">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Instance on Points in Blender Geometry Nodes - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-instance-on-points-in-blender-geometry-nodes" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Instancing objects onto points using Blender's Geometry Nodes is a powerful, non-destructive method for scattering assets like grass, rocks, trees, or repetitive mechanical parts across a surface. This step-by-step guide explains how to generate points o" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-instance-on-points-in-blender-geometry-nodes">How to
+Instance on Points in Blender Geometry Nodes</h1>
+<p>Instancing objects onto points using Blender's Geometry Nodes is a
+powerful, non-destructive method for scattering assets like grass,
+rocks, trees, or repetitive mechanical parts across a surface. This
+step-by-step guide explains how to generate points on a base mesh,
+attach an external object or collection to those points, and apply
+randomized scale and rotation for a natural, procedural look.</p>
+<h3 id="1-set-up-the-base-geometry">1. Set Up the Base Geometry</h3>
+<ol type="1">
+<li>Select the base object (e.g., a plane or landscape mesh) where you
+want instances to appear.</li>
+<li>Switch to the <strong>Geometry Nodes</strong> workspace or open the
+<strong>Geometry Node Editor</strong> in your current layout.</li>
+<li>Click the <strong>New</strong> button at the top of the Geometry
+Node Editor to create a new modifier node tree. You will see a
+<code>Group Input</code> connected to a <code>Group Output</code>.</li>
+</ol>
+<h3 id="2-generate-points-on-the-mesh">2. Generate Points on the
+Mesh</h3>
+<p>To place objects on the surface, you need points distributed across
+the faces of your geometry.</p>
+<ol type="1">
+<li>Press <code>Shift + A</code> and search for <strong>Distribute
+Points on Faces</strong>.</li>
+<li>Place this node between the <code>Group Input</code> and
+<code>Group Output</code> nodes.</li>
+<li>Choose your distribution method:
+<ul>
+<li><strong>Random</strong>: Places points purely by density.</li>
+<li><strong>Poisson Disk</strong>: Distributes points with a guaranteed
+minimum distance between each point to prevent overlapping.</li>
+</ul></li>
+</ol>
+<h3 id="3-add-the-instance-on-points-node">3. Add the Instance on Points
+Node</h3>
+<ol type="1">
+<li>Press <code>Shift + A</code> and search for <strong>Instance on
+Points</strong>.</li>
+<li>Place this node between the <code>Distribute Points on Faces</code>
+node and the <code>Group Output</code>.</li>
+<li>Connect the <strong>Points</strong> output from the
+<code>Distribute Points on Faces</code> node to the
+<strong>Points</strong> input of the <code>Instance on Points</code>
+node.</li>
+</ol>
+<h3 id="4-assign-the-instance-object">4. Assign the Instance Object</h3>
+<ol type="1">
+<li>Press <code>Shift + A</code> and search for <strong>Object
+Info</strong> (or drag an object directly from the Outliner into the
+Geometry Node Editor).</li>
+<li>In the <code>Object Info</code> node, select the object you want to
+duplicate.</li>
+<li>Set the mode to <strong>Relative</strong> so the instance retains
+proper spatial relationships.</li>
+<li>Connect the <strong>Geometry</strong> output of the
+<code>Object Info</code> node into the <strong>Instance</strong> input
+of the <code>Instance on Points</code> node.</li>
+</ol>
+<p><em>(Note: If you want to instance multiple different objects, use a
+<strong>Collection Info</strong> node instead, check <strong>Separate
+Children</strong>, and enable <strong>Pick Instance</strong> on the
+<code>Instance on Points</code> node.)</em></p>
+<h3 id="5-randomize-rotation-and-scale">5. Randomize Rotation and
+Scale</h3>
+<p>To avoid a uniform, artificial look, add variation to the
+instances.</p>
+<ul>
+<li><p><strong>Random Scale</strong>:</p>
+<ol type="1">
+<li>Add a <strong>Random Value</strong> node (<code>Shift + A</code>
+&gt; <em>Utilities</em> &gt; <em>Random Value</em>).</li>
+<li>Set the data type to <strong>Float</strong>.</li>
+<li>Set a <strong>Min</strong> value (e.g., <code>0.5</code>) and a
+<strong>Max</strong> value (e.g., <code>1.5</code>).</li>
+<li>Connect the <code>Value</code> output to the <strong>Scale</strong>
+input of the <code>Instance on Points</code> node.</li>
+</ol></li>
+<li><p><strong>Random Rotation</strong>:</p>
+<ol type="1">
+<li>Add another <strong>Random Value</strong> node and set its type to
+<strong>Vector</strong>.</li>
+<li>For a flat-ground scatter, set the Z-axis rotation range from
+<code>0</code> to <code>6.283</code> (representing 360 degrees in
+radians).</li>
+<li>Connect the <code>Value</code> output to the
+<strong>Rotation</strong> input of the <code>Instance on Points</code>
+node.</li>
+</ol></li>
+</ul>
+<h3 id="6-display-the-original-mesh">6. Display the Original Mesh</h3>
+<p>By default, the <code>Distribute Points on Faces</code> node replaces
+the original base geometry. To keep the ground mesh visible alongside
+your instances:</p>
+<ol type="1">
+<li>Add a <strong>Join Geometry</strong> node (<code>Shift + A</code>
+&gt; <em>Geometry</em> &gt; <em>Join Geometry</em>) before the
+<code>Group Output</code>.</li>
+<li>Connect the original <code>Geometry</code> output from the
+<code>Group Input</code> node into the <code>Join Geometry</code>
+node.</li>
+<li>Connect the <code>Instances</code> output of the
+<code>Instance on Points</code> node into the <code>Join Geometry</code>
+node as well.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

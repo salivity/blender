@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Shadows and Highlights in Blender Grease Pencil - blender</title>
+    <meta name="description" content="Automating shadows and highlights in Blender's Grease Pencil allows 2D animators to create dynamic, lit scenes without manually drawing tone changes on every individual frame. By utilizing Grease Pencil modifiers such as Rim and Shadow in conjunction wit">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/auto-shadows-and-highlights-in-blender-grease-pencil">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Auto Shadows and Highlights in Blender Grease Pencil - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/auto-shadows-and-highlights-in-blender-grease-pencil" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Automating shadows and highlights in Blender's Grease Pencil allows 2D animators to create dynamic, lit scenes without manually drawing tone changes on every individual frame. By utilizing Grease Pencil modifiers such as Rim and Shadow in conjunction wit" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="auto-shadows-and-highlights-in-blender-grease-pencil">Auto
+Shadows and Highlights in Blender Grease Pencil</h1>
+<p>Automating shadows and highlights in Blender's Grease Pencil allows
+2D animators to create dynamic, lit scenes without manually drawing tone
+changes on every individual frame. By utilizing Grease Pencil modifiers
+such as Rim and Shadow in conjunction with scene lighting objects, you
+can cast real-time, non-destructive highlights and shadows over your
+line art and fills. This workflow speeds up post-production, maintains
+visual consistency across complex animations, and allows for instant
+global lighting adjustments.</p>
+<h3 id="1-scene-and-lighting-setup">1. Scene and Lighting Setup</h3>
+<p>Before applying modifiers, set up the reference points for your
+lighting:</p>
+<ol type="1">
+<li>Ensure your 2D animation is organized across distinct Grease Pencil
+layers (e.g., Fills, Lines).</li>
+<li>Add a lighting reference object to your scene. Press <strong>Shift +
+A</strong> and select <strong>Light &gt; Point</strong> or
+<strong>Sun</strong>, or use an <strong>Empty</strong> object to act as
+the lighting anchor.</li>
+<li>Position the light object relative to your 2D character where you
+want the primary light source to originate.</li>
+</ol>
+<h3 id="2-generating-automated-highlights-with-the-rim-modifier">2.
+Generating Automated Highlights with the Rim Modifier</h3>
+<p>The Rim modifier generates an offset highlight along the contour of
+your Grease Pencil strokes based on an external light or object.</p>
+<ol type="1">
+<li>Select your Grease Pencil object and navigate to the
+<strong>Modifier Properties</strong> tab (wrench icon).</li>
+<li>Click <strong>Add Modifier</strong> and select
+<strong>Rim</strong>.</li>
+<li>In the modifier settings, set the <strong>Light/Object</strong>
+field to the Point light or Empty created in step 1.</li>
+<li>Set the <strong>Mode</strong> to choose whether the rim light reacts
+to an object or a directional light.</li>
+<li>Adjust the <strong>Offset</strong> to control the width and depth of
+the highlight edge.</li>
+<li>Under the <strong>Color</strong> section, choose the highlight tint
+and set the <strong>Blend Mode</strong> (such as <em>Add</em> or
+<em>Screen</em>) to naturally integrate the highlight with the base
+colors.</li>
+<li>Use the <strong>Influence</strong> sub-panel to restrict the
+highlight to specific layers or materials, preventing highlights from
+affecting outlines or background elements.</li>
+</ol>
+<h3 id="3-generating-automated-shadows-with-the-shadow-modifier">3.
+Generating Automated Shadows with the Shadow Modifier</h3>
+<p>To create automated cast or directional shading across your
+character:</p>
+<ol type="1">
+<li>In the <strong>Modifier Properties</strong> tab, click <strong>Add
+Modifier</strong> and select <strong>Shadow</strong>.</li>
+<li>Set the <strong>Object</strong> field to your scene's light source
+or Empty.</li>
+<li>Adjust the <strong>Offset</strong> and <strong>Scale</strong> to
+project the duplicated silhouette away from the light source.</li>
+<li>Set the shadow color (typically a dark purple, blue, or neutral
+black) and lower the opacity slider for a soft shading effect.</li>
+<li>In the <strong>Influence</strong> panel, assign the modifier
+strictly to the <em>Fills</em> layer to ensure the shadow does not
+obscure exterior line art.</li>
+</ol>
+<h3 id="4-refining-results-with-layer-masking-and-blur-modifiers">4.
+Refining Results with Layer Masking and Blur Modifiers</h3>
+<p>To keep automated lighting strictly within the bounds of your
+character fills:</p>
+<ol type="1">
+<li>Enable <strong>Masking</strong> within the Grease Pencil Layer
+settings. Mask your shadow and rim effects to the base fill layer so
+that secondary shadows do not spill into empty canvas space.</li>
+<li>Add a <strong>Blur Modifier</strong> below your Rim or Shadow
+modifier in the stack if you prefer soft ambient lighting over a sharp,
+hard-edged cel-shaded look.</li>
+<li>Adjust the order in the modifier stack: modifiers are evaluated from
+top to bottom, so place color adjustments and distortions after the
+lighting modifiers.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

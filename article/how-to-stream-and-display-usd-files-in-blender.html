@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Stream and Display USD Files in Blender - blender</title>
+    <meta name="description" content="This guide provides a straightforward overview of how to load, display, and stream Universal Scene Description (USD) files directly inside Blender. You will learn how to use Blender’s native USD import pipeline, leverage the USD Hydra delegate for high">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-stream-and-display-usd-files-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Stream and Display USD Files in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-stream-and-display-usd-files-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide provides a straightforward overview of how to load, display, and stream Universal Scene Description (USD) files directly inside Blender. You will learn how to use Blender’s native USD import pipeline, leverage the USD Hydra delegate for high" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-stream-and-display-usd-files-in-blender">How to Stream
+and Display USD Files in Blender</h1>
+<p>This guide provides a straightforward overview of how to load,
+display, and stream Universal Scene Description (USD) files directly
+inside Blender. You will learn how to use Blender’s native USD import
+pipeline, leverage the USD Hydra delegate for high-performance viewing,
+and implement real-time streaming workflows using external connectors
+like NVIDIA Omniverse for live collaborative pipelines.</p>
+<h2 id="1-native-usd-importing-and-display">1. Native USD Importing and
+Display</h2>
+<p>Blender includes built-in support for reading and rendering USD files
+(<code>.usd</code>, <code>.usda</code>, <code>.usdc</code>, and
+<code>.usdz</code>).</p>
+<p>To load and display a USD file:</p>
+<ol type="1">
+<li>Open Blender and navigate to <strong>File &gt; Import &gt; Universal
+Scene Description (.usd, .usda, .usdc, .usdz)</strong>.</li>
+<li>Select your USD file in the file browser.</li>
+<li>In the right-hand import settings panel, configure the following
+options:
+<ul>
+<li><strong>Scale:</strong> Adjust the unit conversion (USD typically
+defaults to centimeters, whereas Blender uses meters).</li>
+<li><strong>Custom Properties:</strong> Enable to retain USD
+metadata.</li>
+<li><strong>Materials:</strong> Choose whether to import USD Preview
+Surface shaders as Blender shader node networks.</li>
+<li><strong>Subdivision:</strong> Check to read USD subdivision
+schemes.</li>
+</ul></li>
+<li>Click <strong>Import USD</strong>.</li>
+</ol>
+<p>The hierarchy and geometry will appear directly in the
+<strong>Outliner</strong> and <strong>3D Viewport</strong>, where you
+can display it using standard Solid, Material Preview, or Rendered
+viewport shading modes.</p>
+<h2 id="2-using-hydra-render-delegates-for-high-scale-usd-viewing">2.
+Using Hydra Render Delegates for High-Scale USD Viewing</h2>
+<p>For large-scale scenes where standard mesh conversion causes
+performance bottlenecks, you can use the <strong>Blender USD Hydra
+Addon</strong> (available for Blender 3.5+). Hydra allows Blender to
+stream and view USD stages directly without fully converting them to
+native Blender geometry meshes.</p>
+<ol type="1">
+<li>Download and enable the <strong>Hydra Render Engine</strong> add-on
+in <strong>Edit &gt; Preferences &gt; Add-ons</strong>.</li>
+<li>Switch your active render engine from <strong>Eevee/Cycles</strong>
+to <strong>Hydra Storm</strong> or your preferred USD delegate in the
+<strong>Render Properties</strong> tab.</li>
+<li>Open a USD stage to bypass Blender's native modifier stack and draw
+massive datasets directly to the GPU using the native USD pipeline.</li>
+</ol>
+<h2 id="3-real-time-streaming-with-the-omniverse-connector">3. Real-Time
+Streaming with the Omniverse Connector</h2>
+<p>To stream live USD updates bidirectionally between external software
+and Blender, use the NVIDIA Omniverse Blender Connector:</p>
+<ol type="1">
+<li>Install the <strong>Omniverse Launcher</strong> and install the
+<strong>Blender USD Connector</strong>.</li>
+<li>Enable the connector in Blender under <strong>Edit &gt; Preferences
+&gt; Add-ons</strong>.</li>
+<li>Open the <strong>Omniverse</strong> panel in the 3D Viewport sidebar
+(press <code>N</code>).</li>
+<li>Connect to your local or cloud <strong>Nucleus Server</strong>.</li>
+<li>Open or reference a live <code>.usd</code> file from the
+server.</li>
+<li>Toggle <strong>Live Sync</strong> on. Any transformations, geometry
+updates, or lighting changes made in the USD file from other connected
+applications will stream and update inside Blender in real time.</li>
+</ol>
+<h2 id="4-viewport-optimization-for-usd-scenes">4. Viewport Optimization
+for USD Scenes</h2>
+<p>To ensure smooth playback and high framerates when working with
+complex USD stages:</p>
+<ul>
+<li><strong>Object Bounding Boxes:</strong> Select heavy background USD
+prims and set their <strong>Viewport Display</strong> mode to
+<strong>Bounds</strong> under the Object Properties tab.</li>
+<li><strong>Payload Management:</strong> Use the USD import settings to
+selectively load or unload payloads, preventing unnecessary geometry
+from loading into memory.</li>
+<li><strong>Cache Playback:</strong> For animated USD sequences, utilize
+the <strong>Mesh Sequence Cache</strong> modifier automatically applied
+during import to stream vertex animations per frame from disk rather
+than storing raw keyframe data inside the <code>.blend</code> file.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

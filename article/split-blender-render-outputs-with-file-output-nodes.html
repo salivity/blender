@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Blender Render Outputs with File Output Nodes - blender</title>
+    <meta name="description" content="Splitting render outputs in Blender allows you to save multiple render passes, masks, or composite branches into separate image files or formats simultaneously. This workflow relies on the Compositor's File Output node, enabling you to organize multi-cha">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/split-blender-render-outputs-with-file-output-nodes">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Split Blender Render Outputs with File Output Nodes - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/split-blender-render-outputs-with-file-output-nodes" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Splitting render outputs in Blender allows you to save multiple render passes, masks, or composite branches into separate image files or formats simultaneously. This workflow relies on the Compositor's File Output node, enabling you to organize multi-cha" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="split-blender-render-outputs-with-file-output-nodes">Split
+Blender Render Outputs with File Output Nodes</h1>
+<p>Splitting render outputs in Blender allows you to save multiple
+render passes, masks, or composite branches into separate image files or
+formats simultaneously. This workflow relies on the Compositor's
+<strong>File Output</strong> node, enabling you to organize
+multi-channel data such as Ambient Occlusion, Depth, or Cryptomattes
+into dedicated folders without overwriting your primary composite
+render.</p>
+<hr />
+<h3 id="step-1-enable-your-required-render-passes">Step 1: Enable Your
+Required Render Passes</h3>
+<p>Before setting up the nodes, define which data channels you want to
+export:</p>
+<ol type="1">
+<li>Navigate to the <strong>View Layer Properties</strong> tab (layered
+icon) in the Properties panel.</li>
+<li>Under the <strong>Passes</strong> section, check the boxes for the
+data passes you need (e.g., <em>Z/Depth</em>, <em>Mist</em>, <em>Diffuse
+Direct</em>, <em>Glossy Indirect</em>, <em>Cryptomatte</em>).</li>
+</ol>
+<h3 id="step-2-open-the-compositor">Step 2: Open the Compositor</h3>
+<ol type="1">
+<li>Switch to the <strong>Compositing</strong> workspace in Blender’s
+top menu.</li>
+<li>Check the <strong>Use Nodes</strong> box at the top of the node
+editor to display the default <strong>Render Layers</strong> and
+<strong>Composite</strong> nodes.</li>
+</ol>
+<h3 id="step-3-add-and-set-up-the-file-output-node">Step 3: Add and Set
+Up the File Output Node</h3>
+<ol type="1">
+<li>Press <code>Shift + A</code> and go to <strong>Output &gt; File
+Output</strong>.</li>
+<li>Place the <strong>File Output</strong> node next to your
+<strong>Render Layers</strong> node.</li>
+<li>In the <strong>File Output</strong> node's settings (accessible in
+the node or in the Sidebar by pressing <code>N</code> and navigating to
+the <strong>Node</strong> tab):
+<ul>
+<li><strong>Base Path:</strong> Specify the target directory where files
+should be saved.</li>
+<li><strong>Format:</strong> Choose your preferred default file format
+(e.g., PNG, OpenEXR, JPEG).</li>
+</ul></li>
+</ol>
+<h3 id="step-4-add-sockets-for-each-pass">Step 4: Add Sockets for Each
+Pass</h3>
+<p>By default, the File Output node has a single input socket named
+"Image." To split multiple passes:</p>
+<ol type="1">
+<li>Select the <strong>File Output</strong> node and open the Sidebar
+(<code>N</code> key).</li>
+<li>Go to the <strong>Node</strong> tab and look for the
+<strong>Properties</strong> / <strong>File Slots</strong> section.</li>
+<li>Click the <strong>Add Input</strong> (or <code>+</code>) button to
+create additional sockets for each pass.</li>
+<li>Rename each slot to reflect the pass name (e.g., "Depth", "Shadow",
+"Normal").</li>
+<li><em>(Optional)</em> Expand the individual slot settings to override
+the base file format or set sub-paths (e.g., <code>depth/render_</code>
+will save the pass into a dedicated subfolder named "depth").</li>
+</ol>
+<h3 id="step-5-connect-the-passes">Step 5: Connect the Passes</h3>
+<ol type="1">
+<li>Drag connections from the output sockets on the <strong>Render
+Layers</strong> node to the matching input slots on the <strong>File
+Output</strong> node.
+<ul>
+<li>Example: Connect <code>Depth</code> output to the <code>Depth</code>
+slot on the File Output node.</li>
+<li>Example: Connect <code>Denoised Image</code> to the main
+<code>Image</code> slot.</li>
+</ul></li>
+<li>If you are using additional composite nodes (such as color grading
+or blur), you can route processed node branches into individual File
+Output slots as well.</li>
+</ol>
+<h3 id="step-6-render">Step 6: Render</h3>
+<ol type="1">
+<li>Press <code>F12</code> to render a single frame or
+<code>Ctrl + F12</code> to render an animation.</li>
+<li>Blender will automatically write each connected input from the File
+Output node to its own file upon completion of each frame. Note that the
+standard "Render &gt; Save As" command only saves the default Composite
+node output; the File Output node handles its own file writing
+automatically in the background.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

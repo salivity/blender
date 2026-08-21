@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Extract a Mesh from a Mask in Blender - blender</title>
+    <meta name="description" content="Extracting a mesh from a mask in Blender is a fundamental sculpting workflow used to quickly create clothing, armor, hair, or secondary mesh details directly from an existing base model. By painting a mask on your object in Sculpt Mode, you can instantly">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-extract-a-mesh-from-a-mask-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Extract a Mesh from a Mask in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-extract-a-mesh-from-a-mask-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Extracting a mesh from a mask in Blender is a fundamental sculpting workflow used to quickly create clothing, armor, hair, or secondary mesh details directly from an existing base model. By painting a mask on your object in Sculpt Mode, you can instantly" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-extract-a-mesh-from-a-mask-in-blender">How to Extract a
+Mesh from a Mask in Blender</h1>
+<p>Extracting a mesh from a mask in Blender is a fundamental sculpting
+workflow used to quickly create clothing, armor, hair, or secondary mesh
+details directly from an existing base model. By painting a mask on your
+object in Sculpt Mode, you can instantly generate a new, separate 3D
+object that perfectly conforms to the shape of the underlying surface.
+This article covers the step-by-step process of creating a mask,
+extracting it into a new mesh object, and configuring its extraction
+settings.</p>
+<h3 id="step-1-create-a-mask-on-your-base-mesh">Step 1: Create a Mask on
+Your Base Mesh</h3>
+<ol type="1">
+<li>Select your object in Object Mode and switch to <strong>Sculpt
+Mode</strong> using the mode dropdown menu in the top-left corner (or
+press <code>Ctrl + Tab</code>).</li>
+<li>Select the <strong>Mask</strong> brush from the toolbar on the left
+(shortcut: <code>M</code>).</li>
+<li>Paint over the area on your mesh where you want to create the new
+geometry.
+<ul>
+<li><em>Tip:</em> Hold <code>Ctrl</code> while painting to erase parts
+of the mask, or press <code>A</code> to bring up the mask radial menu
+for options like clearing or inverting the mask.</li>
+</ul></li>
+</ol>
+<h3 id="step-2-extract-the-mask">Step 2: Extract the Mask</h3>
+<ol type="1">
+<li>With the mask painted, locate the <strong>Mask</strong> menu in the
+top header of the 3D Viewport.</li>
+<li>Click on <strong>Mask</strong> and select <strong>Extract Face
+Mask</strong> (or <strong>Mask Extract</strong> depending on your
+Blender version).</li>
+<li>Blender will instantly generate a new object based on the masked
+region.</li>
+</ol>
+<h3 id="step-3-adjust-extraction-settings">Step 3: Adjust Extraction
+Settings</h3>
+<p>Immediately after extracting, expand the <strong>Extract Face
+Mask</strong> operator box located in the bottom-left corner of the
+viewport to customize the results:</p>
+<ul>
+<li><strong>Thickness:</strong> Controls how deep or extruding the new
+mesh is. Set this to <code>0</code> if you want a flat, single-sided
+surface, or increase it to add instant volume.</li>
+<li><strong>Offset:</strong> Determines whether the extraction expands
+outward, inward, or remains centered on the surface.</li>
+<li><strong>Smooth Iterations:</strong> Increases boundary smoothness to
+remove jagged edges along the mask borders.</li>
+<li><strong>Project to Surface:</strong> Snaps the newly created mesh
+flush against the original base object.</li>
+</ul>
+<h3 id="step-4-finalize-and-refine">Step 4: Finalize and Refine</h3>
+<ol type="1">
+<li>Switch back to <strong>Object Mode</strong>
+(<code>Ctrl + Tab</code>).</li>
+<li>Select the newly generated object in the Outliner.</li>
+<li>Apply modifiers like <strong>Solidify</strong> (if you need
+adjustable thickness later) or <strong>Subdivision Surface</strong> to
+clean up topology.</li>
+<li>Switch back to <strong>Sculpt Mode</strong> on the new object to
+refine its shape using brushes like <em>Smooth</em>, <em>Grab</em>, or
+<em>Inflate</em>.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Import Images as Planes Add-on Explained - blender</title>
+    <meta name="description" content="The "Import Images as Planes" add-on in Blender is a built-in tool that simplifies the process of bringing 2D images into a 3D workspace. Instead of manually creating a 3D mesh, applying a material, mapping UVs, and adjusting the object's dimensions to m">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-import-images-as-planes-add-on-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Import Images as Planes Add-on Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-import-images-as-planes-add-on-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The "Import Images as Planes" add-on in Blender is a built-in tool that simplifies the process of bringing 2D images into a 3D workspace. Instead of manually creating a 3D mesh, applying a material, mapping UVs, and adjusting the object's dimensions to m" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-import-images-as-planes-add-on-explained">Blender Import
+Images as Planes Add-on Explained</h1>
+<p>The "Import Images as Planes" add-on in Blender is a built-in tool
+that simplifies the process of bringing 2D images into a 3D workspace.
+Instead of manually creating a 3D mesh, applying a material, mapping
+UVs, and adjusting the object's dimensions to match the image's original
+aspect ratio, this add-on automates the entire setup in a single click.
+This guide explains what the add-on does, how to activate it, its core
+features, and its common practical applications.</p>
+<h2 id="what-the-add-on-does">What the Add-on Does</h2>
+<p>When you import an image using standard methods in 3D software, you
+often get a square plane that distorts your image unless you manually
+calculate the aspect ratio. You also have to construct a shader node
+tree from scratch to display the texture properly.</p>
+<p>The <strong>Import Images as Planes</strong> add-on completely
+streamlines this workflow by automatically:</p>
+<ul>
+<li>Creating a 3D plane mesh that matches the exact aspect ratio (width
+and height) of your selected image file.</li>
+<li>Generating a complete material with the image set up as a texture
+node.</li>
+<li>Configuring transparency settings automatically if the image
+contains an alpha channel (such as a PNG file).</li>
+<li>Mapping the UV coordinates instantly so the image displays without
+stretching or warping.</li>
+</ul>
+<h2 id="how-to-enable-and-access-the-add-on">How to Enable and Access
+the Add-on</h2>
+<p>Although the add-on comes pre-installed with Blender, it may need to
+be enabled depending on your version.</p>
+<ol type="1">
+<li>Open Blender and navigate to <strong>Edit &gt;
+Preferences</strong>.</li>
+<li>Select the <strong>Add-ons</strong> tab on the left.</li>
+<li>Search for <strong>Import Images as Planes</strong> in the search
+bar.</li>
+<li>Check the box next to <strong>Import-Export: Import Images as
+Planes</strong> to enable it.</li>
+</ol>
+<p>Once enabled, you can import images by going to <strong>File &gt;
+Import &gt; Images as Planes</strong>, or by pressing <strong>Shift +
+A</strong> in the 3D Viewport and selecting <strong>Image &gt; Images as
+Planes</strong>.</p>
+<h2 id="key-settings-and-features">Key Settings and Features</h2>
+<p>When selecting an image to import, the file browser sidebar provides
+several customizable options:</p>
+<ul>
+<li><strong>Material Settings:</strong> Choose how the material responds
+to light. Options include <strong>Principled</strong> (standard
+lighting), <strong>Shadeless/Emission</strong> (unlit, ideal for concept
+art or 2D references), or <strong>Specular</strong>.</li>
+<li><strong>Use Alpha:</strong> Automatically configures transparency.
+You can select between <em>Use Alpha</em> (standard transparency),
+<em>Blend Mode</em>, or <em>Shadow Mode</em> to control how shadows cast
+from transparent parts of the image.</li>
+<li><strong>Plane Dimensions:</strong> Set the scale of the plane based
+on absolute height, width, camera frame size, or pixel dimensions.</li>
+<li><strong>Orientation:</strong> Choose which axis the plane faces upon
+import (e.g., facing the Main Camera, flat on the ground along the
+Z-axis, or aligned to the viewport).</li>
+</ul>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<ul>
+<li><strong>Reference Art and Concept Drawings:</strong> Quickly place
+blueprints, character sheets, or environment concepts directly into your
+3D scene to guide your modeling.</li>
+<li><strong>2D Animation and Cut-Outs:</strong> Create 2D-style
+character puppets or cut-out animations within a 3D environment.</li>
+<li><strong>VFX and Matte Paintings:</strong> Layer photographic
+elements, smoke textures, or background matte paintings directly into a
+rendered 3D scene.</li>
+<li><strong>Decals and Sprites:</strong> Add isolated graphic elements,
+such as signs, posters, foliage, or 2D game sprites, onto existing 3D
+surfaces.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

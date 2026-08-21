@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Color Management: AgX vs Filmic Explained - blender</title>
+    <meta name="description" content="This article provides an overview of Blender's Color Management settings, focusing on how scene-referred linear light is converted into display-ready imagery. It breaks down the core functions of the Color Management tab, explains the mechanics of tone m">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-color-management-agx-vs-filmic-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Color Management: AgX vs Filmic Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-color-management-agx-vs-filmic-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This article provides an overview of Blender's Color Management settings, focusing on how scene-referred linear light is converted into display-ready imagery. It breaks down the core functions of the Color Management tab, explains the mechanics of tone m" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-color-management-agx-vs-filmic-explained">Blender Color
+Management: AgX vs Filmic Explained</h1>
+<p>This article provides an overview of Blender's Color Management
+settings, focusing on how scene-referred linear light is converted into
+display-ready imagery. It breaks down the core functions of the Color
+Management tab, explains the mechanics of tone mapping, and compares the
+Filmic and AgX View Transforms to help you achieve accurate,
+photorealistic color and dynamic range in your renders.</p>
+<h3 id="what-is-the-color-management-tab">What Is the Color Management
+Tab?</h3>
+<p>The Color Management tab, located under the <strong>Render
+Properties</strong> panel in Blender, controls how raw light data
+calculated by the render engine is translated into colors visible on
+your monitor.</p>
+<p>Blender’s internal render engines (Cycles and EEVEE) calculate light
+physically using a <strong>scene-referred linear workflow</strong>. In
+this space, light values have no upper limit (0.0 to infinity) and light
+scales linearly. However, standard computer monitors operate in a
+<strong>display-referred space</strong> (such as sRGB or Display P3),
+which can only display values between 0.0 (pure black) and 1.0 (pure
+white).</p>
+<p>The Color Management tab acts as a bridge between these two spaces,
+providing tone mapping, color space conversion, and artistic grading
+before the final image is output.</p>
+<h4 id="key-settings-in-the-panel">Key Settings in the Panel:</h4>
+<ul>
+<li><strong>Display Device:</strong> The color profile of your physical
+screen (typically set to sRGB).</li>
+<li><strong>View Transform:</strong> The tone-mapping curve used to
+compress high-dynamic-range data into displayable values (e.g.,
+Standard, Filmic, AgX, False Color).</li>
+<li><strong>Look:</strong> Preset contrast adjustments applied on top of
+the View Transform (e.g., Medium High Contrast).</li>
+<li><strong>Exposure and Gamma:</strong> Global adjustments for
+brightness and luminance curves before the final output.</li>
+</ul>
+<hr />
+<h3 id="the-role-of-view-transforms">The Role of View Transforms</h3>
+<p>A View Transform compresses the high dynamic range (HDR) of 3D scenes
+down to the low dynamic range (LDR) of standard displays. Without a
+proper transform—such as using the legacy <strong>Standard</strong>
+transform—any light value exceeding 1.0 clips immediately to pure white,
+blowing out highlights and causing harsh, unnatural transitions.</p>
+<p>Modern transforms solve this by introducing an S-curve roll-off that
+preserves details in both dark shadows and bright highlights.</p>
+<hr />
+<h3 id="filmic-view-transform">Filmic View Transform</h3>
+<p>Introduced to replace the Standard transform, <strong>Filmic</strong>
+expands Blender's dynamic range to approximately 16–25 stops of
+light.</p>
+<ul>
+<li><strong>Mechanics:</strong> Filmic applies a logarithmic tone curve
+that gradually compresses bright values rather than clipping them
+abruptly. This allows bright light sources, such as direct sunlight or
+fire, to roll off smoothly into highlights.</li>
+<li><strong>Limitations:</strong> While Filmic handles dynamic range
+well, it suffers from noticeable hue shifts and oversaturation in
+high-exposure areas. For instance, highly saturated and bright lights
+(like saturated LEDs or intense fire) often shift toward yellow or cyan
+before desaturating to white, producing an unnatural "abney
+effect."</li>
+</ul>
+<hr />
+<h3 id="agx-view-transform">AgX View Transform</h3>
+<p>Starting in Blender 4.0, <strong>AgX</strong> replaced Filmic as the
+default View Transform. Designed to address Filmic’s color fidelity
+issues, AgX offers an improved approach to highlight handling and color
+degradation.</p>
+<ul>
+<li><strong>Mechanics:</strong> AgX uses an advanced color-grading
+matrix combined with an S-curve tone-mapper. As colors become more
+intense and approach the limits of the display, AgX desaturates them
+gracefully toward white (chromaticity preservation), mimicking how real
+physical camera sensors and photographic film react to
+overexposure.</li>
+<li><strong>Advantages over Filmic:</strong> AgX avoids the harsh hue
+shifts seen in Filmic. Intense colored lights retain their intended hue
+throughout the gradient, and skin tones under bright lighting maintain
+natural coloration without skewing into sickly yellows or artificial
+tones.</li>
+</ul>
+<hr />
+<h3 id="comparison-standard-vs-filmic-vs-agx">Comparison: Standard vs.
+Filmic vs. AgX</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Feature</th>
+<th style="text-align: left;">Standard</th>
+<th style="text-align: left;">Filmic</th>
+<th style="text-align: left;">AgX</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Dynamic Range</strong></td>
+<td style="text-align: left;">Low (Clips at 1.0)</td>
+<td style="text-align: left;">High (~16–25 stops)</td>
+<td style="text-align: left;">High (~16–25 stops)</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Highlight Roll-off</strong></td>
+<td style="text-align: left;">Harsh / Abrupt</td>
+<td style="text-align: left;">Smooth S-curve</td>
+<td style="text-align: left;">Smooth S-curve</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Color Handling</strong></td>
+<td style="text-align: left;">Clips to pure primary channels</td>
+<td style="text-align: left;">Shifts hue in overexposed areas</td>
+<td style="text-align: left;">Gracefully desaturates to white</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Best Use Case</strong></td>
+<td style="text-align: left;">Motion Graphics, UI, non-photorealistic
+rendering requiring exact hex codes</td>
+<td style="text-align: left;">Legacy projects</td>
+<td style="text-align: left;">Photorealistic rendering, complex
+lighting, VFX</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="choosing-the-right-transform">Choosing the Right Transform</h3>
+<ul>
+<li>Use <strong>AgX</strong> for almost all photorealistic renders,
+physical simulations, architectural visualization, and VFX. It yields
+the most physically plausible and film-like result directly out of the
+viewport.</li>
+<li>Use <strong>Filmic</strong> if you are maintaining consistency
+across older Blender projects or pipelines built specifically around
+Filmic color LUTs.</li>
+<li>Use <strong>Standard</strong> only when working on
+non-photorealistic rendering (NPR), 2D motion design, or UI assets where
+exact color fidelity to specific hex codes or uncompressed textures is
+strictly required.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

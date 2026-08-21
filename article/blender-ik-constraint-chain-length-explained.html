@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender IK Constraint Chain Length Explained - blender</title>
+    <meta name="description" content="The chain length setting in Blender’s Inverse Kinematics (IK) constraint determines how many parent bones up the armature hierarchy are affected by the IK solver. This guide covers how the chain length setting functions, why setting the correct value i">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-ik-constraint-chain-length-explained">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender IK Constraint Chain Length Explained - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-ik-constraint-chain-length-explained" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The chain length setting in Blender’s Inverse Kinematics (IK) constraint determines how many parent bones up the armature hierarchy are affected by the IK solver. This guide covers how the chain length setting functions, why setting the correct value i" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-ik-constraint-chain-length-explained">Blender IK
+Constraint Chain Length Explained</h1>
+<p>The chain length setting in Blender’s Inverse Kinematics (IK)
+constraint determines how many parent bones up the armature hierarchy
+are affected by the IK solver. This guide covers how the chain length
+setting functions, why setting the correct value is crucial for
+character rigging, and how to configure it to prevent unwanted movement
+across your rig.</p>
+<h2 id="what-is-chain-length">What is Chain Length?</h2>
+<p>In Blender, Inverse Kinematics allows a end bone (like a hand or
+foot) to drive the movement of connected parent bones (like the arm or
+leg). The <strong>Chain Length</strong> setting defines the exact depth
+of the bone hierarchy influenced by this IK target.</p>
+<p>By default, the Chain Length is set to <strong>0</strong>. A value of
+zero tells Blender to extend the IK influence through <em>all</em>
+connected parent bones all the way back to the root bone of the
+armature.</p>
+<h2 id="how-the-chain-length-values-work">How the Chain Length Values
+Work</h2>
+<p>The chain length counts upward starting from the bone that holds the
+IK constraint:</p>
+<ul>
+<li><strong>Chain Length = 0:</strong> Affects all parent bones up to
+the root bone.</li>
+<li><strong>Chain Length = 1:</strong> Affects only the bone carrying
+the IK constraint.</li>
+<li><strong>Chain Length = 2:</strong> Affects the constrained bone and
+its immediate parent (commonly used for two-segment limbs like legs or
+arms).</li>
+<li><strong>Chain Length = 3+:</strong> Affects the constrained bone
+plus the specified number of parent bones up the chain (useful for
+tails, spines, or tentacles).</li>
+</ul>
+<h2 id="why-you-must-adjust-the-default-value">Why You Must Adjust the
+Default Value</h2>
+<p>Leaving the Chain Length set to <code>0</code> is one of the most
+common mistakes in Blender rigging. If left at zero, moving a hand or
+foot controller will cause the character's spine, hips, and entire upper
+body to warp and twist uncontrollably toward the IK target.</p>
+<p>Setting a explicit chain length isolates the mechanical movement
+strictly to the intended limbs. For example, a standard human leg rig
+requires an IK chain length of <strong>2</strong> (the lower leg and
+upper leg), ensuring that moving the foot controller bends the knee
+without pulling down the torso.</p>
+<h2 id="how-to-set-the-chain-length-in-blender">How to Set the Chain
+Length in Blender</h2>
+<ol type="1">
+<li>Select your armature in <strong>Pose Mode</strong>.</li>
+<li>Select the bone that contains the IK constraint.</li>
+<li>Open the <strong>Bone Constraint Properties</strong> tab in the
+Inspector panel on the right.</li>
+<li>Locate the <strong>Inverse Kinematics</strong> constraint.</li>
+<li>Adjust the <strong>Chain Length</strong> field to match the number
+of bones you want controlled.</li>
+</ol>
+<p>Visual feedback will appear in the 3D Viewport: a dashed yellow line
+will extend from the constrained bone to indicate exactly which bones
+fall within the designated IK chain.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

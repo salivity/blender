@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender Weight Painting Guide for Character Animation - blender</title>
+    <meta name="description" content="Weight painting is a crucial step in the 3D character rigging and animation pipeline. This article explains what weight painting is, how it works in Blender, and why it is absolutely essential for achieving realistic, natural character movements in your">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-weight-painting-guide-for-character-animation">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender Weight Painting Guide for Character Animation - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-weight-painting-guide-for-character-animation" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Weight painting is a crucial step in the 3D character rigging and animation pipeline. This article explains what weight painting is, how it works in Blender, and why it is absolutely essential for achieving realistic, natural character movements in your" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-weight-painting-guide-for-character-animation">Blender
+Weight Painting Guide for Character Animation</h1>
+<p>Weight painting is a crucial step in the 3D character rigging and
+animation pipeline. This article explains what weight painting is, how
+it works in Blender, and why it is absolutely essential for achieving
+realistic, natural character movements in your 3D animations.</p>
+<h2 id="what-is-weight-painting">What is Weight Painting?</h2>
+<p>In 3D animation, a character model (the mesh) is controlled by an
+internal skeleton (the armature/rig) consisting of bones. Weight
+painting is the process of assigning how much influence each bone has
+over specific parts of the 3D mesh.</p>
+<p>In Blender, this influence is represented visually using a color
+spectrum:</p>
+<ul>
+<li><strong>Red (Value of 1.0):</strong> Maximum influence. The vertices
+will move 100% in sync with the bone.</li>
+<li><strong>Yellow/Green (Intermediate values):</strong> Partial
+influence. The vertices will move partially with the bone, allowing for
+smooth stretching.</li>
+<li><strong>Blue (Value of 0.0):</strong> No influence. The bone has no
+effect on these vertices.</li>
+</ul>
+<p>By painting these weights onto the vertices of your model, you define
+how the character's "skin" deforms when the bones move.</p>
+<h2 id="why-weight-painting-is-essential-for-character-animation">Why
+Weight Painting is Essential for Character Animation</h2>
+<p>Without weight painting, a 3D character cannot deform realistically.
+Here is why this process is indispensable for quality animation:</p>
+<h3 id="1-achieves-natural-joint-deformations">1. Achieves Natural Joint
+Deformations</h3>
+<p>When humans bend an elbow or a knee, the skin around the joint
+stretches and compresses smoothly. Without proper weight painting,
+joints will collapse, pinch, or clip through themselves. By painting
+smooth gradients of weight between neighboring bones (like the upper arm
+and forearm), the mesh deforms smoothly, mimicking real-life
+anatomy.</p>
+<h3 id="2-prevents-unwanted-mesh-stretching">2. Prevents Unwanted Mesh
+Stretching</h3>
+<p>If vertices are not properly weighted, moving a bone might cause
+distant parts of the mesh to stretch unnaturally. For example, moving a
+character’s arm might accidentally pull vertices from their torso.
+Weight painting allows you to isolate bone influence, ensuring that only
+the intended parts of the body move.</p>
+<h3 id="3-enables-complex-facial-expressions">3. Enables Complex Facial
+Expressions</h3>
+<p>Facial rigging relies heavily on precise weight painting. Subtle
+expressions—like raising an eyebrow, blinking, or smirking—require bones
+to influence tiny, highly localized clusters of vertices. Accurate
+weight painting ensures these delicate movements look organic rather
+than robotic.</p>
+<h3 id="4-facilitates-secondary-motion">4. Facilitates Secondary
+Motion</h3>
+<p>For characters wearing loose clothing, capes, or having long hair,
+weight painting allows you to transition control from the main body rig
+to secondary bones. This ensures that clothing moves in harmony with the
+character's primary actions without clipping into the body mesh.</p>
+<h2 id="how-to-weight-paint-in-blender">How to Weight Paint in
+Blender</h2>
+<p>To start weight painting in Blender:</p>
+<ol type="1">
+<li>Select your armature, then hold <code>Shift</code> and select your
+character mesh.</li>
+<li>Switch the interaction mode from Object Mode to <strong>Weight
+Paint</strong> mode.</li>
+<li>Select a bone (using <code>Ctrl + Left Click</code>) to view its
+current weight map on the mesh.</li>
+<li>Use the <strong>Draw brush</strong> to add weight, or the
+<strong>Subtract brush</strong> to remove weight.</li>
+<li>Use the <strong>Smooth brush</strong> to blend the transitions
+between different bone influences, ensuring fluid movement.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bake Action to Keyframes on Every Frame in Blender - blender</title>
+    <meta name="description" content="Baking an action in Blender converts dynamic, constraint-based, or physics-driven animation into explicit keyframes for every frame. This process is essential for exporting models to game engines, optimizing playback performance, and freezing procedural">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/bake-action-to-keyframes-on-every-frame-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Bake Action to Keyframes on Every Frame in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/bake-action-to-keyframes-on-every-frame-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Baking an action in Blender converts dynamic, constraint-based, or physics-driven animation into explicit keyframes for every frame. This process is essential for exporting models to game engines, optimizing playback performance, and freezing procedural" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="bake-action-to-keyframes-on-every-frame-in-blender">Bake Action
+to Keyframes on Every Frame in Blender</h1>
+<p>Baking an action in Blender converts dynamic, constraint-based, or
+physics-driven animation into explicit keyframes for every frame. This
+process is essential for exporting models to game engines, optimizing
+playback performance, and freezing procedural bone movements into
+permanent animation data. This guide explains how to bake your
+animations to keyframes on every single frame using Blender's built-in
+Bake Action operator.</p>
+<h3 id="step-by-step-baking-an-action">Step-by-Step: Baking an
+Action</h3>
+<ol type="1">
+<li><p><strong>Select the Object or Armature</strong><br />
+Select the target object in the 3D Viewport. If you are baking a
+character rig or bone animation, switch to <strong>Pose Mode</strong>
+(<code>Ctrl + Tab</code>). If you are baking a standard mesh or camera,
+stay in <strong>Object Mode</strong>.</p></li>
+<li><p><strong>Select All Bones or Objects</strong><br />
+Press <code>A</code> to select all bones (in Pose Mode) or all objects
+(in Object Mode) that need to be baked. Blender only bakes elements that
+are currently selected.</p></li>
+<li><p><strong>Open the Bake Action Menu</strong></p>
+<ul>
+<li>For bones/armatures: Go to the top menu and select <strong>Pose &gt;
+Animation &gt; Bake Action...</strong></li>
+<li>For objects: Go to the top menu and select <strong>Object &gt;
+Animation &gt; Bake Action...</strong></li>
+<li>Alternatively, press <code>F3</code> (or <code>Spacebar</code>
+depending on your keymap), type <strong>Bake Action</strong>, and press
+<code>Enter</code>.</li>
+</ul></li>
+<li><p><strong>Configure the Bake Settings</strong><br />
+In the pop-up dialogue box, configure the following parameters:</p>
+<ul>
+<li><strong>Start Frame / End Frame:</strong> Set the timeline range you
+want to bake.</li>
+<li><strong>Frame Step:</strong> Set this to <code>1</code>. A step
+value of <code>1</code> ensures that Blender generates a keyframe on
+every single frame.</li>
+<li><strong>Only Selected Bones / Objects:</strong> Check this box to
+restrict baking only to the selected elements.</li>
+<li><strong>Visual Keying:</strong> Check this box. This is crucial as
+it captures the final transformed positions generated by constraints,
+drivers, or parent inversions.</li>
+<li><strong>Clear Constraints:</strong> Check this if you want Blender
+to remove constraints (like Inverse Kinematics or Track To) after
+baking, leaving purely keyframed motion.</li>
+<li><strong>Clear Parents:</strong> Leave unchecked unless you want to
+unparent the object during the bake.</li>
+<li><strong>Bake Data:</strong> Choose <strong>Pose</strong> for
+armatures or <strong>Object</strong> for standard
+meshes/transforms.</li>
+</ul></li>
+<li><p><strong>Execute the Bake</strong><br />
+Click <strong>OK</strong>. Blender will process the timeline and
+generate transform keyframes (<code>Location</code>,
+<code>Rotation</code>, <code>Scale</code>) on every frame along the
+specified range.</p></li>
+</ol>
+<h3 id="verifying-the-result">Verifying the Result</h3>
+<p>Open the <strong>Dope Sheet</strong> or <strong>Graph Editor</strong>
+(<code>Shift + F12</code>) to verify the output. You will see a dense
+line of keyframes occupying every integer frame marker across all
+channels. Your dynamic rig or constrained setup is now fully baked into
+standard keyframe animation data.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

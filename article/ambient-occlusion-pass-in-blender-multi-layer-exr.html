@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambient Occlusion Pass in Blender Multi-Layer EXR - blender</title>
+    <meta name="description" content="The Ambient Occlusion (AO) pass in multi-layer EXR compositing is a dedicated grayscale render layer that simulates soft, localized contact shadows where surfaces meet or are closely clustered. In Blender, exporting this pass within a multi-layer OpenEXR">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/ambient-occlusion-pass-in-blender-multi-layer-exr">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ambient Occlusion Pass in Blender Multi-Layer EXR - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/ambient-occlusion-pass-in-blender-multi-layer-exr" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Ambient Occlusion (AO) pass in multi-layer EXR compositing is a dedicated grayscale render layer that simulates soft, localized contact shadows where surfaces meet or are closely clustered. In Blender, exporting this pass within a multi-layer OpenEXR" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="ambient-occlusion-pass-in-blender-multi-layer-exr">Ambient
+Occlusion Pass in Blender Multi-Layer EXR</h1>
+<p>The Ambient Occlusion (AO) pass in multi-layer EXR compositing is a
+dedicated grayscale render layer that simulates soft, localized contact
+shadows where surfaces meet or are closely clustered. In Blender,
+exporting this pass within a multi-layer OpenEXR file allows artists to
+isolate, manipulate, and fine-tune depth perception, micro-contrast, and
+surface proximity shadows during post-production without having to
+re-render the entire 3D scene.</p>
+<h2 id="understanding-the-ambient-occlusion-pass">Understanding the
+Ambient Occlusion Pass</h2>
+<p>The AO pass calculates the accessibility of each point on a surface
+to ambient light. Areas that are occluded by nearby geometry—such as
+crevices, corners, gaps, and contact points between objects—receive less
+light and are rendered darker. Because it is calculated independently of
+scene lights, colors, and surface materials, the output is a clean,
+neutral grayscale map representing spatial depth and geometry
+density.</p>
+<h2 id="primary-uses-in-multi-layer-exr-compositing">Primary Uses in
+Multi-Layer EXR Compositing</h2>
+<p>Storing the AO pass inside a multi-layer EXR file retains 32-bit
+floating-point data, providing extensive dynamic range and flexibility
+in Blender’s Compositor. Its primary uses include:</p>
+<h3 id="1-enhancing-depth-and-contact-shadows">1. Enhancing Depth and
+Contact Shadows</h3>
+<p>The most common application is multiplying the AO pass over the
+combined beauty pass or diffuse color pass using a <strong>Mix
+Color</strong> node set to <strong>Multiply</strong>. This reinforces
+contact points (such as where feet touch the ground or objects rest on a
+table), anchoring elements firmly into the scene and preventing them
+from appearing as though they are floating.</p>
+<h3 id="2-selective-shadow-grading-and-tinting">2. Selective Shadow
+Grading and Tinting</h3>
+<p>Instead of simply darkening areas with pure black, compositors use
+the AO pass as a factor/mask in <strong>Color Balance</strong> or
+<strong>Hue Saturation Value</strong> nodes. This allows for the
+selective tinting of crevices—such as adding cool blues or warm ambient
+tones into recessed areas—to match ambient environment lighting or
+artistic art direction.</p>
+<h3 id="3-edge-and-detail-masking">3. Edge and Detail Masking</h3>
+<p>The AO pass functions as a dynamic geometric mask. In
+post-production, it can drive procedural effects like dirt, grime, dust,
+or edge wear in interior corners without relying on complex shader
+networks within the 3D viewport.</p>
+<h3 id="4-correcting-over-lit-or-flat-shading">4. Correcting Over-Lit or
+Flat Shading</h3>
+<p>In scenes with heavy global illumination, flat diffuse textures, or
+strong direct lighting, subtle geometric details can get washed out.
+Blending the AO pass back into the render restores edge definition and
+structural clarity without altering the scene's primary light
+balance.</p>
+<h2 id="typical-compositing-workflow-in-blender">Typical Compositing
+Workflow in Blender</h2>
+<ol type="1">
+<li>Connect the multi-layer EXR image to an <strong>Image</strong> node
+in the Compositor.</li>
+<li>Route the <strong>AO</strong> output into a
+<strong>ColorRamp</strong> or <strong>Map Value</strong> node to clamp
+and adjust the shadow intensity and falloff.</li>
+<li>Combine the modified AO with the <strong>Beauty</strong> or
+<strong>Diffuse</strong> pass using a <strong>Mix Color
+(Multiply)</strong> node.</li>
+<li>Adjust the <strong>Factor</strong> slider to subtly introduce the
+required amount of occlusion into the final image.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

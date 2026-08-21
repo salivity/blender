@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Curve Modifier Deforms Mesh in Blender - blender</title>
+    <meta name="description" content="The Curve modifier in Blender deforms a 3D mesh along the path of a curve object, allowing you to bend, stretch, and shape geometry dynamically without manually manipulating individual vertices. By binding an object to a Bezier or NURBS curve, the modifi">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-curve-modifier-deforms-mesh-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How Curve Modifier Deforms Mesh in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-curve-modifier-deforms-mesh-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Curve modifier in Blender deforms a 3D mesh along the path of a curve object, allowing you to bend, stretch, and shape geometry dynamically without manually manipulating individual vertices. By binding an object to a Bezier or NURBS curve, the modifi" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-curve-modifier-deforms-mesh-in-blender">How Curve Modifier
+Deforms Mesh in Blender</h1>
+<p>The Curve modifier in Blender deforms a 3D mesh along the path of a
+curve object, allowing you to bend, stretch, and shape geometry
+dynamically without manually manipulating individual vertices. By
+binding an object to a Bezier or NURBS curve, the modifier maps the
+mesh's coordinates relative to the curve's control points. This process
+enables procedural modeling for complex, curved structures such as
+pipes, belts, ropes, and stylized animation paths while leaving the
+original mesh geometry intact.</p>
+<h2 id="mathematical-mapping-and-axes">Mathematical Mapping and
+Axes</h2>
+<p>The deformation works by calculating the position of every vertex in
+the mesh relative to the origin of the curve object. Blender takes the
+mesh's local coordinates along a chosen <strong>Deform Axis</strong> (X,
+Y, or Z) and maps those coordinates directly along the length of the
+curve.</p>
+<p>For example, if the Deform Axis is set to positive X:</p>
+<ul>
+<li>Vertices located at <span class="math inline">\(X = 0\)</span> on
+the mesh will align with the start of the curve.</li>
+<li>Vertices further along the positive X-axis will follow the curve's
+path sequentially.</li>
+<li>Distance perpendicular to the Deform Axis translates to offset
+distance from the curve.</li>
+</ul>
+<h2 id="critical-factors-for-proper-deformation">Critical Factors for
+Proper Deformation</h2>
+<h3 id="1-origin-alignment">1. Origin Alignment</h3>
+<p>For the deformation to align correctly, both the mesh object and the
+curve object should ideally share the exact same origin point and scale
+transformations. If the origins are mismatched, the mesh will appear
+offset or severely distorted relative to the curve. Resetting
+transformations using <code>Ctrl + A</code> (Apply All Transforms)
+resolves most visual glitching.</p>
+<h3 id="2-mesh-density-and-topology">2. Mesh Density and Topology</h3>
+<p>The Curve modifier does not generate new geometry; it only displaces
+existing vertices. A low-poly mesh with few subdivisions along the
+deformation axis cannot bend smoothly and will appear rigid or broken.
+To achieve smooth bending, the mesh must have adequate edge loops along
+the length of the chosen deform axis. Adding a <strong>Subdivision
+Surface</strong> modifier before the Curve modifier in the modifier
+stack can help provide the necessary geometry.</p>
+<h3 id="3-curve-control-parameters">3. Curve Control Parameters</h3>
+<p>The physical shape of the curve directly drives the deformation.
+Modifying the curve in Edit Mode changes the mesh in real time through
+several properties:</p>
+<ul>
+<li><strong>Control Points and Handles:</strong> Adjusting handles
+changes the bend curvature, directly shifting mapped vertices.</li>
+<li><strong>Radius:</strong> Scaling a control point
+(<code>Alt + S</code>) scales the corresponding segment of the deformed
+mesh.</li>
+<li><strong>Tilt:</strong> Rotating a control point
+(<code>Mean Tilt</code> or <code>Ctrl + T</code>) twists the mesh around
+the curve at that specific point.</li>
+</ul>
+<h2 id="combining-with-the-array-modifier">Combining with the Array
+Modifier</h2>
+<p>A common technique is pairing the Curve modifier with an
+<strong>Array</strong> modifier. By placing the Array modifier above the
+Curve modifier in the stack, Blender first duplicates the mesh along an
+axis and then bends the entire generated chain along the curve. This is
+the standard workflow for creating tracks, chains, fences, and
+cables.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

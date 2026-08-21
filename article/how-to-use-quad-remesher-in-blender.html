@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Quad Remesher in Blender - blender</title>
+    <meta name="description" content="This guide explains how to convert high-poly sculpts and messy 3D geometry into clean, four-sided polygons (quads) in Blender. It covers step-by-step workflows for both Blender's native quad algorithm (QuadriFlow) and the third-party Quad Remesher addon,">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-use-quad-remesher-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Use Quad Remesher in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-use-quad-remesher-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="This guide explains how to convert high-poly sculpts and messy 3D geometry into clean, four-sided polygons (quads) in Blender. It covers step-by-step workflows for both Blender's native quad algorithm (QuadriFlow) and the third-party Quad Remesher addon," />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-use-quad-remesher-in-blender">How to Use Quad Remesher in
+Blender</h1>
+<p>This guide explains how to convert high-poly sculpts and messy 3D
+geometry into clean, four-sided polygons (quads) in Blender. It covers
+step-by-step workflows for both Blender's native quad algorithm
+(QuadriFlow) and the third-party Quad Remesher addon, helping you
+achieve production-ready topology for animation, UV unwrapping, and game
+development.</p>
+<hr />
+<h2
+id="method-1-using-blenders-built-in-quad-algorithm-quadriflow">Method
+1: Using Blender's Built-in Quad Algorithm (QuadriFlow)</h2>
+<p>Blender includes a native open-source algorithm called QuadriFlow. It
+is built directly into Blender and requires no extra installation.</p>
+<h3 id="step-by-step-instructions">Step-by-Step Instructions</h3>
+<ol type="1">
+<li><strong>Select the Object:</strong> In the 3D Viewport, select the
+mesh you want to remesh.</li>
+<li><strong>Access the Remesh Menu:</strong>
+<ul>
+<li><strong>In Object Mode:</strong> Go to the <strong>Object Data
+Properties</strong> tab (green triangle icon) in the Properties panel
+and expand the <strong>Remesh</strong> section.</li>
+<li><strong>In Sculpt Mode:</strong> Open the <strong>Remesh</strong>
+dropdown menu located in the top-right corner of the 3D Viewport
+header.</li>
+</ul></li>
+<li><strong>Select "Quad":</strong> Click on the <strong>Quad</strong>
+tab within the Remesh settings.</li>
+<li><strong>Configure Settings:</strong>
+<ul>
+<li><strong>Target Face Count / Target Edge Length:</strong> Set the
+desired density for your final quad mesh.</li>
+<li><strong>Preserve Sharp Edges:</strong> Enable this if your model
+contains hard-surface features that need to stay defined.</li>
+<li><strong>Preserve Mesh Boundary:</strong> Check this if your mesh is
+open (not a closed manifold) to prevent edges from shrinking.</li>
+<li><strong>Symmetry:</strong> Enable X, Y, or Z symmetry if your model
+is mirrored.</li>
+</ul></li>
+<li><strong>Execute:</strong> Click <strong>QuadriFlow Remesh</strong>
+(or press the button in the operator pop-up). Wait a few seconds for
+Blender to generate the new quad mesh.</li>
+</ol>
+<hr />
+<h2 id="method-2-using-the-dedicated-quad-remesher-addon">Method 2:
+Using the Dedicated Quad Remesher Addon</h2>
+<p>Quad Remesher (developed by Exoside) is a commercial automated
+retopology tool that produces industry-standard edge flow, spiral
+prevention, and clean loop placement.</p>
+<h3 id="step-by-step-instructions-1">Step-by-Step Instructions</h3>
+<ol type="1">
+<li><strong>Install and Activate:</strong>
+<ul>
+<li>Purchase and download the addon.</li>
+<li>In Blender, go to <strong>Edit &gt; Preferences &gt;
+Add-ons</strong>, click <strong>Install</strong>, choose the zip file,
+and enable the checkbox.</li>
+</ul></li>
+<li><strong>Open the Quad Remesher Panel:</strong>
+<ul>
+<li>Press <code>N</code> in the 3D Viewport to open the sidebar.</li>
+<li>Click on the <strong>Quad Remesh</strong> tab.</li>
+</ul></li>
+<li><strong>Configure Key Parameters:</strong>
+<ul>
+<li><strong>Target Quad Count:</strong> Enter the target number of faces
+(e.g., 5,000 to 10,000 for standard game assets).</li>
+<li><strong>Adaptive Quad Size:</strong> Turn this up if you want
+smaller polygons in detailed areas and larger polygons on flat
+surfaces.</li>
+<li><strong>Use Materials / Hard Edges:</strong> Enable this to force
+edge loops to align with existing material boundaries or marked sharp
+edges.</li>
+<li><strong>Symmetry:</strong> Select the axis of symmetry (X, Y, or Z)
+to enforce identical topology on both halves of the mesh.</li>
+</ul></li>
+<li><strong>Add Guide Curves (Optional):</strong>
+<ul>
+<li>To control the direction of edge loops around areas like eyes,
+mouths, or mechanical joints, draw curve objects near the mesh
+surface.</li>
+<li>In the Quad Remesher panel, link these curves under the
+<strong>Guide Curves</strong> setting.</li>
+</ul></li>
+<li><strong>Run Remesh:</strong> Click the <strong>Remesh It</strong>
+button. Quad Remesher will process the geometry in the background and
+replace or duplicate your mesh with the optimized quad version.</li>
+</ol>
+<hr />
+<h2 id="best-practices-for-clean-results">Best Practices for Clean
+Results</h2>
+<ul>
+<li><strong>Pre-smooth Rough Geometry:</strong> If using QuadriFlow on
+dynamic topology sculpts, run a quick <strong>Voxel Remesh</strong>
+first to unify the surface before generating quads.</li>
+<li><strong>Fix Non-Manifold Geometry:</strong> Ensure the mesh has no
+internal faces, duplicate vertices, or non-manifold edges, as these can
+cause quad algorithms to fail or produce artifacts.</li>
+<li><strong>Check Polycount Scale:</strong> Quad counts scale
+exponentially with complex features. Start with a lower target count and
+iterate upward until the silhouette is properly captured.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

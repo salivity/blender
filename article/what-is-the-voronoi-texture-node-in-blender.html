@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the Voronoi Texture Node in Blender? - blender</title>
+    <meta name="description" content="The Voronoi Texture node in Blender is a procedural texture generator used to create organic patterns, cellular structures, abstract surfaces, and natural textures like stone, cracked earth, and water caustics. By calculating distances between dynamicall">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-the-voronoi-texture-node-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the Voronoi Texture Node in Blender? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-the-voronoi-texture-node-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Voronoi Texture node in Blender is a procedural texture generator used to create organic patterns, cellular structures, abstract surfaces, and natural textures like stone, cracked earth, and water caustics. By calculating distances between dynamicall" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-voronoi-texture-node-in-blender">What Is the Voronoi
+Texture Node in Blender?</h1>
+<p>The Voronoi Texture node in Blender is a procedural texture generator
+used to create organic patterns, cellular structures, abstract surfaces,
+and natural textures like stone, cracked earth, and water caustics. By
+calculating distances between dynamically generated seed points, it
+allows 3D artists to produce complex visual details and material
+displacement without relying on external image files. This article
+explains how the Voronoi Texture node functions, breaks down its key
+settings, and highlights its most practical applications in 3D shading
+and rendering.</p>
+<h2 id="how-the-voronoi-texture-node-works">How the Voronoi Texture Node
+Works</h2>
+<p>At its core, the Voronoi Texture node divides 3D space into regions
+based on a grid of randomly placed points (seeds). Each point on a
+surface is evaluated by measuring its distance to the nearest seed
+points. Depending on the chosen settings, the node outputs either color
+data, numerical distance values, or spatial coordinates, forming
+distinctive cell-like or geometric patterns.</p>
+<p>Because it is entirely procedural, the texture has infinite
+resolution, consumes minimal memory, and seamlessly adapts to any 3D
+object topology.</p>
+<h2 id="key-feature-outputs">Key Feature Outputs</h2>
+<p>The Voronoi node provides several output modes that drastically
+change its visual effect:</p>
+<ul>
+<li><strong>F1:</strong> Calculates the distance to the closest seed
+point. This creates soft, rounded gradient cells.</li>
+<li><strong>F2:</strong> Calculates the distance to the second closest
+seed point. Combining F1 and F2 allows for complex overlapping
+patterns.</li>
+<li><strong>Smooth F1:</strong> A smoother variation of F1 that
+eliminates sharp transitions, ideal for organic shapes and fluid-like
+patterns.</li>
+<li><strong>Distance to Edge:</strong> Measures the distance to the
+boundary between Voronoi cells. This produces sharp grid lines, perfect
+for cracks, tiles, or shattered glass.</li>
+<li><strong>N-Sphere Radius:</strong> Calculates the radius of the
+inscribed sphere for each cell, useful for advanced geometric node
+setups.</li>
+</ul>
+<h2 id="important-settings-and-controls">Important Settings and
+Controls</h2>
+<ul>
+<li><strong>Dimensions (1D, 2D, 3D, 4D):</strong> Defines the spatial
+dimensions used to compute the texture. The 4D setting adds a "W" input,
+which acts as a time value to easily animate the texture over time.</li>
+<li><strong>Distance Metrics:</strong> Changes how the distance to
+points is calculated:
+<ul>
+<li><em>Euclidean:</em> Standard straight-line distance, generating
+round, organic cells.</li>
+<li><em>Manhattan:</em> Grid-based distance, producing diamond or
+square-like patterns.</li>
+<li><em>Chebychev:</em> Square-based distance, creating blocky,
+mosaic-like results.</li>
+<li><em>Minkowski:</em> A customizable metric that smoothly transitions
+between different cell shapes using an exponent factor.</li>
+</ul></li>
+<li><strong>Scale:</strong> Controls the overall size and density of the
+cells.</li>
+<li><strong>Randomness:</strong> Adjusts how randomly the seed points
+are placed. A value of 0 results in a perfectly uniform grid, while 1
+provides maximum organic randomness.</li>
+</ul>
+<h2 id="common-practical-applications">Common Practical
+Applications</h2>
+<ul>
+<li><strong>Cracked and Weathered Surfaces:</strong> Using the
+<em>Distance to Edge</em> output connected to a bump or displacement
+node generates realistic ground cracks, dry mud, or porcelain
+fractures.</li>
+<li><strong>Organic Patterns:</strong> The <em>Color</em> output
+combined with <em>Euclidean</em> distance easily replicates biological
+structures like reptilian scales, plant cell walls, or dragon skin.</li>
+<li><strong>Water Caustics and Waves:</strong> Inverting the <em>F1</em>
+distance metric creates curved light reflections typical of underwater
+lighting effects and caustics.</li>
+<li><strong>Stone and Pebble Textures:</strong> By driving the height
+map of a shader with Voronoi noise, artists can create cobblestone
+paths, gravel, or rough masonry.</li>
+<li><strong>Stylized Visual FX:</strong> Lowering the randomness creates
+tech-grids, sci-fi panels, and stylized mosaic patterns for
+non-photorealistic rendering (NPR).</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

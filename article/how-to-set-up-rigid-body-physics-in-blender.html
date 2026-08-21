@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Set Up Rigid Body Physics in Blender - blender</title>
+    <meta name="description" content="Setting up a basic rigid body physics simulation in Blender allows you to create realistic interactions between solid objects, such as falling blocks, colliding spheres, or tumbling debris. This guide provides a straightforward, step-by-step walkthrough">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-set-up-rigid-body-physics-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Set Up Rigid Body Physics in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-set-up-rigid-body-physics-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Setting up a basic rigid body physics simulation in Blender allows you to create realistic interactions between solid objects, such as falling blocks, colliding spheres, or tumbling debris. This guide provides a straightforward, step-by-step walkthrough" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-set-up-rigid-body-physics-in-blender">How to Set Up Rigid
+Body Physics in Blender</h1>
+<p>Setting up a basic rigid body physics simulation in Blender allows
+you to create realistic interactions between solid objects, such as
+falling blocks, colliding spheres, or tumbling debris. This guide
+provides a straightforward, step-by-step walkthrough of the entire
+process, from preparing your 3D models and applying active or passive
+physics properties, to configuring collision shapes and playing back
+your simulation.</p>
+<h2 id="step-1-prepare-your-3d-scene">Step 1: Prepare Your 3D Scene</h2>
+<p>Before applying physics, you need at least two objects in your scene:
+an object that falls or moves (the active object) and an object for it
+to land on (the passive ground plane).</p>
+<ol type="1">
+<li>Open Blender and start with a new default scene.</li>
+<li>Use the default <strong>Cube</strong> as your falling object.
+Position it slightly above the grid by pressing <code>G</code> then
+<code>Z</code> and moving your mouse upward.</li>
+<li>Add a ground plane by pressing <code>Shift + A</code>, navigating to
+<strong>Mesh</strong>, and selecting <strong>Plane</strong>.</li>
+<li>Scale the plane up by pressing <code>S</code>, typing
+<code>10</code>, and pressing <code>Enter</code>.</li>
+</ol>
+<h2
+id="step-2-assign-rigid-body-settings-to-the-ground-passive-object">Step
+2: Assign Rigid Body Settings to the Ground (Passive Object)</h2>
+<p>The ground needs to act as a solid barrier that does not move when
+gravity is applied.</p>
+<ol type="1">
+<li>Select the <strong>Plane</strong> in your viewport.</li>
+<li>Navigate to the <strong>Properties Panel</strong> on the right side
+of the screen and click on the <strong>Physics Properties</strong> tab
+(represented by a circular icon with an orbiting dot).</li>
+<li>Click the <strong>Rigid Body</strong> button.</li>
+<li>In the settings that appear, change the <strong>Type</strong> from
+<em>Active</em> to <strong>Passive</strong>. This ensures the ground
+remains stationary during the simulation.</li>
+</ol>
+<h2
+id="step-3-assign-rigid-body-settings-to-the-cube-active-object">Step 3:
+Assign Rigid Body Settings to the Cube (Active Object)</h2>
+<p>The cube needs to react to gravity and collide with the ground
+plane.</p>
+<ol type="1">
+<li>Select the <strong>Cube</strong> in your viewport.</li>
+<li>In the <strong>Physics Properties</strong> tab, click the
+<strong>Rigid Body</strong> button.</li>
+<li>Keep the <strong>Type</strong> set to <strong>Active</strong>.
+Active objects are fully controlled by the physics engine.</li>
+<li>Leave the <strong>Mass</strong> at the default <code>1.0 kg</code>
+for now.</li>
+</ol>
+<h2 id="step-4-configure-collision-shapes">Step 4: Configure Collision
+Shapes</h2>
+<p>To ensure accurate collisions and prevent objects from clipping
+through each other, you must define their collision boundaries.</p>
+<ol type="1">
+<li>With the <strong>Cube</strong> selected, look at the
+<strong>Settings</strong> section under the Rigid Body panel.</li>
+<li>Locate the <strong>Shape</strong> dropdown. For a standard cube,
+<strong>Box</strong> is the most computationally efficient and accurate
+setting.</li>
+<li>Select the <strong>Plane</strong> and ensure its collision shape is
+set to <strong>Convex Hull</strong> or <strong>Mesh</strong> to ensure
+the cube registers the flat surface accurately.</li>
+</ol>
+<h2 id="step-5-run-and-refine-the-simulation">Step 5: Run and Refine the
+Simulation</h2>
+<p>Now that the physics properties are assigned, you can test the
+animation.</p>
+<ol type="1">
+<li>Go to the timeline at the bottom of the screen and ensure the
+playhead is at <strong>Frame 1</strong>.</li>
+<li>Press the <strong>Spacebar</strong> to play the animation. You will
+see the cube fall under the influence of gravity and land on the
+plane.</li>
+<li>To adjust physical behavior, select the cube and modify the
+<strong>Friction</strong> (how much objects slide) or
+<strong>Bounciness</strong> settings under the <strong>Surface
+Response</strong> dropdown in the Physics Properties tab.</li>
+</ol>
+<h2 id="step-6-bake-the-physics-simulation-optional">Step 6: Bake the
+Physics Simulation (Optional)</h2>
+<p>Once you are satisfied with the movement, you should bake the
+simulation to lock the physics calculations into keyframes for
+rendering.</p>
+<ol type="1">
+<li>Go to the <strong>Scene Properties</strong> tab (represented by a
+cone, sphere, and light icon).</li>
+<li>Expand the <strong>Rigid Body World</strong> section.</li>
+<li>Expand the <strong>Cache</strong> subsection.</li>
+<li>Click <strong>Bake</strong>. Blender will calculate the entire
+physics sequence, allowing you to scrub through the timeline
+smoothly.</li>
+</ol></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

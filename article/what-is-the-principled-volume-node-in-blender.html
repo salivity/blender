@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is the Principled Volume Node in Blender? - blender</title>
+    <meta name="description" content="The Principled Volume node in Blender is a physically based material shader designed to simulate complex volumetric effects such as smoke, fire, fog, clouds, and atmospheric haze. By combining scattering, absorption, and emission into a single, unified i">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/what-is-the-principled-volume-node-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="What Is the Principled Volume Node in Blender? - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/what-is-the-principled-volume-node-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="The Principled Volume node in Blender is a physically based material shader designed to simulate complex volumetric effects such as smoke, fire, fog, clouds, and atmospheric haze. By combining scattering, absorption, and emission into a single, unified i" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="what-is-the-principled-volume-node-in-blender">What Is the
+Principled Volume Node in Blender?</h1>
+<p>The Principled Volume node in Blender is a physically based material
+shader designed to simulate complex volumetric effects such as smoke,
+fire, fog, clouds, and atmospheric haze. By combining scattering,
+absorption, and emission into a single, unified interface, it allows 3D
+artists to easily create realistic volumetric environments without
+needing to chain together multiple complex shader nodes. This guide
+breaks down how the Principled Volume node works, its core settings, and
+how to use it effectively in your Blender projects.</p>
+<h2 id="how-the-principled-volume-node-works">How the Principled Volume
+Node Works</h2>
+<p>Unlike traditional surface shaders that calculate how light interacts
+with the outer shell of an object, volume shaders calculate light
+behavior <em>inside</em> a 3D mesh's volume.</p>
+<p>To use the Principled Volume node, it must be connected to the
+<strong>Volume</strong> input socket of the <strong>Material
+Output</strong> node, rather than the Surface socket.</p>
+<h2 id="key-parameters-explained">Key Parameters Explained</h2>
+<p>The Principled Volume node features several settings that dictate how
+light passes through, scatters within, or emits from a volume.</p>
+<h3 id="1-density">1. Density</h3>
+<ul>
+<li><strong>What it does:</strong> Controls the overall thickness and
+opacity of the volume.</li>
+<li><strong>Usage:</strong> A low value (e.g., 0.01 to 0.1) creates
+light fog, mist, or thin atmospheric haze. A high value (e.g., 5.0+)
+creates thick, opaque structures like heavy storm clouds or dense
+smoke.</li>
+</ul>
+<h3 id="2-color-and-scattering">2. Color and Scattering</h3>
+<ul>
+<li><strong>Color:</strong> Sets the color of the light scattered by the
+volume particles.</li>
+<li><strong>Anisotropy:</strong> Dictates the direction in which light
+scatters through the volume.
+<ul>
+<li><strong>0 (Isotropic):</strong> Light scatters equally in all
+directions.</li>
+<li><strong>Positive values (0.1 to 0.9):</strong> Forward scattering,
+where light passes through toward the camera (ideal for bright rims on
+clouds or sunbeams).</li>
+<li><strong>Negative values (-0.1 to -0.9):</strong> Backward
+scattering, reflecting light back toward the light source.</li>
+</ul></li>
+</ul>
+<h3 id="3-absorption">3. Absorption</h3>
+<ul>
+<li><strong>Absorption Color:</strong> Defines the color of light
+absorbed by the volume. The resulting color visible to the viewer will
+be the opposite (subtractive) of this color.</li>
+<li><strong>Usage:</strong> Adjusting absorption helps simulate dark,
+heavy soot, dirty water, or dense industrial smoke where light is
+trapped rather than scattered.</li>
+</ul>
+<h3 id="4-emission">4. Emission</h3>
+<ul>
+<li><strong>Emission Color:</strong> The color of the light emitted
+directly from the volume.</li>
+<li><strong>Emission Strength:</strong> Controls how brightly the volume
+glows.</li>
+<li><strong>Usage:</strong> Ideal for stylized fire, glowing magic
+effects, laser beams, or neon gas.</li>
+</ul>
+<h3 id="5-blackbody-intensity-and-temperature">5. Blackbody Intensity
+and Temperature</h3>
+<ul>
+<li><strong>Blackbody Intensity:</strong> Enables physics-based thermal
+radiation for realistic fire and explosions.</li>
+<li><strong>Blackbody Tint:</strong> Tints the thermal light
+produced.</li>
+<li><strong>Temperature:</strong> Measured in Kelvin (K). Lower values
+(around 1000K–1500K) produce deep red glows, while higher values
+(3000K–5000K+) create bright yellow and white-hot fire.</li>
+</ul>
+<h2 id="common-use-cases">Common Use Cases</h2>
+<ul>
+<li><strong>Atmospheric Fog and God Rays:</strong> Apply the node to a
+large cube enclosing your scene with a low density (0.01) to catch
+sunlight and create atmospheric depth.</li>
+<li><strong>Realistic Smoke and Fire:</strong> Connect VDB caches (from
+fluid simulations) into the Density and Temperature inputs to drive
+realistic smoke and flame rendering.</li>
+<li><strong>Clouds:</strong> Combine noise textures plugged into the
+Density input to create custom 3D cloud formations.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

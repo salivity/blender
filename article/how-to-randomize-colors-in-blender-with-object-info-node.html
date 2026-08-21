@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Randomize Colors in Blender with Object Info Node - blender</title>
+    <meta name="description" content="Randomizing object colors in Blender is a quick way to add visual variety to duplicated meshes, particle systems, or instanced geometry without creating multiple unique materials. By combining the Random output of the Object Info node with a ColorRamp no">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-randomize-colors-in-blender-with-object-info-node">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Randomize Colors in Blender with Object Info Node - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-randomize-colors-in-blender-with-object-info-node" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Randomizing object colors in Blender is a quick way to add visual variety to duplicated meshes, particle systems, or instanced geometry without creating multiple unique materials. By combining the Random output of the Object Info node with a ColorRamp no" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-randomize-colors-in-blender-with-object-info-node">How to
+Randomize Colors in Blender with Object Info Node</h1>
+<p>Randomizing object colors in Blender is a quick way to add visual
+variety to duplicated meshes, particle systems, or instanced geometry
+without creating multiple unique materials. By combining the
+<strong>Random</strong> output of the <strong>Object Info</strong> node
+with a <strong>ColorRamp</strong> node inside the Shader Editor, you can
+instantly assign different colors to every object sharing the same
+material.</p>
+<h2 id="step-by-step-guide-to-randomizing-object-colors">Step-by-Step
+Guide to Randomizing Object Colors</h2>
+<h3 id="1-assign-a-single-material-to-multiple-objects">1. Assign a
+Single Material to Multiple Objects</h3>
+<p>Select all the objects you want to randomize in your 3D Viewport. Add
+a new material to one object, then press <code>Ctrl + L</code> and
+select <strong>Link Materials</strong> to apply that same material to
+all selected objects.</p>
+<h3 id="2-open-the-shader-editor">2. Open the Shader Editor</h3>
+<p>Switch your workspace to the <strong>Shader Editor</strong> tab (or
+open a Shader Editor window). Make sure the material you just assigned
+is selected and active.</p>
+<h3 id="3-add-the-object-info-node">3. Add the Object Info Node</h3>
+<ol type="1">
+<li>Press <code>Shift + A</code> inside the Shader Editor to open the
+Search menu.</li>
+<li>Search for <strong>Object Info</strong> and press <code>Enter</code>
+to place the node.</li>
+</ol>
+<h3 id="4-add-a-colorramp-node">4. Add a ColorRamp Node</h3>
+<ol type="1">
+<li>Press <code>Shift + A</code> again.</li>
+<li>Search for <strong>ColorRamp</strong> and place it between the
+Object Info node and your <strong>Principled BSDF</strong> node.</li>
+</ol>
+<h3 id="5-connect-the-nodes">5. Connect the Nodes</h3>
+<p>Connect the sockets as follows:</p>
+<ul>
+<li><strong>Object Info (Random)</strong> <span
+class="math inline">\(\rightarrow\)</span> <strong>ColorRamp
+(Fac)</strong></li>
+<li><strong>ColorRamp (Color)</strong> <span
+class="math inline">\(\rightarrow\)</span> <strong>Principled BSDF (Base
+Color)</strong></li>
+</ul>
+<p>At this point, Blender generates a unique random value between 0.0
+and 1.0 for each separate object. The ColorRamp translates that value
+into a color along your defined gradient.</p>
+<h2 id="customizing-the-color-distribution">Customizing the Color
+Distribution</h2>
+<h3 id="smooth-color-transitions-gradients">Smooth Color Transitions
+(Gradients)</h3>
+<p>By default, the ColorRamp interpolation is set to
+<strong>Linear</strong>. This creates a smooth gradient transition,
+giving your objects varying shades between the color stops set on the
+ramp.</p>
+<h3 id="distinct-solid-colors">Distinct, Solid Colors</h3>
+<p>If you want each object to pick one solid color from a specific
+palette rather than a gradient mix:</p>
+<ol type="1">
+<li>Click the <strong>Interpolation</strong> dropdown on the ColorRamp
+node (defaults to <em>Linear</em>).</li>
+<li>Change it to <strong>Constant</strong>.</li>
+<li>Add more color stops using the <code>+</code> button on the
+ColorRamp and set each stop to your desired color.</li>
+</ol>
+<h2 id="working-with-linked-duplicates-and-instances">Working with
+Linked Duplicates and Instances</h2>
+<ul>
+<li><strong>Linked Duplicates (<code>Alt + D</code>):</strong> The
+Object Info node recognizes linked duplicates as individual objects,
+meaning each duplicate gets its own random color automatically.</li>
+<li><strong>Geometry Nodes / Particle Systems:</strong> If you are
+instancing objects via Geometry Nodes or a Particle System, ensure you
+check <strong>Realize Instances</strong> (in Geometry Nodes) if you want
+the Object Info node to treat each instance as an individual object, or
+use the <strong>Instance Info</strong> node for native instanced color
+variation.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

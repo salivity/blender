@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why You Must Apply Scale Before Beveling in Blender - blender</title>
+    <meta name="description" content="Failing to apply scale before beveling in Blender causes uneven, stretched, or distorted bevels because Blender calculates bevel offsets based on the object's scale values rather than its underlying geometry. This guide explains the technical reasons beh">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/why-you-must-apply-scale-before-beveling-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Why You Must Apply Scale Before Beveling in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/why-you-must-apply-scale-before-beveling-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Failing to apply scale before beveling in Blender causes uneven, stretched, or distorted bevels because Blender calculates bevel offsets based on the object's scale values rather than its underlying geometry. This guide explains the technical reasons beh" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="why-you-must-apply-scale-before-beveling-in-blender">Why You
+Must Apply Scale Before Beveling in Blender</h1>
+<p>Failing to apply scale before beveling in Blender causes uneven,
+stretched, or distorted bevels because Blender calculates bevel offsets
+based on the object's scale values rather than its underlying geometry.
+This guide explains the technical reasons behind bevel distortion, the
+visible problems unapplied scale creates, and how to permanently fix the
+issue with a single keyboard shortcut.</p>
+<h2 id="the-core-cause-object-scale-vs-edit-mode-geometry">The Core
+Cause: Object Scale vs. Edit Mode Geometry</h2>
+<p>Blender separates an object's mesh data from its object-level
+transform values. When you scale an object in <strong>Object
+Mode</strong>, you are not changing the actual size of the vertices in
+3D space; instead, you are applying a stretching multiplier to the
+entire container.</p>
+<ul>
+<li><strong>Uniform Scale (1.0, 1.0, 1.0):</strong> The mesh dimensions
+in Edit Mode match the visual appearance in Object Mode.</li>
+<li><strong>Non-Uniform Scale (e.g., 1.0, 3.0, 0.5):</strong> The object
+is visually stretched along specific axes, but the internal mesh
+coordinates remain unchanged.</li>
+</ul>
+<p>When you use the Bevel tool (<code>Ctrl + B</code>) or the Bevel
+Modifier, Blender calculates the width of the bevel uniformly using the
+underlying mesh coordinates. When that uniform calculation is pushed
+through a stretched Object Mode scale container, the bevel stretches
+along the larger axis.</p>
+<h2 id="what-happens-when-you-dont-apply-scale">What Happens When You
+Don't Apply Scale</h2>
+<ol type="1">
+<li><strong>Stretched and Uneven Bevels:</strong> Instead of smooth,
+45-degree chamfers, bevels become long and flat along stretched axes,
+and narrow along compressed axes.</li>
+<li><strong>Asymmetrical Corner Rounding:</strong> Rounding a corner
+with multiple segments produces an oval profile instead of a perfect
+quarter-circle curve.</li>
+<li><strong>Premature Clamping Artifacts:</strong> If "Clamp Overlap" is
+enabled, non-uniform scaling forces Blender to limit the bevel size far
+earlier than expected because the stretched vertices collide sooner on
+one axis.</li>
+<li><strong>Unpredictable Bevel Modifier Results:</strong> The Bevel
+Modifier will look incorrect across different parts of the same object,
+making hard-surface modeling inconsistent.</li>
+</ol>
+<h2 id="how-to-check-if-scale-needs-to-be-applied">How to Check if Scale
+Needs to Be Applied</h2>
+<ol type="1">
+<li>Select your object in <strong>Object Mode</strong>.</li>
+<li>Press <code>N</code> to open the Sidebar panel on the right side of
+the 3D Viewport.</li>
+<li>Look at the <strong>Item</strong> tab under the
+<strong>Transform</strong> section.</li>
+<li>Check the <strong>Scale</strong> values:
+<ul>
+<li>If <code>X</code>, <code>Y</code>, and <code>Z</code> are all
+<strong>1.000</strong>, the scale is applied correctly.</li>
+<li>If any value is different (e.g., <code>X: 2.500</code>,
+<code>Y: 1.000</code>, <code>Z: 0.200</code>), scale must be
+applied.</li>
+</ul></li>
+</ol>
+<h2 id="how-to-fix-distorted-bevels-apply-scale">How to Fix Distorted
+Bevels (Apply Scale)</h2>
+<p>To reset the scale values to <code>1.0</code> while keeping the
+object's current physical shape:</p>
+<ol type="1">
+<li>Switch to <strong>Object Mode</strong> (<code>Tab</code>).</li>
+<li>Select the object.</li>
+<li>Press <code>Ctrl + A</code> to open the <strong>Apply</strong>
+menu.</li>
+<li>Click <strong>Scale</strong>.</li>
+</ol>
+<p>Once scale is applied, any active Bevel Modifier will instantly
+update to a uniform, symmetrical shape. If you applied a manual bevel in
+Edit Mode before applying scale, you must undo the bevel
+(<code>Ctrl + Z</code>), apply scale in Object Mode, and re-apply the
+bevel.</p>
+<h2 id="best-practice-to-avoid-bevel-issues">Best Practice to Avoid
+Bevel Issues</h2>
+<p>To prevent scaling problems entirely, do your dimensional scaling in
+<strong>Edit Mode</strong> whenever possible. Scaling geometry in Edit
+Mode directly alters the vertex coordinates, keeping the object-level
+scale at <code>1.0, 1.0, 1.0</code> automatically.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

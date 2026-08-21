@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Adjust Specular Highlight in Blender - blender</title>
+    <meta name="description" content="Adjusting the specular highlight in Blender allows you to control how shiny, reflective, and bright a surface appears when light strikes it. Whether you are using the Eevee or Cycles render engine, controlling specular reflections is primarily handled th">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-adjust-specular-highlight-in-blender">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Adjust Specular Highlight in Blender - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-adjust-specular-highlight-in-blender" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Adjusting the specular highlight in Blender allows you to control how shiny, reflective, and bright a surface appears when light strikes it. Whether you are using the Eevee or Cycles render engine, controlling specular reflections is primarily handled th" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-adjust-specular-highlight-in-blender">How to Adjust
+Specular Highlight in Blender</h1>
+<p>Adjusting the specular highlight in Blender allows you to control how
+shiny, reflective, and bright a surface appears when light strikes it.
+Whether you are using the Eevee or Cycles render engine, controlling
+specular reflections is primarily handled through the Principled BSDF
+shader using the Specular, Roughness, and Specular Tint parameters. This
+guide walks you through the step-by-step process of tweaking these
+settings in the Shader Editor to achieve realistic or stylized material
+highlights.</p>
+<h2 id="step-1-open-the-shader-editor">Step 1: Open the Shader
+Editor</h2>
+<ol type="1">
+<li>Select the 3D object you want to modify in the Viewport.</li>
+<li>Switch to the <strong>Shading</strong> workspace at the top of the
+Blender window, or open a <strong>Shader Editor</strong> window.</li>
+<li>Ensure your object has a material applied. If it does not, click
+<strong>New</strong> at the top of the Shader Editor to create a
+material with a <strong>Principled BSDF</strong> node attached to the
+Material Output.</li>
+</ol>
+<h2 id="step-2-adjust-the-specular-intensity">Step 2: Adjust the
+Specular Intensity</h2>
+<p>The Specular value controls the overall brightness and strength of
+non-metallic reflections.</p>
+<ul>
+<li><strong>Specular IOR Level (or Specular):</strong> Locate the
+<strong>Specular IOR Level</strong> slider (labeled as
+<strong>Specular</strong> in older Blender versions) on the Principled
+BSDF node.</li>
+<li><strong>Decrease the value (towards 0.0):</strong> Reduces or
+removes the light highlight completely, making the material look matte
+or non-reflective (like cloth or chalk).</li>
+<li><strong>Increase the value (towards 1.0):</strong> Intensifies the
+reflection of light sources, making the surface look coated or shiny
+(like plastic or polished wood). The default value of <code>0.5</code>
+represents a standard dielectric specular reflection rate of roughly
+4%.</li>
+</ul>
+<h2 id="step-3-control-highlight-sharpness-with-roughness">Step 3:
+Control Highlight Sharpness with Roughness</h2>
+<p>Specular highlights do not work in isolation; their spread and
+clarity are directly governed by the <strong>Roughness</strong>
+slider.</p>
+<ul>
+<li><strong>Low Roughness (near 0.0):</strong> Focuses the specular
+highlight into a tight, sharp point, creating a smooth, mirror-like or
+glossy surface.</li>
+<li><strong>High Roughness (near 1.0):</strong> Spreads the specular
+highlight over a wider area, creating a soft, diffuse glare typical of
+rough or textured surfaces.</li>
+</ul>
+<h2 id="step-4-adjust-specular-tint-optional">Step 4: Adjust Specular
+Tint (Optional)</h2>
+<p>By default, specular highlights on non-metallic surfaces reflect the
+color of the light source (usually white).</p>
+<ul>
+<li>To tint the highlight with the object's base color, increase the
+<strong>Specular Tint</strong> slider on the Principled BSDF node. This
+is useful for stylized art or specific complex materials like subtle
+iridescent coatings.</li>
+</ul>
+<h2 id="step-5-use-textures-for-variable-highlights">Step 5: Use
+Textures for Variable Highlights</h2>
+<p>To create realistic surfaces with scratches, fingerprints, or uneven
+wear, drive the specular highlight using texture maps instead of a
+single uniform slider value:</p>
+<ol type="1">
+<li>Press <strong>Shift + A</strong> in the Shader Editor and select
+<strong>Texture &gt; Image Texture</strong>.</li>
+<li>Open a specular or roughness map (a black-and-white image).</li>
+<li>Set the image node's Color Space to <strong>Non-Color</strong>.</li>
+<li>Connect the <strong>Color</strong> output of the Image Texture to
+the <strong>Specular IOR Level</strong> or <strong>Roughness</strong>
+input of the Principled BSDF node.</li>
+<li>(Optional) Insert a <strong>Converter &gt; ColorRamp</strong> node
+between the texture and the shader to fine-tune the contrast and
+intensity of the highlight map.</li>
+</ol>
+<h2 id="understanding-metallic-vs-specular-highlights">Understanding
+Metallic vs. Specular Highlights</h2>
+<p>If your material's <strong>Metallic</strong> slider is set to
+<code>1.0</code>, the standard Specular controls are bypassed. Metallic
+surfaces reflect light differently by tinting the entire specular
+reflection with the material's <strong>Base Color</strong>. To adjust
+highlights on metals, change the Base Color, Roughness, or Anisotropic
+settings rather than the Specular slider.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

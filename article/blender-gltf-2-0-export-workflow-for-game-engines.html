@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blender glTF 2.0 Export Workflow for Game Engines - blender</title>
+    <meta name="description" content="Exporting 3D assets from Blender using the glTF 2.0 standard provides an efficient, industry-standard bridge for modern game engines like Godot, Unity, and Unreal Engine. This guide covers the complete workflow for preparing, packaging, and exporting you">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/blender-gltf-2-0-export-workflow-for-game-engines">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blender glTF 2.0 Export Workflow for Game Engines - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/blender-gltf-2-0-export-workflow-for-game-engines" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Exporting 3D assets from Blender using the glTF 2.0 standard provides an efficient, industry-standard bridge for modern game engines like Godot, Unity, and Unreal Engine. This guide covers the complete workflow for preparing, packaging, and exporting you" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="blender-gltf-20-export-workflow-for-game-engines">Blender glTF
+2.0 Export Workflow for Game Engines</h1>
+<p>Exporting 3D assets from Blender using the glTF 2.0 standard provides
+an efficient, industry-standard bridge for modern game engines like
+Godot, Unity, and Unreal Engine. This guide covers the complete workflow
+for preparing, packaging, and exporting your 3D models—including PBR
+materials, mesh data, and skeletal animations—into the <code>.glb</code>
+or <code>.gltf</code> format to ensure seamless integration into your
+game development pipeline.</p>
+<h3 id="step-1-model-and-hierarchy-preparation">Step 1: Model and
+Hierarchy Preparation</h3>
+<p>Before exporting, ensure your 3D geometry is clean and optimized for
+real-time rendering.</p>
+<ul>
+<li><strong>Apply Transforms:</strong> Select your meshes in Object Mode
+and press <code>Ctrl + A</code> to apply <strong>All Transforms</strong>
+(Location, Rotation, Scale). Non-uniform scaling causes distortion and
+rigging issues in game engines.</li>
+<li><strong>Origin Points:</strong> Set the origin point of your object
+appropriately (typically at the base of the mesh for characters and
+environment props) using
+<code>Right Click &gt; Set Origin &gt; Origin to 3D Cursor</code>.</li>
+<li><strong>Clean Topology:</strong> Remove duplicate vertices
+(<code>M &gt; By Distance</code> in Edit Mode) and verify face
+orientation (<code>Viewport Overlays &gt; Face Orientation</code>) to
+ensure all normals face outward.</li>
+<li><strong>Modifier Management:</strong> Decide whether modifiers (such
+as Subdivision Surface or Mirror) should be applied manually or left to
+the exporter. Triangulating meshes using a Triangulate modifier is
+recommended to maintain shading consistency across engines.</li>
+</ul>
+<h3 id="step-2-material-and-texture-setup">Step 2: Material and Texture
+Setup</h3>
+<p>The glTF 2.0 specification relies on the Principled BSDF shader to
+map physically based rendering (PBR) properties.</p>
+<ul>
+<li><strong>Shader Configuration:</strong> Use the standard
+<strong>Principled BSDF</strong> node in the Shader Editor. glTF
+directly translates the following inputs:
+<ul>
+<li><strong>Base Color:</strong> Connect an Image Texture (sRGB).</li>
+<li><strong>Metallic &amp; Roughness:</strong> glTF packs Metallic and
+Roughness into a single texture (Blue channel = Metallic, Green channel
+= Roughness). You can hook up separate textures in Blender, and the
+exporter will automatically pack them into the standard glTF
+format.</li>
+<li><strong>Normal Map:</strong> Connect via a <strong>Normal
+Map</strong> node into the Normal input (Color space must be
+Non-Color).</li>
+<li><strong>Emission:</strong> Connect to the Emission Color input and
+set the strength.</li>
+</ul></li>
+<li><strong>Alpha Modes:</strong> If transparency is needed, set the
+Blend Mode in the Material Settings to <strong>Alpha Blend</strong> or
+<strong>Alpha Hashed</strong>.</li>
+</ul>
+<h3 id="step-3-rigging-and-animation-preparation">Step 3: Rigging and
+Animation Preparation</h3>
+<p>If you are exporting animated characters or skeletal meshes:</p>
+<ul>
+<li><strong>Single Root Bone:</strong> Ensure your armature has a single
+master/root bone positioned at <code>(0,0,0)</code>.</li>
+<li><strong>Action Stashing:</strong> To export multiple animations
+(e.g., Idle, Walk, Run), push individual actions into the <strong>NLA
+(Non-Linear Animation) Editor</strong> as stashes or tracks.</li>
+<li><strong>Deform Only:</strong> Ensure non-deform bones (like IK
+targets and control rigs) have the <strong>Deform</strong> checkbox
+unchecked in Bone Properties.</li>
+</ul>
+<h3 id="step-4-exporting-via-the-gltf-20-exporter">Step 4: Exporting via
+the glTF 2.0 Exporter</h3>
+<p>Navigate to <code>File &gt; Export &gt; glTF 2.0 (.glb/.gltf)</code>
+and configure the following settings:</p>
+<ol type="1">
+<li><strong>Format Selection:</strong>
+<ul>
+<li><strong>glTF Binary (<code>.glb</code>):</strong> Recommended for
+game engines. It packs the JSON scene definition, binary mesh data, and
+textures into a single file.</li>
+<li><strong>glTF Separate
+(<code>.gltf + .bin + textures</code>):</strong> Useful for version
+control systems or modifying textures independently.</li>
+</ul></li>
+<li><strong>Include Panel:</strong>
+<ul>
+<li>Enable <strong>Selected Objects</strong> if you only want to export
+specific items.</li>
+<li>Select <strong>Custom Properties</strong> if your engine reads
+Blender user data.</li>
+</ul></li>
+<li><strong>Transform Panel:</strong>
+<ul>
+<li>Check <strong>+Y Up</strong> (glTF standard coordinate space). The
+exporter will automatically convert Blender’s +Z up orientation.</li>
+</ul></li>
+<li><strong>Geometry Panel:</strong>
+<ul>
+<li>Check <strong>Apply Modifiers</strong> (unless using Armature
+modifiers driven by an armature).</li>
+<li>Check <strong>UVs</strong>, <strong>Normals</strong>, and
+<strong>Tangents</strong> (required for proper normal map
+rendering).</li>
+</ul></li>
+<li><strong>Animation Panel:</strong>
+<ul>
+<li>Check <strong>Animation</strong> and <strong>Shape Keys</strong> (if
+using blend shapes).</li>
+<li>Under Animation options, enable <strong>Group by NLA Track</strong>
+or <strong>Export All Actions</strong> depending on how you structured
+your animation data.</li>
+</ul></li>
+</ol>
+<h3 id="step-5-engine-import-and-validation">Step 5: Engine Import and
+Validation</h3>
+<p>Import the generated <code>.glb</code> file into your engine of
+choice:</p>
+<ul>
+<li><strong>Godot:</strong> Native glTF 2.0 support. Drag the
+<code>.glb</code> into the FileSystem dock to automatically generate an
+inherited scene.</li>
+<li><strong>Unity:</strong> Install the <strong>glTFast</strong> package
+via the Unity Package Manager for native, optimized loading of
+<code>.glb</code> files.</li>
+<li><strong>Unreal Engine:</strong> Enable the built-in <strong>glTF
+Importer</strong> plugin in Unreal Engine settings, then import your
+file directly into the Content Browser.</li>
+</ul>
+<p>Verify that material roughness/metallic values match the Blender
+viewport and that animations play back at the correct frame rate without
+coordinate rotation offsets.</p></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>

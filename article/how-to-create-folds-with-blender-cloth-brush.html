@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R4Y4YXFHZS"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-R4Y4YXFHZS');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Create Folds with Blender Cloth Brush - blender</title>
+    <meta name="description" content="Blender’s Cloth Brush allows 3D artists to sculpt realistic fabric, wrinkles, and folds using real-time physics simulations directly in Sculpt Mode. By adjusting key settings like deformation type, brush mass, and collision limits, you can quickly achi">
+    <link rel="canonical" href="https://salivity.github.io/blender/article/how-to-create-folds-with-blender-cloth-brush">
+    <link rel="icon" href="/blender/favicon.ico">
+    <link rel="stylesheet" href="/blender/css/style.css">
+    <link media="print" rel="stylesheet" href="/blender/css/print.css">
+    <script src="/blender/js/fuse.min.js"></script>
+    <script src="/blender/js/script.js"></script>
+    <script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/4.1.3/tex-chtml.min.js" defer></script>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="How to Create Folds with Blender Cloth Brush - blender" />
+    <meta property="og:url" content="https://salivity.github.io/blender/article/how-to-create-folds-with-blender-cloth-brush" />
+    <meta property="og:image:url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:secure_url" content="https://salivity.github.io/blender/images/open-graph/default.webp" />
+    <meta property="og:image:width" content="1120" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Blender’s Cloth Brush allows 3D artists to sculpt realistic fabric, wrinkles, and folds using real-time physics simulations directly in Sculpt Mode. By adjusting key settings like deformation type, brush mass, and collision limits, you can quickly achi" />
+    <link rel="manifest" href="/blender/pwa/manifest.json" />
+</head>
+<body>
+    <header>
+        <a href="/blender/" aria-label="Go To Home Page" title="Go To Home Page" id="logo">
+            <span>salivity.github.io/</span><span>blender</span>
+        </a>
+        <nav>
+            <ul class="header-links">
+                <li><a href="https://github.com/salivity" title="Github" aria-label="Go To Github Profile Page"><svg class="svg-icon" focusable="false" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 1.27a11 11 0 00-3.48 21.46c.55.09.73-.28.73-.55v-1.84c-3.03.64-3.67-1.46-3.67-1.46-.55-1.29-1.28-1.65-1.28-1.65-.92-.65.1-.65.1-.65 1.1 0 1.73 1.1 1.73 1.1.92 1.65 2.57 1.2 3.21.92a2 2 0 01.64-1.47c-2.47-.27-5.04-1.19-5.04-5.5 0-1.1.46-2.1 1.2-2.84a3.76 3.76 0 010-2.93s.91-.28 3.11 1.1c1.8-.49 3.7-.49 5.5 0 2.1-1.38 3.02-1.1 3.02-1.1a3.76 3.76 0 010 2.93c.83.74 1.2 1.74 1.2 2.94 0 4.21-2.57 5.13-5.04 5.4.45.37.82.92.82 2.02v3.03c0 .27.1.64.73.55A11 11 0 0012 1.27"></path></svg></a></li>
+                <li><a href="/blender/search" title="Search" aria-label="Go To Search Page"><svg class="svg-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"></path></svg></a></li>
+                <li><a id="theme-toggle" title="Theme" href="javascript:void(0);" aria-label="Toggle Website Theme"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article><h1 id="how-to-create-folds-with-blender-cloth-brush">How to Create
+Folds with Blender Cloth Brush</h1>
+<p>Blender’s Cloth Brush allows 3D artists to sculpt realistic fabric,
+wrinkles, and folds using real-time physics simulations directly in
+Sculpt Mode. By adjusting key settings like deformation type, brush
+mass, and collision limits, you can quickly achieve believable cloth
+behavior without waiting for full physics bakes. This guide outlines the
+essential steps to prepare your mesh, configure the tool, and master
+brush techniques for sculpting dynamic folds.</p>
+<h2 id="1-prepare-your-mesh">1. Prepare Your Mesh</h2>
+<p>The Cloth Brush relies on underlying geometry to calculate realistic
+physics.</p>
+<ul>
+<li><strong>Add Resolution:</strong> Ensure your mesh has enough
+vertices to deform smoothly. Apply a <strong>Subdivision
+Surface</strong> modifier or use the <strong>Remesh</strong> tool in
+Sculpt Mode (Voxel Remesh around 0.01 to 0.005 depending on scale).</li>
+<li><strong>Apply Scale:</strong> Press <code>Ctrl + A</code> in Object
+Mode and select <strong>All Transforms</strong> so the physics solver
+calculates scale accurately.</li>
+</ul>
+<h2 id="2-access-the-cloth-brush">2. Access the Cloth Brush</h2>
+<ol type="1">
+<li>Switch to <strong>Sculpt Mode</strong> from the top-left mode
+dropdown menu.</li>
+<li>Select the <strong>Cloth Brush</strong> from the toolbar on the left
+(represented by a folded fabric icon).</li>
+</ol>
+<h2 id="3-configure-essential-brush-settings">3. Configure Essential
+Brush Settings</h2>
+<p>Open the Tool Settings panel on the right (<code>N</code> key or
+upper top bar) to customize how the fabric responds:</p>
+<ul>
+<li><strong>Deformation Type:</strong> This controls how the cloth
+interacts with your stroke.
+<ul>
+<li><strong>Drag:</strong> Pulls the cloth along the stroke direction,
+creating broad folds.</li>
+<li><strong>Push:</strong> Pushes fabric inward, useful for deep
+creases.</li>
+<li><strong>Pinch:</strong> Pulls fabric toward the brush center, ideal
+for sharp peaks and gathered cloth.</li>
+<li><strong>Pinch Point:</strong> Gathers cloth toward a single point to
+simulate pinched fabric.</li>
+<li><strong>Expand:</strong> Increases fabric area, creating bunches and
+localized wrinkles.</li>
+</ul></li>
+<li><strong>Cloth Mass:</strong> Lower values make the fabric feel light
+(like silk), creating finer wrinkles. Higher values make it feel heavy
+(like canvas or leather), producing larger, stiffer folds.</li>
+<li><strong>Simulation Limit:</strong> Restricts the physics solver to a
+specific distance around the brush cursor. Increasing this allows larger
+portions of the mesh to react to your stroke.</li>
+</ul>
+<h2 id="4-techniques-for-sculpting-realistic-folds">4. Techniques for
+Sculpting Realistic Folds</h2>
+<h3 id="creating-tension-folds">Creating Tension Folds</h3>
+<p>Tension folds occur between two fixed points.</p>
+<ol type="1">
+<li>Set Deformation to <strong>Drag</strong> or
+<strong>Grab</strong>.</li>
+<li>Click and drag from one anchor point toward another to stretch the
+fabric.</li>
+<li>Switch to <strong>Pinch</strong> to sharpen the ridge of the tension
+fold.</li>
+</ol>
+<h3 id="creating-drop-or-hanging-folds">Creating Drop or Hanging
+Folds</h3>
+<ol type="1">
+<li>Set Deformation to <strong>Push</strong> or
+<strong>Expand</strong>.</li>
+<li>Turn on <strong>Use Gravity</strong> under the brush's Cloth
+Simulation settings.</li>
+<li>Brush downwards on hanging sections to let Blender's internal solver
+pull the fabric downward into natural hangs.</li>
+</ol>
+<h3 id="using-collisions">Using Collisions</h3>
+<p>To prevent the cloth brush from sculpting fabric straight through
+underlying mesh objects (like a character's body):</p>
+<ol type="1">
+<li>Enable <strong>Cloth Collision</strong> in the Brush options
+menu.</li>
+<li>Ensure target objects are set as <strong>Collision</strong> physics
+objects in the Physics tab.</li>
+</ol>
+<h2 id="5-workflow-tips-for-better-control">5. Workflow Tips for Better
+Control</h2>
+<ul>
+<li><strong>Use Masking:</strong> Press <code>M</code> to draw a mask
+over areas you want to remain stationary (like seams or anchored
+straps). Invert the mask (<code>Ctrl + I</code>) if necessary.</li>
+<li><strong>Lower Brush Strength:</strong> Keep brush strength around
+<code>0.10</code> to <code>0.25</code> for subtle, controllable layers
+of folds rather than aggressive geometry distortion.</li>
+<li><strong>Combine with Smooth Brush:</strong> Hold <code>Shift</code>
+while brushing to gently smooth out harsh topology glitches generated by
+the physics solver.</li>
+</ul></article>
+        <div id=comments-container></div>
+
+        <script>
+            const utterancesScript = document.createElement('script');
+            
+            utterancesScript.setAttribute('src', 'https://utteranc.es/client.js');
+            utterancesScript.setAttribute('repo', 'salivity/blender'); 
+            utterancesScript.setAttribute('issue-term', 'pathname'); 
+            utterancesScript.setAttribute('theme', localStorage.getItem('theme') === 'dark' ? 'github-dark' : 'github-light'); 
+            utterancesScript.setAttribute('crossorigin', 'anonymous');
+            utterancesScript.async = true;
+
+            document.getElementById('comments-container').appendChild(utterancesScript);
+        </script>
+    
+    </main>
+    <footer>
+        <nav>
+            <ul class="footer-links">
+                <li><a href="/blender/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/blender/terms-and-conditions">Terms and Conditions</a></li>
+            </ul>
+        </nav>
+        <div class="copyright">
+            Copyright &copy; <span id="current-year"></span>
+        </div>
+    </footer>
+</body>
+</html>
